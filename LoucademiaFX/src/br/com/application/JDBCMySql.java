@@ -16,10 +16,10 @@ public class JDBCMySql {
 
 	private static final Logger logger = Logger.getLogger(JDBCMySql.class.getName());
 	private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String DB_CONNECTION = "jdbc:mysql://localhost:3306/loucademia?useTimezone=true&serverTimezone=UTC";
+	private static final String DB_CONNECTION = "jdbc:mysql://localhost:3306/_nomeSchema_?useTimezone=true&serverTimezone=UTC";
 	private static final String DB_USER = "root";
-	private static final String DB_PASSWORD = "1234";
-	static final String LABEL_CONEXAO = "Conex„o";
+	private static final String DB_PASSWORD = "*";
+	static final String LABEL_CONEXAO = "Conex√£o";
 	private static final String PATH_SCRIPT = "./script/script.sql";
 
 	private Connection conn;
@@ -110,10 +110,10 @@ public class JDBCMySql {
 		try {
 			if (conn != null) {
 				conn.close();
-				System.err.println("Fechada a conex„o com banco de dados! ");
+				System.err.println("Fechada a conex√£o com banco de dados! ");
 			}
 		} catch (Exception e) {
-			System.err.println("N„o foi possivel fechar a conex„o com o banco de dados!");
+			System.err.println("N√£o foi possivel fechar a conex√£o com o banco de dados!");
 			e.printStackTrace();
 		}
 	}
@@ -127,7 +127,7 @@ public class JDBCMySql {
 				stmt.close();
 			}
 		} catch (Exception e) {
-			System.err.println("N„o foi possivel fechar o statement!");
+			System.err.println("N√£o foi possivel fechar o statement!");
 			e.printStackTrace();
 		}
 	}
