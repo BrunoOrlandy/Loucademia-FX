@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS aluno
  situacao VARCHAR(1) NULL ,  
  email VARCHAR(45) NULL ,   
  endereco VARCHAR(45) NULL ,   
- telefone VARCHAR(45) NULL );
+ telefone VARCHAR(45) NULL ) ;
  
 CREATE TABLE IF NOT EXISTS usuario 
 ( id_usuario INT AUTO_INCREMENT PRIMARY KEY , 

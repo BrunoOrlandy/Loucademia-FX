@@ -87,13 +87,16 @@ public class JDBCMySql {
 	}
 
 	public static void rodarScript(Connection conn) throws SQLException {
-		PreparedStatement stmt = null;
+		Statement stmt = null;
 		String script = new String();
 		try {
 
 			script = LeitorScript.getConteudoArquivo(PATH_SCRIPT);
-			stmt = conn.prepareStatement(script);
-			stmt.executeUpdate();
+			stmt = conn.createStatement();
+			String[] comandos = script.split(";");
+			for (int i = 0; i < comandos.length - 1; i++) {
+				stmt.execute(comandos[i]);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
