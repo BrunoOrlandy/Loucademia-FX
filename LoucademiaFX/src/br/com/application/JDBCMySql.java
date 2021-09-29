@@ -11,9 +11,17 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import br.com.application.utils.LeitorScript;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class JDBCMySql {
+public class JDBCMySql extends Application {
 
+	private static Stage stage;
+	private static Scene modalSucess;
+	
 	private static final Logger logger = Logger.getLogger(JDBCMySql.class.getName());
 	private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
 	private static final String DB_CONNECTION = "jdbc:mysql://localhost:3306/_nomeSchema_?useTimezone=true&serverTimezone=UTC";
@@ -32,13 +40,13 @@ public class JDBCMySql {
 			conn.setAutoCommit(false);
 
 			if (conn != null) {
-				JOptionPane.showMessageDialog(null, "Sucesso", LABEL_CONEXAO, JOptionPane.INFORMATION_MESSAGE);
+				System.out.println("Tabelas Criadas com sucesso!");
 			}
 
 			return conn;
 
 		} catch (ClassNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "falhou", LABEL_CONEXAO, JOptionPane.WARNING_MESSAGE);
+			System.out.println("Tabelas Criadas com sucesso!");
 			System.exit(0);
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -75,8 +83,7 @@ public class JDBCMySql {
 
 			if (conn != null) {
 				rodarScript(conn);
-				JOptionPane.showMessageDialog(null, "Tabelas Criadas com sucesso!", LABEL_CONEXAO,
-						JOptionPane.INFORMATION_MESSAGE);
+				System.out.println("Tabelas Criadas com sucesso!");
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -130,6 +137,18 @@ public class JDBCMySql {
 			System.err.println("Não foi possivel fechar o statement!");
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+//		stage = primaryStage;	
+//		
+//		primaryStage.setTitle("Loucademia");
+//		Parent fxmlSucesso = FXMLLoader.load(getClass().getResource("/br/com/aplication/view/modal_sucesso.fxml"));
+//		
+//		primaryStage.setScene(fxmlSucesso.getScene());
+//		primaryStage.show();
+		
 	}
 
 }
