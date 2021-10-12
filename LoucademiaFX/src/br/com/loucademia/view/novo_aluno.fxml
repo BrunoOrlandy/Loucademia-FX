@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="622.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.loucademia.controller.AlunoController">
+<AnchorPane prefHeight="622.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.loucademia.controller.AlunoController">
    <children>
       <Pane layoutX="14.0" layoutY="13.0" prefHeight="595.0" prefWidth="423.0">
          <children>
@@ -19,7 +19,7 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <TextField layoutX="61.0" layoutY="57.0" prefHeight="25.0" prefWidth="301.0" />
+            <TextField fx:id="idNome" layoutX="61.0" layoutY="57.0" prefHeight="25.0" prefWidth="301.0" />
             <TextField layoutX="61.0" layoutY="183.0" prefHeight="25.0" prefWidth="301.0" />
             <RadioButton layoutX="63.0" layoutY="102.0" mnemonicParsing="false" text="Masculino" />
             <RadioButton layoutX="150.0" layoutY="102.0" mnemonicParsing="false" text="Feminino" />
@@ -49,8 +49,10 @@
             <Label layoutX="61.0" layoutY="493.0" text="Celular" />
             <Label layoutX="242.0" layoutY="493.0" prefHeight="17.0" prefWidth="57.0" text="Celular(2)" />
             <TextField layoutX="242.0" layoutY="508.0" prefHeight="25.0" prefWidth="121.0" />
-            <Button layoutX="58.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnCancelarAction" prefHeight="25.0" prefWidth="91.0" text="Cancelar" />
+            <Button layoutX="58.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="25.0" prefWidth="91.0" text="Voltar" />
             <Button layoutX="247.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnSalvarAction" prefHeight="25.0" prefWidth="70.0" text="Salvar" />
+         	
+         
          </children>
       </Pane>
    </children>
