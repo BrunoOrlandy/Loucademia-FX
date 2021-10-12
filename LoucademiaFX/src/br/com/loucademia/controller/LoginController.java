@@ -1,7 +1,7 @@
-package br.com.aplication.controller;
+package br.com.loucademia.controller;
 
-import br.aplication.domain.NomeTelaEnum;
-import br.com.application.startUp.StatUp;
+import br.com.loucademia.domain.tela.NomeTelaEnum;
+import br.com.loucademia.startUp.StatUp;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,11 +9,8 @@ import javafx.fxml.FXML;
 public class LoginController {
 	@FXML
 	protected void btnLogarAction(ActionEvent event) {
-		System.out.println("Logar");
-		// if(is usuarioExiste())
 		StatUp.changeScreen(NomeTelaEnum.MENU);
-		// else{
-		// retorna erro;
+		System.out.println("Logar");
 	}
 
 	@FXML

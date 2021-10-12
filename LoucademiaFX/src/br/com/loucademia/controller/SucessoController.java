@@ -1,4 +1,4 @@
-package br.com.aplication.controller;
+package br.com.loucademia.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -11,8 +11,8 @@ import br.com.loucademia.application.util.Validation;
 import br.com.loucademia.application.util.ValidationException;
 import br.com.loucademia.domain.acesso.Acesso;
 import br.com.loucademia.domain.aluno.Aluno;
-import br.com.loucademia.domain.aluno.AlunoRepository;
 import br.com.loucademia.domain.aluno.Aluno.Situacao;
+import br.com.loucademia.domain.aluno.AlunoRepository;
 
 //EJB do tipo "Stateçess' não mantém estado
 //Cada método chamado tem que ter seu processo finalizado dentro dele mesmo

@@ -1,7 +1,6 @@
-package br.com.application.startUp;
+package br.com.loucademia.startUp;
 
-import br.aplication.domain.NomeTelaEnum;
-import br.com.application.JDBCMySql;
+import br.com.loucademia.domain.tela.NomeTelaEnum;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,29 +21,22 @@ public class StatUp extends Application {
 		launch(args);
 	}
 
-//	public static void main(String[] args) {
-//
-//		JDBCMySql mysql = new JDBCMySql();
-//		mysql.criaDataBase();
-//	}
-
-	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
 		primaryStage.setTitle("Loucademia");
 
-		Parent fxmlLogin = FXMLLoader.load(getClass().getResource("/br/com/aplication/view/login.fxml"));
+		Parent fxmlLogin = FXMLLoader.load(getClass().getResource("/br/com/loucademia/view/login.fxml"));
 		loginScene = new Scene(fxmlLogin);
 
-		Parent fxmlNovoAluno = FXMLLoader.load(getClass().getResource("/br/com/aplication/view/novo_aluno.fxml"));
+		Parent fxmlNovoAluno = FXMLLoader.load(getClass().getResource("/br/com/loucademia/view/novo_aluno.fxml"));
 		novoAlunoScene = new Scene(fxmlNovoAluno);
-
-		primaryStage.setScene(fxmlLogin.getScene());
+		
+		primaryStage.setScene(loginScene);
 		primaryStage.show();
 	}
 
 	public static void changeScreen(NomeTelaEnum nomeTela, Scene fxmlTela) throws Exception {
-
+			
 		switch (nomeTela) {
 		case LOGIN:
 			stage.setScene(loginScene);

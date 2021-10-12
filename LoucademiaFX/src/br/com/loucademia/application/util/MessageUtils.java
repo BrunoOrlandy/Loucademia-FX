@@ -1,6 +1,5 @@
-package br.com.application;
+package br.com.loucademia.application.util;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MessageUtils {

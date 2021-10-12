@@ -1,4 +1,4 @@
-package br.aplication.domain;
+package br.com.loucademia.domain.tela;
 
 public enum NomeTelaEnum {
 

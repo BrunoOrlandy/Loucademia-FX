@@ -1,15 +1,14 @@
-package br.com.aplication.controller;
+package br.com.loucademia.controller;
 
-import br.aplication.domain.NomeTelaEnum;
-import br.com.application.startUp.StatUp;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class AlunoController {
-	
+
 	@FXML
 	protected void btnCancelarAction(ActionEvent eventC) {
-		StatUp.changeScreen(NomeTelaEnum.MENU);
+		Platform.exit();
 	}
 
 	@FXML

@@ -9,12 +9,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="239.0" prefWidth="348.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.aplication.controller.LoginController">
+<AnchorPane prefHeight="239.0" prefWidth="348.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.loucademia.controller.LoginController">
    <children>
       <Pane id="login_id" layoutX="7.0" layoutY="8.0" prefHeight="223.0" prefWidth="335.0">
          <children>
-            <Button layoutX="66.0" layoutY="172.0" mnemonicParsing="false" onAction="#btnCancelarAction" text="Cancelar" />
-            <Button layoutX="199.0" layoutY="172.0" mnemonicParsing="false" onAction="#btnLogarAction" text="Logar">
+            <Button layoutX="66.0" layoutY="172.0" mnemonicParsing="false" onAction="#btnCancelarAction" prefHeight="25.0" prefWidth="61.0" text="Sair" />
+            <Button layoutX="205.0" layoutY="172.0" mnemonicParsing="false" onAction="#btnLogarAction" prefHeight="25.0" prefWidth="61.0" text="Logar">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor></Button>

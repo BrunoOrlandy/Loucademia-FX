@@ -7,10 +7,10 @@ import javax.ejb.EJB;
 // Pode-se utilizar CDI para injetar dependências no EJB
 import javax.ejb.Stateless;
 
-import br.com.loucademia.domain.aluno.Estado;
-import br.com.loucademia.domain.aluno.EstadoRepository;
 import br.com.loucademia.domain.aluno.Aluno.Sexo;
 import br.com.loucademia.domain.aluno.Aluno.Situacao;
+import br.com.loucademia.domain.aluno.Estado;
+import br.com.loucademia.domain.aluno.EstadoRepository;
 
 // EJB do tipo "Stateçess' não mantém estado
 // Cada método chamado tem que ter seu processo finalizado dentro dele mesmo

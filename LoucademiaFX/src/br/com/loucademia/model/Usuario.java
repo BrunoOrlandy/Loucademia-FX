@@ -1,4 +1,4 @@
-package br.com.application.model;
+package br.com.loucademia.model;
 
 public class Usuario {
 	private String id;
