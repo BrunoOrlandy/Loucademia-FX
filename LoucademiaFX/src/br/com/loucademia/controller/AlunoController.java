@@ -163,6 +163,38 @@ public class AlunoController {
     		rg.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
     	}
     	
+    	if(rua.getText().length() == 0)
+    	{	
+    		rua.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+    	}
+    	
+    	if(numero.getText().length() == 0)
+    	{	
+    		numero.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+    	}
+    	
+    	if(estado.getText().length() == 0)
+    	{	
+    		estado.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+    	}
+    	
+    	if(cidade.getText().length() == 0)
+    	{	
+    		cidade.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+    	}
+    	
+    	if(complemento.getText().length() == 0)
+    	{	
+    		complemento.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+    	}
+    	
+    	if(telefoneCelular.getText().length() == 0)
+    	{	
+    		telefoneCelular.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+    	}
+    	   	
+    	
+    	
 		System.out.println("Registro Salvo");
 	}
 }
