@@ -1,17 +1,13 @@
 package br.com.loucademia.controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class AlunoController implements Initializable{	
+public class AlunoController {	
 	
     @FXML
     private TextField nome;
@@ -46,21 +42,13 @@ public class AlunoController implements Initializable{
     @FXML
     private TextField telefoneFixo;
     
-    Label lblNome = new Label("Nome");
-    TextField tfNome = new TextField();
-        
-    Label lblContract = new Label("Contract");
-    TextField tfContract = new TextField();
     
+//    Label lblNome = new Label("Nome");
+//    TextField tfNome = new TextField();
+//        
+//    Label lblContract = new Label("Contract");
+//    TextField tfContract = new TextField();
     
-    private void handleSubmitButtonAction(ActionEvent event)
-    {
-    	if(nome.getText().length() == 0)
-    	{	
-    		nome.setStyle("-fx-border-colro: red ; -fx-border-width: 2px;");
-    		//new animatefx.animation.Shake(nome).play();
-    	}
-    }
     
 
 	public TextField getNome() {
@@ -150,39 +138,7 @@ public class AlunoController implements Initializable{
 	public void setTelefoneFixo(TextField telefoneFixo) {
 		this.telefoneFixo = telefoneFixo;
 	}
-
-	public Label getLblNome() {
-		return lblNome;
-	}
-
-	public void setLblNome(Label lblNome) {
-		this.lblNome = lblNome;
-	}
-
-	public TextField getTfNome() {
-		return tfNome;
-	}
-
-	public void setTfNome(TextField tfNome) {
-		this.tfNome = tfNome;
-	}
-
-	public Label getLblContract() {
-		return lblContract;
-	}
-
-	public void setLblContract(Label lblContract) {
-		this.lblContract = lblContract;
-	}
-
-	public TextField getTfContract() {
-		return tfContract;
-	}
-
-	public void setTfContract(TextField tfContract) {
-		this.tfContract = tfContract;
-	}
-
+	
 	@FXML
 	protected void btnVoltar(ActionEvent eventC) {
 		System.out.println("Voltar");
@@ -191,12 +147,22 @@ public class AlunoController implements Initializable{
 
 	@FXML
 	protected void btnSalvarAction(ActionEvent eventC) {
-		System.out.println("Registro Salvo");
-	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
 		
+    	if(nome.getText().length() == 0)
+    	{	
+    		nome.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+    	}
+    	
+//    	if(dataDeNascimento.getValue().equals(nul))
+//    	{	
+//    		dataDeNascimento.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+//    	}
+    	
+    	if(rg.getText().length() == 0)
+    	{	
+    		rg.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+    	}
+    	
+		System.out.println("Registro Salvo");
 	}
 }
