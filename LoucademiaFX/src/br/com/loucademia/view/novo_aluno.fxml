@@ -43,9 +43,9 @@
             <TextField fx:id="cep" layoutX="242.0" layoutY="405.0" prefHeight="25.0" prefWidth="121.0" />
             <Label layoutX="61.0" layoutY="388.0" text="Complemento" />
             <Label layoutX="242.0" layoutY="388.0" text="CEP" />
-            <TextField fx:id="telefoneFixo" layoutX="61.0" layoutY="467.0" prefHeight="25.0" prefWidth="301.0" />
+            <TextField fx:id="email" layoutX="61.0" layoutY="467.0" prefHeight="25.0" prefWidth="301.0" />
             <TextField fx:id="telefoneCelular" layoutX="61.0" layoutY="508.0" prefHeight="25.0" prefWidth="301.0" />
-            <Label layoutX="61.0" layoutY="447.0" text="Contato" />
+            <Label layoutX="61.0" layoutY="447.0" text="E-mail" />
             <Label layoutX="61.0" layoutY="493.0" text="Celular" />
             <Button layoutX="58.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="25.0" prefWidth="91.0" text="Voltar" />
             <Button layoutX="247.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnSalvarAction" prefHeight="25.0" prefWidth="70.0" text="Salvar" />
