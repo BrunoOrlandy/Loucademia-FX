@@ -5,6 +5,7 @@ import br.com.loucademia.startUp.StatUp;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginController {
@@ -14,7 +15,7 @@ public class LoginController {
     private TextField login;
 
     @FXML
-    private TextField senha;
+    private PasswordField senha;
     
 	
 	@FXML
