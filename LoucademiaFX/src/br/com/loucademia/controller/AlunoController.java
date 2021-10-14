@@ -35,12 +35,14 @@ public class AlunoController {
     
 	@FXML
     private TextField cep;
+	
+    @FXML
+    private TextField email;
 
     @FXML
     private TextField telefoneCelular;
 
-    @FXML
-    private TextField telefoneFixo;
+
     
     
 //    Label lblNome = new Label("Nome");
@@ -131,12 +133,12 @@ public class AlunoController {
 		this.telefoneCelular = telefoneCelular;
 	}
 
-	public TextField getTelefoneFixo() {
-		return telefoneFixo;
+	public TextField getEmail() {
+		return email;
 	}
 
-	public void setTelefoneFixo(TextField telefoneFixo) {
-		this.telefoneFixo = telefoneFixo;
+	public void setTelefoneFixo(TextField email) {
+		this.email = email;
 	}
 	
 	@FXML
@@ -153,10 +155,10 @@ public class AlunoController {
     		nome.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
     	}
     	
-//    	if(dataDeNascimento.getValue().equals(nul))
-//    	{	
-//    		dataDeNascimento.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
-//    	}
+    	if(dataDeNascimento.getValue() == null)
+    	{	
+    		dataDeNascimento.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+    	}
     	
     	if(rg.getText().length() == 0)
     	{	
@@ -186,6 +188,11 @@ public class AlunoController {
     	if(complemento.getText().length() == 0)
     	{	
     		complemento.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+    	}
+    	
+    	if(email.getText().length() == 0)
+    	{	
+    		email.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
     	}
     	
     	if(telefoneCelular.getText().length() == 0)
