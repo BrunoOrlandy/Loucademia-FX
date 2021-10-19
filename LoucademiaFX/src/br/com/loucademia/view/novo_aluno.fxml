@@ -21,34 +21,34 @@
                </font>
             </Text>
             <TextField fx:id="nome" layoutX="61.0" layoutY="57.0" prefHeight="25.0" prefWidth="301.0" />
-            <TextField fx:id="rg" layoutX="61.0" layoutY="183.0" prefHeight="25.0" prefWidth="301.0" />
             <RadioButton layoutX="63.0" layoutY="102.0" mnemonicParsing="false" text="Masculino" />
             <RadioButton layoutX="150.0" layoutY="102.0" mnemonicParsing="false" text="Feminino" />
-            <Label layoutX="61.0" layoutY="40.0" text="Nome " />
+            <Label fx:id="labelNome" layoutX="61.0" layoutY="40.0" text="Nome " />
             <Label layoutX="63.0" layoutY="85.0" text="Sexo" />
             <Label layoutX="64.0" layoutY="124.0" text="Data Nascimento" />
-            <Label layoutX="63.0" layoutY="166.0" text="RG" />
+            <Label fx:id="labelIdentidade" layoutX="63.0" layoutY="166.0" text="CPF" />
             <RadioButton layoutX="126.0" layoutY="227.0" mnemonicParsing="false" text="Ativo" />
             <RadioButton layoutX="191.0" layoutY="227.0" mnemonicParsing="false" text="Inativo" />
             <Label layoutX="61.0" layoutY="226.0" text="Situação" />
             <TextField fx:id="rua" layoutX="61.0" layoutY="278.0" prefHeight="25.0" prefWidth="301.0" />
             <TextField fx:id="numero" layoutX="61.0" layoutY="319.0" prefHeight="25.0" prefWidth="121.0" />
             <TextField fx:id="cidade" layoutX="61.0" layoutY="363.0" prefHeight="25.0" prefWidth="301.0" />
-            <Label layoutX="61.0" layoutY="261.0" text="Rua" />
-            <Label layoutX="61.0" layoutY="304.0" text="Numero" />
-            <Label layoutX="242.0" layoutY="304.0" prefHeight="17.0" prefWidth="44.0" text="Estado" />
-            <Label layoutX="61.0" layoutY="346.0" text="Cidade" />
+            <Label fx:id="labelRua" layoutX="61.0" layoutY="261.0" text="Rua" />
+            <Label fx:id="labelNumero" layoutX="61.0" layoutY="304.0" text="Numero" />
+            <Label fx:id="labelEstado" layoutX="242.0" layoutY="304.0" prefHeight="17.0" prefWidth="44.0" text="Estado" />
+            <Label fx:id="labelCidade" layoutX="61.0" layoutY="346.0" text="Cidade" />
             <TextField fx:id="complemento" layoutX="61.0" layoutY="405.0" prefHeight="25.0" prefWidth="174.0" />
             <TextField fx:id="estado" layoutX="242.0" layoutY="319.0" prefHeight="25.0" prefWidth="121.0" />
             <TextField fx:id="cep" layoutX="242.0" layoutY="405.0" prefHeight="25.0" prefWidth="121.0" />
-            <Label layoutX="61.0" layoutY="388.0" text="Complemento" />
-            <Label layoutX="242.0" layoutY="388.0" text="CEP" />
+            <Label fx:id="labelComplemento" layoutX="61.0" layoutY="388.0" text="Complemento" />
+            <Label fx:id="labelCep" layoutX="242.0" layoutY="388.0" text="CEP" />
             <TextField fx:id="email" layoutX="61.0" layoutY="467.0" prefHeight="25.0" prefWidth="301.0" />
             <TextField fx:id="telefoneCelular" layoutX="61.0" layoutY="508.0" prefHeight="25.0" prefWidth="301.0" />
-            <Label layoutX="61.0" layoutY="447.0" text="E-mail" />
-            <Label layoutX="61.0" layoutY="493.0" text="Celular" />
+            <Label fx:id="labelEmail" layoutX="61.0" layoutY="447.0" text="E-mail" />
+            <Label fx:id="labelTelefoneCelular" layoutX="61.0" layoutY="493.0" text="Celular" />
             <Button layoutX="58.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="25.0" prefWidth="91.0" text="Voltar" />
             <Button layoutX="247.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnSalvarAction" prefHeight="25.0" prefWidth="70.0" text="Salvar" />
+            <TextField fx:id="identidade" layoutX="61.0" layoutY="183.0" prefHeight="25.0" prefWidth="301.0" />
          	
          
          </children>
