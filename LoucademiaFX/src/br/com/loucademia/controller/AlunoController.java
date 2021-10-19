@@ -1,5 +1,7 @@
 package br.com.loucademia.controller;
 
+import br.com.loucademia.application.util.DataValidation;
+import br.com.loucademia.interfaces.aluno.AlunoBean;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,39 +11,74 @@ import javafx.scene.control.TextField;
 
 public class AlunoController {	
 	
-    @FXML
-    private TextField nome;
-    
-    @FXML
-    private DatePicker dataDeNascimento;
-    
-    @FXML
-    private TextField rg;
-
-    @FXML
-    private TextField rua;
-    
-    @FXML
-    private TextField numero;
-    
-    @FXML
-    private TextField estado;
-    
-    @FXML
-    private TextField cidade;
-    
-    @FXML
-    private TextField complemento;
-    
 	@FXML
     private TextField cep;
-	
+
+    @FXML
+    private TextField cidade;
+
+    @FXML
+    private TextField complemento;
+
+    @FXML
+    private DatePicker dataDeNascimento;
+
     @FXML
     private TextField email;
 
     @FXML
+    private TextField estado;
+
+    @FXML
+    private Label labelCelular;
+
+    @FXML
+    private Label labelCep;
+
+    @FXML
+    private Label labelCidade;
+
+    @FXML
+    private Label labelComplemento;
+
+    @FXML
+    private Label labelEmail;
+
+    @FXML
+    private Label labelEstado;
+
+    @FXML
+    private Label labelIdentidade;
+
+    @FXML
+    private Label labelNome;
+
+    @FXML
+    private Label labelNumero;
+
+    @FXML
+    private Label labelRua;
+    
+    @FXML
+    private Label labelTelefoneCelular;
+
+    @FXML
+    private TextField nome;
+
+    @FXML
+    private TextField numero;
+
+    @FXML
+    private TextField identidade;
+
+    @FXML
+    private TextField rua;
+
+    @FXML
     private TextField telefoneCelular;
 
+    
+    private AlunoBean alunoBean;
 
     
     
@@ -49,97 +86,7 @@ public class AlunoController {
 //    TextField tfNome = new TextField();
 //        
 //    Label lblContract = new Label("Contract");
-//    TextField tfContract = new TextField();
-    
-    
-
-	public TextField getNome() {
-		return nome;
-	}
-
-	public void setNome(TextField nome) {
-		this.nome = nome;
-	}
-
-	public DatePicker getDataDeNascimento() {
-		return dataDeNascimento;
-	}
-
-	public void setDataDeNascimento(DatePicker dataDeNascimento) {
-		this.dataDeNascimento = dataDeNascimento;
-	}
-
-	public TextField getRg() {
-		return rg;
-	}
-
-	public void setRg(TextField rg) {
-		this.rg = rg;
-	}
-
-	public TextField getRua() {
-		return rua;
-	}
-
-	public void setRua(TextField rua) {
-		this.rua = rua;
-	}
-
-	public TextField getNumero() {
-		return numero;
-	}
-
-	public void setNumero(TextField numero) {
-		this.numero = numero;
-	}
-
-	public TextField getEstado() {
-		return estado;
-	}
-
-	public void setEstado(TextField estado) {
-		this.estado = estado;
-	}
-
-	public TextField getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(TextField cidade) {
-		this.cidade = cidade;
-	}
-
-	public TextField getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(TextField complemento) {
-		this.complemento = complemento;
-	}
-
-	public TextField getCep() {
-		return cep;
-	}
-
-	public void setCep(TextField cep) {
-		this.cep = cep;
-	}
-
-	public TextField getTelefoneCelular() {
-		return telefoneCelular;
-	}
-
-	public void setTelefoneCelular(TextField telefoneCelular) {
-		this.telefoneCelular = telefoneCelular;
-	}
-
-	public TextField getEmail() {
-		return email;
-	}
-
-	public void setTelefoneFixo(TextField email) {
-		this.email = email;
-	}
+//    TextField tfContract = new TextField(); 
 	
 	@FXML
 	protected void btnVoltar(ActionEvent eventC) {
@@ -150,58 +97,60 @@ public class AlunoController {
 	@FXML
 	protected void btnSalvarAction(ActionEvent eventC) {
 		
-    	if(nome.getText().length() == 0)
-    	{	
-    		nome.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
-    	}
     	
+    	// Data de nascimento
     	if(dataDeNascimento.getValue() == null)
     	{	
     		dataDeNascimento.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
-    	}
-    	
-    	if(rg.getText().length() == 0)
-    	{	
-    		rg.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
-    	}
-    	
+    	} else {
+    		nome.setStyle(null);
+    	}    	
+    	    	
+    	// Nome da rua
     	if(rua.getText().length() == 0)
     	{	
     		rua.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+    	} else {
+    		nome.setStyle(null);
     	}
     	
+    	// Número da residência
     	if(numero.getText().length() == 0)
     	{	
     		numero.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+    	} else {
+    		nome.setStyle(null);
     	}
     	
+    	// Estado
     	if(estado.getText().length() == 0)
     	{	
     		estado.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+    	} else {
+    		nome.setStyle(null);
     	}
     	
-    	if(cidade.getText().length() == 0)
-    	{	
-    		cidade.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
-    	}
-    	
+    	// Complemento
     	if(complemento.getText().length() == 0)
     	{	
     		complemento.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+    	} else {
+    		nome.setStyle(null);
     	}
     	
-    	if(email.getText().length() == 0)
-    	{	
-    		email.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
-    	}
-    	
-    	if(telefoneCelular.getText().length() == 0)
-    	{	
-    		telefoneCelular.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
-    	}
-    	   	
-    	
-    	
-		System.out.println("Registro Salvo");
+    	boolean alphabetName = DataValidation.isName(nome, labelNome, "Nome incorreto! Informe apenas letras");
+        boolean identidadeValition = DataValidation.isIdentidade(identidade, labelIdentidade, "Letras não são permitidas");
+        boolean ruaValidation = DataValidation.isRua(rua, labelRua, "Informe apenas letras");
+        boolean cidadeValidation = DataValidation.isCidade(cidade, labelCidade, "Informe apenas letras");
+        boolean emailValidation = DataValidation.emailFormat(email, labelEmail, "E-mail incorreto! Deve conter 'seuemail@seudomínio.com.br'");
+        boolean numericPhNumber = DataValidation.isPhone(telefoneCelular, labelTelefoneCelular, "Informe números de 0 - 9");
+
+
+        
+        System.out.println("GRAVANDO DADOS!");
+        
+    	// Chama o método gravar() na classe AlunoBean
+    	//alunoBean.gravar();
+        
 	}
 }
