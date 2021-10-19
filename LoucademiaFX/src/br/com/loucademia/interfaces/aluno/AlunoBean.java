@@ -46,6 +46,8 @@ public class AlunoBean implements Serializable {
 	
 	public String gravar() {
 		
+		System.out.println("Registro Salvo");
+		
 		Aluno other;
 		other = alunoService.findByRG(aluno.getRg());
 		
