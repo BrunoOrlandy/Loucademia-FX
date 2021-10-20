@@ -80,13 +80,6 @@ public class AlunoController {
     
     private AlunoBean alunoBean;
 
-    
-    
-//    Label lblNome = new Label("Nome");
-//    TextField tfNome = new TextField();
-//        
-//    Label lblContract = new Label("Contract");
-//    TextField tfContract = new TextField(); 
 	
 	@FXML
 	protected void btnVoltar(ActionEvent eventC) {
@@ -103,54 +96,28 @@ public class AlunoController {
     	{	
     		dataDeNascimento.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
     	} else {
-    		nome.setStyle(null);
-    	}    	
-    	    	
-    	// Nome da rua
-    	if(rua.getText().length() == 0)
-    	{	
-    		rua.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
-    	} else {
-    		nome.setStyle(null);
-    	}
-    	
-    	// Número da residência
-    	if(numero.getText().length() == 0)
-    	{	
-    		numero.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
-    	} else {
-    		nome.setStyle(null);
-    	}
-    	
-    	// Estado
-    	if(estado.getText().length() == 0)
-    	{	
-    		estado.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
-    	} else {
-    		nome.setStyle(null);
-    	}
-    	
-    	// Complemento
-    	if(complemento.getText().length() == 0)
-    	{	
-    		complemento.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
-    	} else {
-    		nome.setStyle(null);
+    		dataDeNascimento.setStyle(null);
     	}
     	
     	boolean alphabetName = DataValidation.isName(nome, labelNome, "Nome incorreto! Informe apenas letras");
         boolean identidadeValition = DataValidation.isIdentidade(identidade, labelIdentidade, "Letras não são permitidas");
         boolean ruaValidation = DataValidation.isRua(rua, labelRua, "Informe apenas letras");
+        boolean numeroValidation = DataValidation.isNumero(numero, labelNumero, "Informe apenas números");
+        boolean estadooValidation = DataValidation.isEstado(estado, labelEstado, "Apenas letras");
         boolean cidadeValidation = DataValidation.isCidade(cidade, labelCidade, "Informe apenas letras");
         boolean emailValidation = DataValidation.emailFormat(email, labelEmail, "E-mail incorreto! Deve conter 'seuemail@seudomínio.com.br'");
         boolean numericPhNumber = DataValidation.isPhone(telefoneCelular, labelTelefoneCelular, "Informe números de 0 - 9");
-
-
+      
         
-        System.out.println("GRAVANDO DADOS!");
-        
-    	// Chama o método gravar() na classe AlunoBean
-    	//alunoBean.gravar();
-        
+        if(alphabetName && identidadeValition && ruaValidation
+        		&& numeroValidation && estadooValidation && cidadeValidation
+        		&& cidadeValidation && emailValidation && numericPhNumber) {
+        	
+        	System.out.println("GRAVANDO DADOS!");
+        	
+        	// Chama o método gravar() na classe AlunoBean
+        	// alunoBean.gravar();
+        	
+        }
 	}
 }
