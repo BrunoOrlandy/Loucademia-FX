@@ -46,8 +46,8 @@
             <TextField fx:id="telefoneCelular" layoutX="61.0" layoutY="508.0" prefHeight="25.0" prefWidth="301.0" />
             <Label fx:id="labelEmail" layoutX="61.0" layoutY="447.0" text="E-mail" />
             <Label fx:id="labelTelefoneCelular" layoutX="61.0" layoutY="493.0" text="Celular" />
-            <Button layoutX="58.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="25.0" prefWidth="91.0" text="Voltar" />
-            <Button layoutX="247.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnSalvarAction" prefHeight="25.0" prefWidth="70.0" text="Salvar" />
+            <Button fx:id="btnVoltar" layoutX="58.0" layoutY="549.0" mnemonicParsing="false"  prefHeight="25.0" prefWidth="91.0" text="Voltar" />
+            <Button fx:id="btnSalvarAction" layoutX="247.0" layoutY="549.0" mnemonicParsing="false"  prefHeight="25.0" prefWidth="70.0" text="Salvar" />
             <TextField fx:id="identidade" layoutX="61.0" layoutY="183.0" prefHeight="25.0" prefWidth="301.0" />
          	
          

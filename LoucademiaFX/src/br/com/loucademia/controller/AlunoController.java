@@ -9,14 +9,14 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class AlunoController {	
-	
+public class AlunoController {
+
 	@FXML
     private TextField nome, identidade, rua, numero, estado, cidade, complemento, cep, email, telefoneCelular;
 
 
-    @FXML
-    private DatePicker dataDeNascimento;
+	@FXML
+	private DatePicker dataDeNascimento;
 
     @FXML
     private Label labelNome, labelIdentidade, labelRua, labelNumero, labelEstado, labelCidade,
@@ -24,11 +24,9 @@ public class AlunoController {
     
     private AlunoBean alunoBean;
 
-	
 	@FXML
 	protected void btnVoltar(ActionEvent eventC) {
-		System.out.println("Voltar");
-		Platform.exit();
+		fechar();
 	}
 
 	@FXML
@@ -45,13 +43,13 @@ public class AlunoController {
     	}
     	
     	boolean alphabetName = DataValidation.isName(nome, labelNome, "Nome incorreto! Informe apenas letras");
-        boolean identidadeValition = DataValidation.isIdentidade(identidade, labelIdentidade, "Letras não são permitidas");
+        boolean identidadeValition = DataValidation.isIdentidade(identidade, labelIdentidade, "Letras nï¿½o sï¿½o permitidas");
         boolean ruaValidation = DataValidation.isRua(rua, labelRua, "Informe apenas letras");
-        boolean numeroValidation = DataValidation.isNumero(numero, labelNumero, "Informe apenas números");
+        boolean numeroValidation = DataValidation.isNumero(numero, labelNumero, "Informe apenas nï¿½meros");
         boolean estadooValidation = DataValidation.isEstado(estado, labelEstado, "Apenas letras");
         boolean cidadeValidation = DataValidation.isCidade(cidade, labelCidade, "Informe apenas letras");
-        boolean emailValidation = DataValidation.emailFormat(email, labelEmail, "E-mail incorreto! Deve conter 'seuemail@seudomínio.com.br'");
-        boolean numericPhNumber = DataValidation.isPhone(telefoneCelular, labelTelefoneCelular, "Informe números de 0 - 9");
+        boolean emailValidation = DataValidation.emailFormat(email, labelEmail, "E-mail incorreto! Deve conter 'seuemail@seudomï¿½nio.com.br'");
+        boolean numericPhNumber = DataValidation.isPhone(telefoneCelular, labelTelefoneCelular, "Informe nï¿½meros de 0 - 9");
       
         
         if(alphabetName && identidadeValition && ruaValidation
@@ -60,7 +58,7 @@ public class AlunoController {
         	
         	System.out.println("GRAVANDO DADOS!");
         	
-        	// Chama o método gravar() na classe AlunoBean
+        	// Chama o mï¿½todo gravar() na classe AlunoBean
         	// alunoBean.gravar();
         	
         }

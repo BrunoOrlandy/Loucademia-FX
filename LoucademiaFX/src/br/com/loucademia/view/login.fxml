@@ -21,13 +21,13 @@
                </font>
             </Text>
             
-            <TextField fx:id="login" layoutX="68.0" layoutY="85.0" prefHeight="25.0" prefWidth="199.0" />
+            <TextField fx:id="login" layoutX="68.0" layoutY="85.0" prefHeight="25.0" prefWidth="199.0"/>
             <Label layoutX="72.0" layoutY="68.0" prefHeight="17.0" prefWidth="61.0" text="Login" />
             <Label layoutX="72.0" layoutY="115.0" prefHeight="17.0" prefWidth="61.0" text="Senha" />
             <PasswordField fx:id="senha" layoutX="66.0" layoutY="132.0" prefHeight="25.0" prefWidth="199.0" />
             
-            <Button layoutX="66.0" layoutY="172.0" mnemonicParsing="false" onAction="#btnCancelarAction" prefHeight="25.0" prefWidth="61.0" text="Sair" />
-            <Button layoutX="205.0" layoutY="172.0" mnemonicParsing="false" onAction="#btnLogarAction" prefHeight="25.0" prefWidth="61.0" text="Logar">
+            <Button fx:id="btnCancelarAction" layoutX="66.0" layoutY="172.0"  mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" text="Sair" />
+            <Button fx:id="btnLogarAction" layoutX="205.0" layoutY="172.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" text="Logar">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
