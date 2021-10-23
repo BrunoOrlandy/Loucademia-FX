@@ -62,12 +62,6 @@ public class DataValidation {
 		if(inputTextField.getText().length() == 0) {
 			isRua = false;
 			showDinamico(inputTextField, inputLabel, isRua);
-			
-		} else if (!inputTextField.getText().matches("[a-z A-Z]+")) {
-			isRua = false;
-            inputLabel.setText(validationText);
-            showDinamico(inputTextField, inputLabel, isRua);
-
 		} else {
 			isRua = true;
         	inputLabel.setText("Rua");
