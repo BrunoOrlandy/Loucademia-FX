@@ -1,42 +1,70 @@
 package br.com.loucademia.controller;
 
-import br.com.loucademia.domain.tela.NomeTelaEnum;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import br.com.loucademia.startUp.NovoAluno;
 import br.com.loucademia.startUp.StatUp;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
-public class MenuController {
+public class MenuController implements Initializable {
 
-	@FXML
-	protected void btnNovoAluno(ActionEvent event) {
-		StatUp.changeScreen(NomeTelaEnum.NOVO_ALUNO);
-	}
-
-	@FXML
-	protected void btnPesquisaAluno(ActionEvent event) {
-		nextPage(NomeTelaEnum.PESQUISAR_ALUNO);
-	}
+	private static Stage stageMenu;
 
 	@FXML
-	protected void btnControleDeAcesso(ActionEvent event) {
-		nextPage(NomeTelaEnum.CONTROLE_ACESSO);
-	}
+	private Button btnNovoAluno;
 
 	@FXML
-	protected void btnRelatoriosDeEntradaEsaida(ActionEvent event) {
-		nextPage(NomeTelaEnum.RELATORIO_ENTRADA_SAIDA);
-	}
+	private Button btnPesquisaAluno;
 
 	@FXML
-	protected void btnRelatoriosDeSituacao(ActionEvent event) {
-		nextPage(NomeTelaEnum.RELATORIO_SITUACAO);
+	private Button btnControleDeAcesso;
+
+	@FXML
+	private Button btnRelatoriosDeEntradaEsaida;
+
+	@FXML
+	private Button btnRelatoriosDeSituacao;
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+
+		btnNovoAluno.setOnMouseClicked((MouseEvent e) -> {
+			try {
+				NovoAluno novoAluno = new NovoAluno();
+				novoAluno.start(new Stage());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+
+		});
+
+		btnPesquisaAluno.setOnMouseClicked((MouseEvent e) -> {
+
+		});
+		btnControleDeAcesso.setOnMouseClicked((MouseEvent e) -> {
+
+		});
+		btnRelatoriosDeSituacao.setOnMouseClicked((MouseEvent e) -> {
+
+		});
+
 	}
 
-	public void nextPage(NomeTelaEnum nextPage) {
-		if (nextPage.equals(nextPage)) {
-			nextPage = null;
-		}
-		StatUp.changeScreen(nextPage);
+	public static Stage getStageMenu() {
+		return stageMenu;
+	}
+
+	public static void setStageMenu(Stage stageMenu) {
+		MenuController.stageMenu = stageMenu;
+	}
+
+	public void fechar() {
+		StatUp.getStage().close();
 	}
 
 }

@@ -11,14 +11,14 @@
    <children>
       <Pane layoutX="11.0" layoutY="11.0" prefHeight="235.0" prefWidth="378.0">
          <children>
-            <Button cacheShape="false" layoutX="67.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnNovoAluno" prefHeight="25.0" prefWidth="257.0" text="Novo aluno">
+            <Button fx:id="btnNovoAluno" cacheShape="false" layoutX="67.0" layoutY="48.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="257.0" text="Novo aluno">
                <cursor>
                   <Cursor fx:constant="WAIT" />
                </cursor></Button>
-            <Button layoutX="67.0" layoutY="196.0" mnemonicParsing="false" onAction="#btnRelatoriosDeSituacao" prefHeight="25.0" prefWidth="257.0" text="Relatório de situação" />
-            <Button layoutX="67.0" layoutY="158.0" mnemonicParsing="false" onAction="#btnRelatoriosDeEntradaEsaida" prefHeight="25.0" prefWidth="257.0" text="Relatório de entrada e saída" />
-            <Button layoutX="67.0" layoutY="84.0" mnemonicParsing="false" onAction="#btnPesquisaAluno" prefHeight="25.0" prefWidth="257.0" text="Pesquisa de aluno" />
-            <Button layoutX="67.0" layoutY="121.0" mnemonicParsing="false" onAction="#btnControleDeAcesso" prefHeight="25.0" prefWidth="257.0" text="Controle de acesso" />
+            <Button fx:id="btnRelatoriosDeSituacao" layoutX="67.0" layoutY="196.0" mnemonicParsing="false"  prefHeight="25.0" prefWidth="257.0" text="Relatório de situação" />
+            <Button fx:id="btnRelatoriosDeEntradaEsaida" layoutX="67.0" layoutY="158.0" mnemonicParsing="false"  prefHeight="25.0" prefWidth="257.0" text="Relatório de entrada e saída" />
+            <Button fx:id="btnPesquisaAluno" layoutX="67.0" layoutY="84.0" mnemonicParsing="false"  prefHeight="25.0" prefWidth="257.0" text="Pesquisa de aluno" />
+            <Button fx:id="btnControleDeAcesso" layoutX="67.0" layoutY="121.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="257.0" text="Controle de acesso" />
             <Text layoutX="128.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu de opções" wrappingWidth="121.576171875">
                <font>
                   <Font size="14.0" />
