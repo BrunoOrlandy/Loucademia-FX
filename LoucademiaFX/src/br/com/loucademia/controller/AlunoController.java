@@ -12,71 +12,15 @@ import javafx.scene.control.TextField;
 public class AlunoController {	
 	
 	@FXML
-    private TextField cep;
+    private TextField nome, identidade, rua, numero, estado, cidade, complemento, cep, email, telefoneCelular;
 
-    @FXML
-    private TextField cidade;
-
-    @FXML
-    private TextField complemento;
 
     @FXML
     private DatePicker dataDeNascimento;
 
     @FXML
-    private TextField email;
-
-    @FXML
-    private TextField estado;
-
-    @FXML
-    private Label labelCelular;
-
-    @FXML
-    private Label labelCep;
-
-    @FXML
-    private Label labelCidade;
-
-    @FXML
-    private Label labelComplemento;
-
-    @FXML
-    private Label labelEmail;
-
-    @FXML
-    private Label labelEstado;
-
-    @FXML
-    private Label labelIdentidade;
-
-    @FXML
-    private Label labelNome;
-
-    @FXML
-    private Label labelNumero;
-
-    @FXML
-    private Label labelRua;
-    
-    @FXML
-    private Label labelTelefoneCelular;
-
-    @FXML
-    private TextField nome;
-
-    @FXML
-    private TextField numero;
-
-    @FXML
-    private TextField identidade;
-
-    @FXML
-    private TextField rua;
-
-    @FXML
-    private TextField telefoneCelular;
-
+    private Label labelNome, labelIdentidade, labelRua, labelNumero, labelEstado, labelCidade,
+    				labelComplemento, labelCep, labelEmail, labelTelefoneCelular;
     
     private AlunoBean alunoBean;
 
@@ -96,6 +40,7 @@ public class AlunoController {
     	{	
     		dataDeNascimento.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
     	} else {
+    		System.out.println(dataDeNascimento.getValue());
     		dataDeNascimento.setStyle(null);
     	}
     	
