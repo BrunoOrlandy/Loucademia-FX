@@ -1,8 +1,5 @@
 package br.com.loucademia.application.service;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-
 import br.com.loucademia.application.util.StringUtils;
 import br.com.loucademia.application.util.ValidationException;
 import br.com.loucademia.domain.acesso.Acesso;
@@ -11,13 +8,10 @@ import br.com.loucademia.domain.acesso.TipoAcesso;
 import br.com.loucademia.domain.aluno.Aluno;
 import br.com.loucademia.domain.aluno.AlunoRepository;
 
-@Stateless
 public class AcessoService {
 
-	@EJB
 	private AcessoRepository acessoRepository;
 
-	@EJB
 	private AlunoRepository alunoRepository;
 
 	public TipoAcesso registrarAcesso(String matricula, Integer rg) {

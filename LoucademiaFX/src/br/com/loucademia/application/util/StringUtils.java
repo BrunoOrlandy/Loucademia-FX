@@ -8,8 +8,6 @@ public class StringUtils {
 			return true;
 		}
 		
-		// O método 'trim()' corta os espaços em branco do início e do final
-		// Se o tamanho for igual a 0, significa que a String 's' está vazia, retornando 'true'
 		return s.trim().length() == 0;
 	}
 	

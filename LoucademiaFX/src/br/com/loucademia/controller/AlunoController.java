@@ -4,7 +4,6 @@ import br.com.loucademia.application.util.DataValidation;
 import br.com.loucademia.domain.tela.NomeTelaEnum;
 import br.com.loucademia.interfaces.aluno.AlunoBean;
 import br.com.loucademia.startUp.StatUp;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;

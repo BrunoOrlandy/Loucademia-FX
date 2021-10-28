@@ -2,46 +2,36 @@ package br.com.loucademia.interfaces.relatorio;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
-
-import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import br.com.loucademia.application.service.AlunoService;
 import br.com.loucademia.domain.aluno.Aluno;
 import br.com.loucademia.domain.aluno.Aluno.Situacao;
 
-@Named
-@SessionScoped
 public class RelatorioSituacoesBean implements Serializable {
 
-	@EJB
+	private static final long serialVersionUID = 1L;
+
 	private AlunoService alunoService;
-	
-	@Inject
-	private Map<String, String> requestParamsMap;
-	
+
 	private Situacao situacao;
-	
+
 	private List<Aluno> alunos;
-	
+
 	public void check() {
-		String clear = requestParamsMap.get("clear");
-		
+		String clear = "";
+
 		if (clear != null && Boolean.valueOf(clear)) {
 			situacao = null;
 			alunos = null;
 		}
 	}
-	
+
 	public String gerarRelatorio() {
-		
+
 		alunos = alunoService.listSituacoesAlunos(situacao);
 		return null;
 	}
-	
+
 	public Situacao getSituacao() {
 		return situacao;
 	}
@@ -57,7 +47,5 @@ public class RelatorioSituacoesBean implements Serializable {
 	public void setAlunos(List<Aluno> alunos) {
 		this.alunos = alunos;
 	}
-	
-	
-	
+
 }

@@ -15,35 +15,28 @@ import br.com.loucademia.application.util.StringUtils;
 import br.com.loucademia.application.util.ValidationException;
 import br.com.loucademia.domain.acesso.Acesso;
 
-@Named
-@RequestScoped
 public class RelatorioEntradaSaidaBean {
 
-	@EJB
 	private AlunoService alunoService;
-	
-	@Inject
-	private FacesContext facesContext;
-	
+
 	private String matricula;
 	private LocalDate dataInicial;
 	private LocalDate dataFinal;
-	
+
 	private List<Acesso> acessos;
-	
+
 	public void carregarAluno() {
 		if (!StringUtils.isEmpty(matricula)) {
 			gerarRelatorio();
 		}
 	}
-	
+
 	public String gerarRelatorio() {
 		try {
 			acessos = alunoService.listAcessosAlunos(matricula, dataInicial, dataFinal);
 		} catch (ValidationException e) {
-			facesContext.addMessage(null, new FacesMessage(e.getMessage()));
+			e.printStackTrace();
 		}
-		
 		return null;
 	}
 
@@ -73,6 +66,6 @@ public class RelatorioEntradaSaidaBean {
 
 	public List<Acesso> getAcessos() {
 		return acessos;
-	}	
-	
+	}
+
 }

@@ -1,10 +1,7 @@
 package br.com.loucademia.application.service;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
-
-import com.sun.jdi.connect.spi.Connection;
 
 import br.com.loucademia.application.util.StringUtils;
 import br.com.loucademia.application.util.Validation;

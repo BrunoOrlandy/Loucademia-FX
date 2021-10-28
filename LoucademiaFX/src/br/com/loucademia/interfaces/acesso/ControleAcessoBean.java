@@ -13,41 +13,32 @@ import br.com.loucademia.application.service.AcessoService;
 import br.com.loucademia.application.util.ValidationException;
 import br.com.loucademia.domain.acesso.TipoAcesso;
 
-@Named
-@RequestScoped
 public class ControleAcessoBean implements Serializable {
 
-	@EJB
 	private AcessoService acessoService;
-	
-	@Inject
-	private FacesContext facesContext;
-	
+
 	private String matricula;
 	private Integer rg;
-	
+
 	public String registrarAcesso() {
-		
+
 		TipoAcesso tipoAcesso;
-		
+
 		try {
-			tipoAcesso =acessoService.registrarAcesso(matricula, rg);
+			tipoAcesso = acessoService.registrarAcesso(matricula, rg);
 		} catch (ValidationException e) {
-			facesContext.addMessage(null, new FacesMessage(e.getMessage()));
+			e.printStackTrace();
 			return null;
 		}
-		
+
 		String msg;
 		if (tipoAcesso == TipoAcesso.Entrada) {
 			msg = "ENTRADA registrada";
-		} else if (tipoAcesso == TipoAcesso.Saída) {
-			msg = "SAÍDA registrada";
 		} else {
 			msg = "Dados de registro de acesso inconsistentes";
 		}
-		
-		facesContext.addMessage(null, new FacesMessage(msg));		
-		return null;
+
+		return msg;
 	}
 
 	public String getMatricula() {
