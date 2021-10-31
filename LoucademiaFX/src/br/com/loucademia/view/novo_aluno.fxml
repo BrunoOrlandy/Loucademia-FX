@@ -5,30 +5,37 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="622.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.loucademia.controller.AlunoController">
+<AnchorPane prefHeight="622.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.loucademia.controller.AlunoController">
    <children>
       <Pane layoutX="14.0" layoutY="13.0" prefHeight="595.0" prefWidth="423.0">
          <children>
-            <DatePicker fx:id="dataDeNascimento" layoutX="63.0" layoutY="141.0" />
+            <DatePicker fx:id="dataDeNascimento" layoutX="63.0" layoutY="149.0" />
             <Text layoutX="175.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Novo Aluno">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
             <TextField fx:id="nome" layoutX="61.0" layoutY="57.0" prefHeight="25.0" prefWidth="301.0" />
-            <RadioButton layoutX="63.0" layoutY="102.0" mnemonicParsing="false" text="Masculino" />
-            <RadioButton layoutX="150.0" layoutY="102.0" mnemonicParsing="false" text="Feminino" />
+            <RadioButton fx:id="rbMasculino" layoutX="63.0" layoutY="109.0" mnemonicParsing="false" onAction="#getSexo" selected="true" text="Masculino">
+               <toggleGroup>
+                  <ToggleGroup fx:id="sexo" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="rbFeminino" layoutX="150.0" layoutY="109.0" mnemonicParsing="false" onAction="#getSexo" text="Feminino" toggleGroup="$sexo" />
             <Label fx:id="labelNome" layoutX="61.0" layoutY="40.0" text="Nome " />
-            <Label layoutX="63.0" layoutY="85.0" text="Sexo" />
-            <Label layoutX="64.0" layoutY="124.0" text="Data Nascimento" />
-            <Label fx:id="labelIdentidade" layoutX="63.0" layoutY="166.0" text="CPF" />
-            <RadioButton layoutX="126.0" layoutY="227.0" mnemonicParsing="false" text="Ativo" />
-            <RadioButton layoutX="191.0" layoutY="227.0" mnemonicParsing="false" text="Inativo" />
+            <Label layoutX="63.0" layoutY="92.0" text="Sexo" />
+            <Label layoutX="64.0" layoutY="132.0" text="Data Nascimento" />
+            <Label fx:id="labelIdentidade" layoutX="63.0" layoutY="180.0" text="RG" />
+            <RadioButton fx:id="rbAtivo" layoutX="126.0" layoutY="227.0" mnemonicParsing="false" onAction="#getSituacao" selected="true" text="Ativo">
+               <toggleGroup>
+                  <ToggleGroup fx:id="ativo" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="rbInativo" layoutX="191.0" layoutY="227.0" mnemonicParsing="false" onAction="#getSituacao" text="Inativo" toggleGroup="$ativo" />
             <Label layoutX="61.0" layoutY="226.0" text="Situação" />
             <TextField fx:id="rua" layoutX="61.0" layoutY="278.0" prefHeight="25.0" prefWidth="301.0" />
             <TextField fx:id="numero" layoutX="61.0" layoutY="319.0" prefHeight="25.0" prefWidth="121.0" />
@@ -42,13 +49,13 @@
             <TextField fx:id="cep" layoutX="242.0" layoutY="405.0" prefHeight="25.0" prefWidth="121.0" />
             <Label fx:id="labelComplemento" layoutX="61.0" layoutY="388.0" text="Complemento" />
             <Label fx:id="labelCep" layoutX="242.0" layoutY="388.0" text="CEP" />
-            <TextField fx:id="email" layoutX="61.0" layoutY="467.0" prefHeight="25.0" prefWidth="301.0" />
+            <TextField fx:id="email" layoutX="61.0" layoutY="460.0" prefHeight="25.0" prefWidth="301.0" />
             <TextField fx:id="telefoneCelular" layoutX="61.0" layoutY="508.0" prefHeight="25.0" prefWidth="301.0" />
-            <Label fx:id="labelEmail" layoutX="61.0" layoutY="447.0" text="E-mail" />
+            <Label fx:id="labelEmail" layoutX="61.0" layoutY="440.0" text="E-mail" />
             <Label fx:id="labelTelefoneCelular" layoutX="61.0" layoutY="493.0" text="Celular" />
             <Button layoutX="58.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="25.0" prefWidth="91.0" text="Voltar" />
-            <Button layoutX="247.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnSalvarAction" prefHeight="25.0" prefWidth="70.0" text="Salvar" />
-            <TextField fx:id="identidade" layoutX="61.0" layoutY="183.0" prefHeight="25.0" prefWidth="301.0" />
+            <Button layoutX="272.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnSalvarAction" prefHeight="25.0" prefWidth="91.0" text="Salvar" />
+            <TextField fx:id="identidade" layoutX="61.0" layoutY="197.0" prefHeight="25.0" prefWidth="301.0" />
          	
          
          </children>

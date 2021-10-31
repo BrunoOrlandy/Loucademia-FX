@@ -1,7 +1,7 @@
 package br.com.loucademia.controller;
 
 import br.com.loucademia.domain.tela.NomeTelaEnum;
-import br.com.loucademia.startUp.StatUp;
+import br.com.loucademia.startUp.StartUp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -14,7 +14,7 @@ public class RelatorioController {
 
     @FXML
     void btnVoltar(ActionEvent event) {
-    	StatUp.changeScreen(NomeTelaEnum.MENU);
+    	StartUp.changeScreen(NomeTelaEnum.MENU);
     }
 }
 

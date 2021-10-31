@@ -19,85 +19,86 @@ import br.com.loucademia.domain.aluno.Aluno;
 @Table(name = "ENTRADAS_SAIDAS")
 public class Acesso implements Serializable {
 
-	// ID
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", nullable = false)
 	private Integer id;
-	
-	// Aluno
+
 	@ManyToOne
 	@JoinColumn(name = "ALUNO_ID", nullable = false)
 	private Aluno aluno;
-	// Data e hora da entrada
-	
-	@Column(name="ENTRADA", nullable = false)
+
+	@Column(name = "ENTRADA", nullable = false)
 	private LocalDateTime entrada;
-	// Data e hora da saída
-	@Column(name="SAIDA", nullable = true)
+
+	@Column(name = "SAIDA", nullable = true)
 	private LocalDateTime saida;
-	
-	
+
 	public boolean isEntradaSaidaPrenchidas() {
 		if (entrada != null && saida != null) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	public TipoAcesso registrarAcesso() {
 		LocalDateTime now = LocalDateTime.now();
-				
+
 		TipoAcesso tipoAcesso;
-		
+
 		if (entrada == null) {
 			entrada = now;
-			tipoAcesso = TipoAcesso.Entrada;
+			tipoAcesso = TipoAcesso.ENTRADA;
 		} else if (saida == null) {
 			saida = now;
-			tipoAcesso = TipoAcesso.Saída;
+			tipoAcesso = TipoAcesso.SAIDA;
 		} else {
 			tipoAcesso = null;
 		}
-		
+
 		return tipoAcesso;
 	}
-	
+
 	public String calcularDuracao() {
 		if (entrada == null || saida == null) {
 			return null;
 		}
-		
+
 		Duration d = Duration.between(entrada, saida);
 		return String.format("%02d:%02d", d.toHoursPart(), d.toMinutesPart());
 	}
-	
-	
+
 	public Integer getId() {
 		return id;
 	}
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public Aluno getAluno() {
 		return aluno;
 	}
-	
+
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
+
 	public LocalDateTime getEntrada() {
 		return entrada;
 	}
+
 	public void setEntrada(LocalDateTime entrada) {
 		this.entrada = entrada;
 	}
+
 	public LocalDateTime getSaida() {
 		return saida;
 	}
+
 	public void setSaida(LocalDateTime saida) {
 		this.saida = saida;
 	}
@@ -125,5 +126,5 @@ public class Acesso implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
+	}
 }

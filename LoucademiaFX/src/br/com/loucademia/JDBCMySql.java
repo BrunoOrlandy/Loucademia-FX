@@ -13,10 +13,9 @@ public class JDBCMySql {
 
 	private static final Logger logger = Logger.getLogger(JDBCMySql.class.getName());
 	private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String DB_CONNECTION = "jdbc:mysql://localhost:3306/_nomeSchema_?useTimezone=true&serverTimezone=UTC";
+	private static final String DB_CONNECTION = "jdbc:mysql://localhost:3306/loucademia?useTimezone=true&serverTimezone=UTC";
 	private static final String DB_USER = "root";
-	private static final String DB_PASSWORD = "*";
-	static final String LABEL_CONEXAO = "Conexão";
+	private static final String DB_PASSWORD = "1234";
 	private static final String PATH_SCRIPT = "./script/script.sql";
 
 	private Connection conn;
@@ -44,20 +43,17 @@ public class JDBCMySql {
 		return conn;
 	}
 
-	public static Connection abreConexao() throws SQLException {
+	public static Connection getConnection() throws SQLException {
 		Connection connection = null;
 
 		try {
 			Class.forName(DB_DRIVER);
-		} catch (ClassNotFoundException exception) {
-			logger.log(Level.SEVERE, exception.getMessage());
-		}
-
-		try {
 			connection = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
 			return connection;
 		} catch (SQLException exception) {
 			logger.log(Level.SEVERE, exception.getMessage());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 
 		return connection;

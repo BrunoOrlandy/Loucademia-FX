@@ -1,9 +1,25 @@
 package br.com.loucademia.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "usuario")
 public class Usuario {
+
+	@Id
+	@Column(name = "id_usuario", nullable = false)
 	private String id;
+
+	@Column(name = "nome", nullable = false)
 	private String nome;
+
+	@Column(name = "senha", nullable = false)
 	private String senha;
+
+	@Column(name = "login", nullable = false)
 	private String login;
 
 	public String getId() {
