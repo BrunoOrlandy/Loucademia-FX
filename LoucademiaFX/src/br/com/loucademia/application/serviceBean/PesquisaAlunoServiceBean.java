@@ -1,4 +1,4 @@
-package br.com.loucademia.interfaces.aluno;
+package br.com.loucademia.application.serviceBean;
 
 import java.util.List;
 import java.util.Map;
@@ -7,7 +7,7 @@ import br.com.loucademia.application.service.AlunoService;
 import br.com.loucademia.application.util.ValidationException;
 import br.com.loucademia.domain.aluno.Aluno;
 
-public class PesquisaAlunoBean {
+public class PesquisaAlunoServiceBean {
 
 	private AlunoService alunoService;
 

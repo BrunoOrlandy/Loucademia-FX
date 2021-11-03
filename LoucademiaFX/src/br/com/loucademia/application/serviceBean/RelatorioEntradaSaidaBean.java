@@ -1,4 +1,4 @@
-package br.com.loucademia.interfaces.relatorio;
+package br.com.loucademia.application.serviceBean;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import br.com.loucademia.application.service.AlunoService;
 import br.com.loucademia.application.util.StringUtils;
 import br.com.loucademia.application.util.ValidationException;
-import br.com.loucademia.domain.acesso.Acesso;
+import br.com.loucademia.domain.aluno.Acesso;
 
 public class RelatorioEntradaSaidaBean {
 

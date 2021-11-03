@@ -1,22 +1,24 @@
-package br.com.loucademia.model;
+package br.com.loucademia.domain.aluno;
 
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity(name = "usuario")
 @Table(name = "usuario")
 public class Usuario implements Serializable {
-
-    /**
-     * 
-     */
+//insert into usuario values(nextval('seq_usuario_id')  ,'a','administrador','a');
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario_gen")
+    @SequenceGenerator(name = "seq_usuario_gen", sequenceName = "seq_usuario_id")
     @Column(name = "id_usuario", nullable = false)
     private String id;
 

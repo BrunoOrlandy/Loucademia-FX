@@ -1,4 +1,4 @@
-package br.com.loucademia.domain.aluno;
+package br.com.loucademia.application.repositoryBean;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -11,22 +11,24 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import br.com.loucademia.domain.acesso.Acesso;
+import br.com.loucademia.application.repository.AlunoRepository;
+import br.com.loucademia.domain.aluno.Acesso;
+import br.com.loucademia.domain.aluno.Aluno;
 
-public class AlunoRepository {
+public class AlunoRepositoryBean implements AlunoRepository {
 
     private static AlunoRepository repsitory;
     protected EntityManager emf;
 
     public static AlunoRepository getInstance() {
 	if (repsitory == null) {
-	    repsitory = new AlunoRepository();
+	    repsitory = new AlunoRepositoryBean();
 	}
 
 	return repsitory;
     }
 
-    public AlunoRepository() {
+    public AlunoRepositoryBean() {
 	emf = getEntityManager();
     }
 
@@ -39,6 +41,7 @@ public class AlunoRepository {
 	return emf;
     }
 
+    @Override
     public void persist(Aluno aluno) throws SQLException {
 
 	try {
@@ -50,38 +53,31 @@ public class AlunoRepository {
 	    ex.printStackTrace();
 	    emf.getTransaction().rollback();
 	}
-//	Connection conection = jdbcConnection.getConnection();
-//	String sql = "INSERT INTO Aluno (NOME, SEXO, RG, dataNascimento, SITUACAO,EMAIL,TELEFONE) VALUES (?,?,?,?,?,?,?)";
-//
-//	PreparedStatement pStatement = conection.prepareStatement(sql);
-//	pStatement.setString(1, aluno.getNome());
-//	pStatement.setString(2, aluno.getSexo());
-//	pStatement.setInt(3, aluno.getRg());
-//	pStatement.setString(4, aluno.getDataNascimento().toString());
-//	pStatement.setString(5, aluno.getSituacao());
-//	pStatement.setString(6, aluno.getEmail());
-//	pStatement.setString(7, aluno.getTelefone());
-//
-//	pStatement.executeUpdate();
     }
 
+    @Override
     public void update(Aluno aluno) {
 	emf.merge(aluno);
     }
 
+    @Override
     public Aluno findById(String id) {
 	return emf.find(Aluno.class, Integer.valueOf(id));
     }
 
+    @Override
     public Aluno findByCPF(Integer cpf) throws SQLException {
 
 	Aluno aluno = new Aluno();
 	try {
-	    Query q = emf.createNativeQuery("SELECT a.nome FROM aluno a WHERE a.cpf = :cpf");
+	    Query q = emf.createQuery("SELECT a FROM Aluno a WHERE a.cpf = :cpf");
 	    q.setParameter("cpf", cpf);
-	    List<Aluno> result = q.getResultList();
-	    if (result.isEmpty() || result != null) {
-		return result.get(0);
+	    List<Aluno> alunoList = q.getResultList();
+
+	    if (!alunoList.isEmpty() || alunoList != null) {
+		for (Aluno a : alunoList) {
+		    aluno = a;
+		}
 	    }
 
 	} catch (NoResultException nre) {
@@ -89,19 +85,9 @@ public class AlunoRepository {
 	}
 
 	return aluno;
-	// boolean result = false;
-//
-//	Connection conection = jdbcConnection.getConnection();
-//	String sql = "SELECT nome FROM aluno WHERE rg = ?";
-//	PreparedStatement pStatement = conection.prepareStatement(sql);
-//	pStatement.setString(1, rg.toString());
-//	ResultSet rs = pStatement.executeQuery();
-//	result = rs.next();
-//	conection.close();
-//
-//	return result;
     }
 
+    @Override
     public void remove(Aluno aluno) {
 	try {
 	    emf.getTransaction().begin();
@@ -114,10 +100,12 @@ public class AlunoRepository {
 	}
     }
 
+    @Override
     public Aluno getById(String id) {
 	return emf.find(Aluno.class, id);
     }
 
+    @Override
     public void removeById(String id) {
 	try {
 	    Aluno aluno = getById(id);
@@ -127,6 +115,7 @@ public class AlunoRepository {
 	}
     }
 
+    @Override
     public List<Aluno> listAlunos(String matricula, String nome, Integer rg, Integer telefone) {
 
 //	StringBuilder jpql = new StringBuilder("SELECT a FROM Aluno a WHERE ");
@@ -173,6 +162,7 @@ public class AlunoRepository {
 	return new ArrayList<>();
     }
 
+    @Override
     public List<Aluno> listSituacoesAlunos(String situacao) {
 //	return em.createQuery("SELECT a FROM Aluno a WHERE a.situacao = :situacao ORDER BY a.nome", Aluno.class)
 //		.setParameter("situacao", situacao).getResultList();
@@ -180,6 +170,7 @@ public class AlunoRepository {
 
     }
 
+    @Override
     public List<Acesso> listAcessosAlunos(String matricula, LocalDate dataInicial, LocalDate dataFinal) {
 //	StringBuilder jpql = new StringBuilder("SELECT a FROM Acesso a WHERE ");
 //

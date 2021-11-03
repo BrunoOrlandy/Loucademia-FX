@@ -1,31 +1,32 @@
-package br.com.loucademia.application.service;
+package br.com.loucademia.application.repository;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
 import br.com.loucademia.domain.aluno.Acesso;
 import br.com.loucademia.domain.aluno.Aluno;
 
-public interface AlunoService {
+public interface AlunoRepository {
 
-    String validarAlunoESalvar(Aluno aluno);
+    void persist(Aluno aluno) throws SQLException;
 
-    Aluno buscarAlunoById(String id);
+    void update(Aluno aluno);
 
-    void createOrUpdate(Aluno aluno);
+    Aluno findById(String id);
 
-    void delete(String matricula);
+    Aluno findByCPF(Integer cpf) throws SQLException;
 
-    Aluno findByMatricula(String matricula);
+    void remove(Aluno aluno);
 
-    Aluno findByRG(Integer rg);
+    Aluno getById(String id);
+
+    void removeById(String id);
 
     List<Aluno> listAlunos(String matricula, String nome, Integer rg, Integer telefone);
 
     List<Aluno> listSituacoesAlunos(String situacao);
 
     List<Acesso> listAcessosAlunos(String matricula, LocalDate dataInicial, LocalDate dataFinal);
-
-    String gravar(Aluno aluno);
 
 }
