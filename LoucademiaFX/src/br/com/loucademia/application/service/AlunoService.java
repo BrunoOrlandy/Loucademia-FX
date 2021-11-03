@@ -15,16 +15,32 @@ public class AlunoService {
 
     private AlunoRepository alunoRepository = new AlunoRepository();
 
-    public Aluno buscarAlunoByMatricula(String matricula) {
+    public String validarAlunoESalvar(Aluno aluno) {
+	try {
+	    Aluno alunoEncontrado = alunoRepository.findByCPF(aluno.getCpf());
+
+	    if (alunoEncontrado != null) {
+		return "Aluno ja existe";
+	    } else {
+		gravar(aluno);
+		return "Aluno :" + aluno.getNome() + " gravado com sucesso;";
+	    }
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+	return "";
+    }
+
+    public Aluno buscarAlunoById(String id) {
 	Aluno aluno = new Aluno();
-	if (!StringUtils.isEmpty(matricula)) {
-	    aluno = alunoRepository.findByMatricula(matricula);
+	if (!StringUtils.isEmpty(id)) {
+	    aluno = alunoRepository.findById(id);
 	}
 	return aluno;
     }
 
     public void createOrUpdate(Aluno aluno) {
-	if (StringUtils.isEmpty(aluno.getMatricula())) {
+	if (aluno.getId() == null) {
 	    create(aluno);
 	} else {
 	    update(aluno);
@@ -33,35 +49,27 @@ public class AlunoService {
 
     private void create(Aluno aluno) {
 	try {
-	    Validation.assertionNotEmpty(aluno);
-	    alunoRepository.save(aluno);
+	    alunoRepository.persist(aluno);
 	} catch (SQLException e) {
 	    e.printStackTrace();
 	}
     }
 
     public void delete(String matricula) {
-	alunoRepository.delete(matricula);
+	alunoRepository.removeById(matricula);
     }
 
     private void update(Aluno aluno) {
-
 	Validation.assertionNotEmpty(aluno);
-	Validation.assertionNotEmpty(aluno.getMatricula());
 	alunoRepository.update(aluno);
     }
 
     public Aluno findByMatricula(String matricula) {
-	return alunoRepository.findByMatricula(matricula);
+	return alunoRepository.findById(matricula);
     }
 
     public Aluno findByRG(Integer rg) {
-	try {
-	    return alunoRepository.findByRG(rg);
-	} catch (SQLException e) {
-	    e.printStackTrace();
-	}
-	return null;
+	return alunoRepository.findById(rg.toString());
     }
 
     public List<Aluno> listAlunos(String matricula, String nome, Integer rg, Integer telefone) {
@@ -94,18 +102,4 @@ public class AlunoService {
 	return null;
     }
 
-    public String validarAlunoESalvar(Aluno aluno) {
-	try {
-	    boolean jaExiste = alunoRepository.existsByRG(aluno.getRg());
-	    if (jaExiste) {
-		return "Aluno ja existe";
-	    } else {
-		gravar(aluno);
-		return "Aluno :" + aluno.getNome() + " gravado com sucesso;";
-	    }
-	} catch (SQLException e) {
-	    e.printStackTrace();
-	}
-	return "";
-    }
 }

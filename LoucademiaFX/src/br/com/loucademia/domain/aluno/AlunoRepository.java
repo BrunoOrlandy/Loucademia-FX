@@ -1,90 +1,130 @@
 package br.com.loucademia.domain.aluno;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.loucademia.JDBCMySql;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
 import br.com.loucademia.domain.acesso.Acesso;
 
 public class AlunoRepository {
 
-    JDBCMySql jdbcConnection = new JDBCMySql();
+    private static AlunoRepository repsitory;
+    protected EntityManager emf;
 
-    public void save(Aluno aluno) throws SQLException {
-	Connection conection = jdbcConnection.getConnection();
-	String sql = "INSERT INTO Aluno (NOME, SEXO, RG, dataNascimento, SITUACAO,EMAIL,TELEFONE) VALUES (?,?,?,?,?,?,?)";
-	// ENDEREÇO
-	PreparedStatement pStatement = conection.prepareStatement(sql);
-	pStatement.setString(1, aluno.getNome());
-	pStatement.setString(2, aluno.getSexo());
-	pStatement.setInt(3, aluno.getRg());
-	pStatement.setString(4, aluno.getDataNascimento().toString());
-	pStatement.setString(5, aluno.getSituacao());
-	pStatement.setString(6, aluno.getEmail());
-	pStatement.setString(7, aluno.getTelefone());
+    public static AlunoRepository getInstance() {
+	if (repsitory == null) {
+	    repsitory = new AlunoRepository();
+	}
 
-	pStatement.executeUpdate();
+	return repsitory;
+    }
+
+    public AlunoRepository() {
+	emf = getEntityManager();
+    }
+
+    private EntityManager getEntityManager() {
+	EntityManagerFactory factory = Persistence.createEntityManagerFactory("loucademia");
+	if (emf == null) {
+	    emf = factory.createEntityManager();
+	}
+
+	return emf;
+    }
+
+    public void persist(Aluno aluno) throws SQLException {
+
+	try {
+	    emf.getTransaction().begin();
+	    emf.persist(aluno);
+	    emf.getTransaction().commit();
+	    emf.close();
+	} catch (Exception ex) {
+	    ex.printStackTrace();
+	    emf.getTransaction().rollback();
+	}
+//	Connection conection = jdbcConnection.getConnection();
+//	String sql = "INSERT INTO Aluno (NOME, SEXO, RG, dataNascimento, SITUACAO,EMAIL,TELEFONE) VALUES (?,?,?,?,?,?,?)";
+//
+//	PreparedStatement pStatement = conection.prepareStatement(sql);
+//	pStatement.setString(1, aluno.getNome());
+//	pStatement.setString(2, aluno.getSexo());
+//	pStatement.setInt(3, aluno.getRg());
+//	pStatement.setString(4, aluno.getDataNascimento().toString());
+//	pStatement.setString(5, aluno.getSituacao());
+//	pStatement.setString(6, aluno.getEmail());
+//	pStatement.setString(7, aluno.getTelefone());
+//
+//	pStatement.executeUpdate();
     }
 
     public void update(Aluno aluno) {
-//	em.merge(aluno);
+	emf.merge(aluno);
     }
 
-    public Aluno findByMatricula(String matricula) {
-//	return em.find(Aluno.class, matricula);
-
-	return null;
+    public Aluno findById(String id) {
+	return emf.find(Aluno.class, Integer.valueOf(id));
     }
 
-    public Aluno findByRG(Integer rg) throws SQLException {
-	Aluno result = null;
+    public Aluno findByCPF(Integer cpf) throws SQLException {
 
-	Connection conection = jdbcConnection.getConnection();
-	String sql = "SELECT nome FROM aluno WHERE rg = ?";
-	PreparedStatement pStatement = conection.prepareStatement(sql);
-	pStatement.setString(1, rg.toString());
-	ResultSet rs = pStatement.executeQuery();
-//	result = rs.next();
-	conection.close();
+	Aluno aluno = new Aluno();
+	try {
+	    Query q = emf.createNativeQuery("SELECT a.nome FROM aluno a WHERE a.cpf = :cpf");
+	    q.setParameter("cpf", cpf);
+	    List<Aluno> result = q.getResultList();
+	    if (result.isEmpty() || result != null) {
+		return result.get(0);
+	    }
 
-	return result;
-
-    }
-
-    public boolean existsByRG(Integer rg) throws SQLException {
-
-	boolean result = false;
-
-	Connection conection = jdbcConnection.getConnection();
-	String sql = "SELECT nome FROM aluno WHERE rg = ?";
-	PreparedStatement pStatement = conection.prepareStatement(sql);
-	pStatement.setString(1, rg.toString());
-	ResultSet rs = pStatement.executeQuery();
-	result = rs.next();
-	conection.close();
-
-	return result;
-    }
-
-    public void delete(String matricula) {
-	Aluno aluno = findByMatricula(matricula);
-
-	if (aluno != null) {
-//	    em.remove(aluno);
+	} catch (NoResultException nre) {
+	    return null;
 	}
 
+	return aluno;
+	// boolean result = false;
+//
+//	Connection conection = jdbcConnection.getConnection();
+//	String sql = "SELECT nome FROM aluno WHERE rg = ?";
+//	PreparedStatement pStatement = conection.prepareStatement(sql);
+//	pStatement.setString(1, rg.toString());
+//	ResultSet rs = pStatement.executeQuery();
+//	result = rs.next();
+//	conection.close();
+//
+//	return result;
     }
 
-    public String getMaxMatriculaAno() {
-	return "";
-//	em.
-//	return em.createQuery("SELECT MAX(a.matricula) FROM Aluno a WHERE a.matricula LIKE :ano", String.class)
-//		.setParameter("ano", Year.now() + "%").getSingleResult();
+    public void remove(Aluno aluno) {
+	try {
+	    emf.getTransaction().begin();
+	    aluno = emf.find(Aluno.class, aluno.getId());
+	    emf.remove(aluno);
+	    emf.getTransaction().commit();
+	} catch (Exception ex) {
+	    ex.printStackTrace();
+	    emf.getTransaction().rollback();
+	}
+    }
+
+    public Aluno getById(String id) {
+	return emf.find(Aluno.class, id);
+    }
+
+    public void removeById(String id) {
+	try {
+	    Aluno aluno = getById(id);
+	    remove(aluno);
+	} catch (Exception ex) {
+	    ex.printStackTrace();
+	}
     }
 
     public List<Aluno> listAlunos(String matricula, String nome, Integer rg, Integer telefone) {

@@ -71,7 +71,7 @@ public class AlunoController {
 		&& numericPhNumber) {
 
 	    aluno.setNome(nome.getText());
-	    aluno.setRg(Integer.valueOf(identidade.getText()));
+	    aluno.setCpf(Integer.valueOf(identidade.getText()));
 	    aluno.setDataNascimento(dataDeNascimento.getValue());
 	    aluno.getEndereco().setRua(rua.getText());
 	    aluno.getEndereco().setNumero(Integer.valueOf(numero.getText()));
@@ -85,15 +85,17 @@ public class AlunoController {
 
 	    String msgOperacao = service.validarAlunoESalvar(aluno);
 	    if (msgOperacao != null) {
-		Alert alert = new Alert(AlertType.WARNING);
+		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setContentText(msgOperacao);
 		alert.show();
 	    } else {
-
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setContentText("Aluno informado já existe");
 		alert.show();
 	    }
+
+//	    AlunoController alunoController = new AlunoController();
+	    aluno = new Aluno();
 
 	}
     }

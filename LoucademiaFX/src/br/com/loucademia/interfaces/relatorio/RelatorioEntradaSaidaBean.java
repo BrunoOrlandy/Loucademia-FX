@@ -3,13 +3,6 @@ package br.com.loucademia.interfaces.relatorio;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import br.com.loucademia.application.service.AlunoService;
 import br.com.loucademia.application.util.StringUtils;
 import br.com.loucademia.application.util.ValidationException;

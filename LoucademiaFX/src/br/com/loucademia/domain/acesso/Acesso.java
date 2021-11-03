@@ -27,7 +27,7 @@ public class Acesso implements Serializable {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "ALUNO_ID", nullable = false)
+	@JoinColumn(name = "id", nullable = false)
 	private Aluno aluno;
 
 	@Column(name = "ENTRADA", nullable = false)

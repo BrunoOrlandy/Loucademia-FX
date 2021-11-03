@@ -1,57 +1,64 @@
 package br.com.loucademia.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "usuario")
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario implements Serializable {
 
-	@Id
-	@Column(name = "id_usuario", nullable = false)
-	private String id;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Column(name = "nome", nullable = false)
-	private String nome;
+    @Id
+    @Column(name = "id_usuario", nullable = false)
+    private String id;
 
-	@Column(name = "senha", nullable = false)
-	private String senha;
+    @Column(name = "nome", nullable = false)
+    private String nome;
 
-	@Column(name = "login", nullable = false)
-	private String login;
+    @Column(name = "senha", nullable = false)
+    private String senha;
 
-	public String getId() {
-		return id;
-	}
+    @Column(name = "login", nullable = false)
+    private String login;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getId() {
+	return id;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public void setId(String id) {
+	this.id = id;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getNome() {
+	return nome;
+    }
 
-	public String getSenha() {
-		return senha;
-	}
+    public void setNome(String nome) {
+	this.nome = nome;
+    }
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+    public String getSenha() {
+	return senha;
+    }
 
-	public String getLogin() {
-		return login;
-	}
+    public void setSenha(String senha) {
+	this.senha = senha;
+    }
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    public String getLogin() {
+	return login;
+    }
+
+    public void setLogin(String login) {
+	this.login = login;
+    }
 
 }

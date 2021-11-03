@@ -24,9 +24,9 @@ public class AcessoService {
 
 	Aluno aluno;
 	if (StringUtils.isEmpty(matricula)) {
-	    aluno = alunoRepository.findByRG(rg);
+	    aluno = alunoRepository.findByCPF(rg);
 	} else {
-	    aluno = alunoRepository.findByMatricula(matricula);
+	    aluno = alunoRepository.findById(matricula);
 	}
 
 	if (aluno == null) {

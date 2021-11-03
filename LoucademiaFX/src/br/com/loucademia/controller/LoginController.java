@@ -30,20 +30,20 @@ public class LoginController {
 	LoginService service = new LoginService();
 	Alert alert = new Alert(AlertType.NONE);
 
-//	validarCamposPreenchidos(login, senha);
-//
-//	boolean usuarioExiste = service.existeUsuario(login.getText(), senha.getText());
-//
-//	if (usuarioExiste) {
-//	    alert.setAlertType(AlertType.INFORMATION);
-//	    alert.setContentText("Login realizado com sucesso");
-//	    alert.show();
+	validarCamposPreenchidos(login, senha);
+
+	boolean usuarioExiste = service.existeUsuario(login.getText(), senha.getText());
+
+	if (usuarioExiste) {
+	    alert.setAlertType(AlertType.INFORMATION);
+	    alert.setContentText("Login realizado com sucesso");
+	    alert.show();
 	    StartUp.changeScreen(NomeTelaEnum.MENU);
-//	} else {
-//	    alert.setAlertType(AlertType.WARNING);
-//	    alert.setContentText("login ou Senha invalidos");
-//	    alert.show();
-//	}
+	} else {
+	    alert.setAlertType(AlertType.WARNING);
+	    alert.setContentText("login ou Senha invalidos");
+	    alert.show();
+	}
     }
 
     @FXML

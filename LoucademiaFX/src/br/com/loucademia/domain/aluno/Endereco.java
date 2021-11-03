@@ -3,14 +3,25 @@ package br.com.loucademia.domain.aluno;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-@Embeddable
+@Entity
+@Table(name = "ENDERECO")
 public class Endereco implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_endereco_gen")
+    @SequenceGenerator(name = "seq_endereco_gen", sequenceName = "seq_endereco_id")
+    @Column(name = "ID", nullable = false)
+    private Integer id;
 
     @Column(name = "RUA", nullable = false, length = 128)
     private String rua;
@@ -24,11 +35,14 @@ public class Endereco implements Serializable {
     @Column(name = "CIDADE", nullable = false, length = 64)
     private String cidade;
 
-    @Column(name = "ESTADO_ID", nullable = false)
+    @Column(name = "ESTADO", nullable = false) // ESTADO AGORA É UMA ENUM
     private String estado;
 
     @Column(name = "CEP", nullable = false, length = 8)
     private Integer cep;
+
+    @OneToOne(mappedBy = "endereco")
+    private Aluno aluno;
 
     public String getRua() {
 	return rua;
@@ -76,6 +90,22 @@ public class Endereco implements Serializable {
 
     public void setCep(Integer cep) {
 	this.cep = cep;
+    }
+
+    public Integer getId() {
+	return id;
+    }
+
+    public void setId(Integer id) {
+	this.id = id;
+    }
+
+    public Aluno getAluno() {
+	return aluno;
+    }
+
+    public void setAluno(Aluno aluno) {
+	this.aluno = aluno;
     }
 
     @Override

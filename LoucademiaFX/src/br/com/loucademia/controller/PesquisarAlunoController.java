@@ -35,14 +35,12 @@ public class PesquisarAlunoController {
 		|| txtRG.getText() != null) {
 //
 	    Aluno alunoPesquisar = new Aluno();
-	    alunoPesquisar.setMatricula(txtMatricula.getText());
 	    alunoPesquisar.setNome(txtNome.getText());
-	    alunoPesquisar.setRg(Integer.valueOf(txtRG.getText()));
+	    alunoPesquisar.setCpf(Integer.valueOf(txtRG.getText()));
 	    alunoPesquisar.setTelefone(txtTelefone.getText());
 
-	    System.err.println(alunoPesquisar.getMatricula());
 	    System.err.println(alunoPesquisar.getNome());
-	    System.err.println(alunoPesquisar.getRg());
+	    System.err.println(alunoPesquisar.getCpf());
 	    System.err.println(alunoPesquisar.getTelefone());
 
 //	    // pesquisaService.buscarAlunos(alunoPesquisar);
