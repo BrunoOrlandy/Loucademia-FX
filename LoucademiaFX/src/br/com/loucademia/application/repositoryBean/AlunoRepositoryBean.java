@@ -10,8 +10,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import br.com.loucademia.application.repository.AlunoRepository;
+import br.com.loucademia.application.util.StringUtils;
 import br.com.loucademia.domain.aluno.Acesso;
 import br.com.loucademia.domain.aluno.Aluno;
 
@@ -207,5 +209,52 @@ public class AlunoRepositoryBean implements AlunoRepository {
 //	return q.getResultList();
 	return new ArrayList<>();
 
+    }
+
+    @Override
+    public List<Aluno> listAlunos(Aluno aluno) {
+
+	StringBuilder jpql = new StringBuilder("SELECT a FROM Aluno a WHERE 1 = 1 AND");
+	TypedQuery<Aluno> q = emf.createQuery(jpql.toString(), Aluno.class);
+
+	if (aluno.getId() != null) {
+	    jpql.append("a.id = :id AND ");
+	    q.setParameter("id", aluno.getId());
+	}
+
+	if (!StringUtils.isEmpty(aluno.getNome())) {
+	    jpql.append("a.nome LIKE :nome AND ");
+	    q.setParameter("nome", "%" + aluno.getNome() + "%");
+	}
+
+	if (aluno.getCpf() != null) {
+	    jpql.append("a.cpf = :cpf AND ");
+	    q.setParameter("cpf", aluno.getCpf());
+	}
+
+	if (aluno.getTelefone() != null) {
+	    jpql.append("(a.telefone LIKE :telefone AND");
+	    q.setParameter("telefone", aluno.getTelefone());
+	}
+
+//	jpql.append("1 = 1");
+
+//	if (!StringUtils.isEmpty(matricula)) {
+//	    q.setParameter("id", aluno.getId());
+//	}
+
+//	if (!StringUtils.isEmpty(nome)) {
+//	    q.setParameter("nome", "%" + nome + "%");
+//	}
+
+//	if (rg != null) {
+//	    q.setParameter("rg", rg);
+//	}
+
+//	if (telefone != null) {
+//	    q.setParameter("celular", telefone);
+//	    q.setParameter("fixo", telefone);
+//	}
+	return q.getResultList();
     }
 }

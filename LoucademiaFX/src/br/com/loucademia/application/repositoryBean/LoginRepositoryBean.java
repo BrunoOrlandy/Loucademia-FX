@@ -32,7 +32,7 @@ public class LoginRepositoryBean implements LoginRepository {
 
 	EntityManager emf = entityManager.getEntityManager();
 
-	Query q = emf.createQuery("SELECT u.login FROM usuario u WHERE u.login = :login AND u.senha = :senha");
+	Query q = emf.createQuery("SELECT u FROM usuario u WHERE u.login = :login AND u.senha = :senha");
 	q.setParameter("login", login);
 	q.setParameter("senha", senha);
 

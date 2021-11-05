@@ -25,6 +25,8 @@ public interface AlunoRepository {
 
     List<Aluno> listAlunos(String matricula, String nome, Integer rg, Integer telefone);
 
+    List<Aluno> listAlunos(Aluno aluno);
+
     List<Aluno> listSituacoesAlunos(String situacao);
 
     List<Acesso> listAcessosAlunos(String matricula, LocalDate dataInicial, LocalDate dataFinal);
