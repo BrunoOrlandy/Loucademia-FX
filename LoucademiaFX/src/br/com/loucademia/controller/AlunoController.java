@@ -1,6 +1,7 @@
 package br.com.loucademia.controller;
 
 import br.com.loucademia.application.service.AlunoService;
+import br.com.loucademia.application.serviceBean.AlunoServiceBean;
 import br.com.loucademia.application.util.DataValidation;
 import br.com.loucademia.domain.aluno.Aluno;
 import br.com.loucademia.domain.aluno.SexoEnum;
@@ -43,7 +44,7 @@ public class AlunoController {
     @FXML
     protected void btnSalvarAction(ActionEvent eventC) {
 
-	AlunoService service = new AlunoService();
+	AlunoService service = new AlunoServiceBean();
 
 	if (dataDeNascimento.getValue() == null) {
 	    dataDeNascimento.setStyle(ERROR_CSS);
@@ -71,7 +72,7 @@ public class AlunoController {
 		&& numericPhNumber) {
 
 	    aluno.setNome(nome.getText());
-	    aluno.setRg(Integer.valueOf(identidade.getText()));
+	    aluno.setCpf(Integer.valueOf(identidade.getText()));
 	    aluno.setDataNascimento(dataDeNascimento.getValue());
 	    aluno.getEndereco().setRua(rua.getText());
 	    aluno.getEndereco().setNumero(Integer.valueOf(numero.getText()));
@@ -84,12 +85,13 @@ public class AlunoController {
 	    aluno.setTelefone(telefoneCelular.getText());
 
 	    String msgOperacao = service.validarAlunoESalvar(aluno);
+
 	    if (msgOperacao != null) {
-		Alert alert = new Alert(AlertType.WARNING);
+		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setContentText(msgOperacao);
 		alert.show();
+		limparCamposPreenchidos();
 	    } else {
-
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setContentText("Aluno informado já existe");
 		alert.show();
@@ -113,6 +115,20 @@ public class AlunoController {
 	    aluno.setSituacao(SituacaoEnum.INATIVO.getId());
 	}
 
+    }
+
+    public void limparCamposPreenchidos() {
+	nome.clear();
+	identidade.clear();
+	rua.clear();
+	numero.clear();
+	estado.clear();
+	cidade.clear();
+	complemento.clear();
+	cep.clear();
+	email.clear();
+	telefoneCelular.clear();
+	dataDeNascimento.getEditor().clear();
     }
 
 }

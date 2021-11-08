@@ -1,4 +1,4 @@
-package br.com.loucademia.domain.acesso;
+package br.com.loucademia.domain.aluno;
 
 import java.io.Serializable;
 import java.time.Duration;
@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import br.com.loucademia.domain.aluno.Aluno;
+import br.com.loucademia.domain.acesso.TipoAcesso;
 
 @Entity
 @Table(name = "ENTRADAS_SAIDAS")
@@ -27,7 +27,7 @@ public class Acesso implements Serializable {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "ALUNO_ID", nullable = false)
+	@JoinColumn(name = "id", nullable = false)
 	private Aluno aluno;
 
 	@Column(name = "ENTRADA", nullable = false)

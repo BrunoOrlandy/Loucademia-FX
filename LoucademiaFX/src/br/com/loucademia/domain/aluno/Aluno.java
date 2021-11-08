@@ -2,24 +2,34 @@ package br.com.loucademia.domain.aluno;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Year;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import br.com.loucademia.application.util.StringUtils;
 
 @Entity
 @Table(name = "ALUNO")
 public class Aluno implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    public Aluno() {
+	endereco = new Endereco();
+    }
+
     @Id
-    @Column(name = "ID", nullable = false, length = 8)
-    private String matricula;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_aluno_gen")
+    @SequenceGenerator(name = "seq_aluno_gen", sequenceName = "seq_aluno_id")
+    @Column(name = "ID", nullable = false)
+    private Integer id;
 
     @Column(name = "NOME", nullable = false, length = 64)
     private String nome;
@@ -27,8 +37,8 @@ public class Aluno implements Serializable {
     @Column(name = "SEXO", nullable = false)
     private String sexo;
 
-    @Column(name = "RG", nullable = false, length = 10)
-    private Integer rg;
+    @Column(name = "CPF", nullable = false, length = 10)
+    private Integer cpf;
 
     @Column(name = "NASCIMENTO", nullable = false)
     private LocalDate dataNascimento;
@@ -39,33 +49,19 @@ public class Aluno implements Serializable {
     @Column(name = "EMAIL", nullable = true, length = 64)
     private String email;
 
-    @Embedded
-    private Endereco endereco = new Endereco();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "aluno_id", referencedColumnName = "id")
+    private Endereco endereco;
 
     @Column(name = "telefone", nullable = true, length = 11)
     private String telefone;
 
-    public void gerarMatricula(String maxMatricula) {
-
-	Year year = Year.now();
-
-	if (maxMatricula == null) {
-	    maxMatricula = year + StringUtils.leftZeroes(0, 4);
-	}
-
-	int sequential = Integer.parseInt(maxMatricula.substring(4));
-	sequential++;
-
-	this.matricula = year + StringUtils.leftZeroes(sequential, 4);
-
+    public Integer getId() {
+	return id;
     }
 
-    public String getMatricula() {
-	return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-	this.matricula = matricula;
+    public void setId(Integer id) {
+	this.id = id;
     }
 
     public String getNome() {
@@ -76,12 +72,12 @@ public class Aluno implements Serializable {
 	this.nome = nome;
     }
 
-    public Integer getRg() {
-	return rg;
+    public Integer getCpf() {
+	return cpf;
     }
 
-    public void setRg(Integer rg) {
-	this.rg = rg;
+    public void setCpf(Integer cpf) {
+	this.cpf = cpf;
     }
 
     public LocalDate getDataNascimento() {
@@ -135,14 +131,14 @@ public class Aluno implements Serializable {
     @Override
     public String toString() {
 	StringBuilder builder = new StringBuilder();
-	builder.append("Aluno [matricula=");
-	builder.append(matricula);
+	builder.append("Aluno [id=");
+	builder.append(id);
 	builder.append(", nome=");
 	builder.append(nome);
 	builder.append(", sexo=");
 	builder.append(sexo);
 	builder.append(", rg=");
-	builder.append(rg);
+	builder.append(cpf);
 	builder.append(", dataNascimento=");
 	builder.append(dataNascimento);
 	builder.append(", situacao=");
@@ -161,7 +157,7 @@ public class Aluno implements Serializable {
     public int hashCode() {
 	final int prime = 31;
 	int result = 1;
-	result = prime * result + ((matricula == null) ? 0 : matricula.hashCode());
+	result = prime * result + ((id == null) ? 0 : id.hashCode());
 	return result;
     }
 
@@ -174,10 +170,10 @@ public class Aluno implements Serializable {
 	if (getClass() != obj.getClass())
 	    return false;
 	Aluno other = (Aluno) obj;
-	if (matricula == null) {
-	    if (other.matricula != null)
+	if (id == null) {
+	    if (other.id != null)
 		return false;
-	} else if (!matricula.equals(other.matricula))
+	} else if (!id.equals(other.id))
 	    return false;
 	return true;
     }

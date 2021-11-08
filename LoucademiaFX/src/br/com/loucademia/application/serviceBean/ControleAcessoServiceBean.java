@@ -1,16 +1,16 @@
-package br.com.loucademia.domain.acesso;
+package br.com.loucademia.application.serviceBean;
 
 import java.io.Serializable;
 import java.sql.SQLException;
 
-import br.com.loucademia.application.service.AcessoService;
 import br.com.loucademia.application.util.ValidationException;
+import br.com.loucademia.domain.acesso.TipoAcesso;
 
-public class ControleAcessoBean implements Serializable {
+public class ControleAcessoServiceBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private AcessoService acessoService;
+    private AcessoServiceBean acessoService;
 
     private String matricula;
     private Integer rg;

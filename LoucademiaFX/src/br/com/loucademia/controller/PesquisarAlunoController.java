@@ -1,5 +1,6 @@
 package br.com.loucademia.controller;
 
+import br.com.loucademia.application.serviceBean.PesquisaAlunoServiceBean;
 import br.com.loucademia.application.util.DataValidation;
 import br.com.loucademia.domain.aluno.Aluno;
 import br.com.loucademia.domain.tela.NomeTelaEnum;
@@ -11,6 +12,8 @@ import javafx.scene.control.TextField;
 
 public class PesquisarAlunoController {
 
+    private PesquisaAlunoServiceBean pesquisaService;
+
     @FXML
     private TextField txtMatricula, txtNome, txtTelefone, txtRG;
 
@@ -19,8 +22,6 @@ public class PesquisarAlunoController {
 
     @FXML
     void btnPesquisar(ActionEvent event) {
-
-	// PesquisaService pesquisaService = new PesquisaService()
 
 //	boolean isValidNome = DataValidation.isName(txtNome, labelNome, "Nome incorreto! Informe apenas letras");
 //	boolean isValidTelefone = DataValidation.isTelefone(txtTelefone, labelTelefone,
@@ -34,18 +35,17 @@ public class PesquisarAlunoController {
 	if (txtMatricula.getText() != null || txtNome.getText() != null || txtTelefone.getText() != null
 		|| txtRG.getText() != null) {
 //
-	    Aluno alunoPesquisar = new Aluno();
-	    alunoPesquisar.setMatricula(txtMatricula.getText());
-	    alunoPesquisar.setNome(txtNome.getText());
-	    alunoPesquisar.setRg(Integer.valueOf(txtRG.getText()));
-	    alunoPesquisar.setTelefone(txtTelefone.getText());
+	    Aluno alunoPesquisa = new Aluno();
+	    alunoPesquisa.setNome(txtNome.getText());
+	    alunoPesquisa.setCpf(Integer.valueOf(txtRG.getText()));
+	    alunoPesquisa.setTelefone(txtTelefone.getText());
 
-	    System.err.println(alunoPesquisar.getMatricula());
-	    System.err.println(alunoPesquisar.getNome());
-	    System.err.println(alunoPesquisar.getRg());
-	    System.err.println(alunoPesquisar.getTelefone());
+	    System.err.println(alunoPesquisa.getNome());
+	    System.err.println(alunoPesquisa.getCpf());
+	    System.err.println(alunoPesquisa.getTelefone());
 
-//	    // pesquisaService.buscarAlunos(alunoPesquisar);
+	    pesquisaService.buscarAluno(alunoPesquisa);
+
 	}
     }
 

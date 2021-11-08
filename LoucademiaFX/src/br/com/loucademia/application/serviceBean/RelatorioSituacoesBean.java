@@ -1,4 +1,4 @@
-package br.com.loucademia.interfaces.relatorio;
+package br.com.loucademia.application.serviceBean;
 
 import java.io.Serializable;
 import java.util.List;

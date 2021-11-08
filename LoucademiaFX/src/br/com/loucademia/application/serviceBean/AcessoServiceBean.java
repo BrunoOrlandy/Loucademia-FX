@@ -1,16 +1,16 @@
-package br.com.loucademia.application.service;
+package br.com.loucademia.application.serviceBean;
 
 import java.sql.SQLException;
 
+import br.com.loucademia.application.repository.AcessoRepository;
+import br.com.loucademia.application.repository.AlunoRepository;
 import br.com.loucademia.application.util.StringUtils;
 import br.com.loucademia.application.util.ValidationException;
-import br.com.loucademia.domain.acesso.Acesso;
-import br.com.loucademia.domain.acesso.AcessoRepository;
 import br.com.loucademia.domain.acesso.TipoAcesso;
+import br.com.loucademia.domain.aluno.Acesso;
 import br.com.loucademia.domain.aluno.Aluno;
-import br.com.loucademia.domain.aluno.AlunoRepository;
 
-public class AcessoService {
+public class AcessoServiceBean {
 
     private AcessoRepository acessoRepository;
 
@@ -24,9 +24,9 @@ public class AcessoService {
 
 	Aluno aluno;
 	if (StringUtils.isEmpty(matricula)) {
-	    aluno = alunoRepository.findByRG(rg);
+	    aluno = alunoRepository.findByCPF(rg);
 	} else {
-	    aluno = alunoRepository.findByMatricula(matricula);
+	    aluno = alunoRepository.findById(matricula);
 	}
 
 	if (aluno == null) {

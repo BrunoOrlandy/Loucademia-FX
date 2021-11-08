@@ -1,6 +1,8 @@
 package br.com.loucademia.controller;
 
-import br.com.loucademia.application.service.LoginService;
+import java.sql.SQLException;
+
+import br.com.loucademia.application.serviceBean.LoginServiceBean;
 import br.com.loucademia.domain.tela.NomeTelaEnum;
 import br.com.loucademia.startUp.StartUp;
 import javafx.application.Platform;
@@ -27,23 +29,28 @@ public class LoginController {
 
     @FXML
     protected void btnLogarAction(ActionEvent event) {
-	LoginService service = new LoginService();
+	LoginServiceBean service = new LoginServiceBean();
 	Alert alert = new Alert(AlertType.NONE);
 
-//	validarCamposPreenchidos(login, senha);
-//
-//	boolean usuarioExiste = service.existeUsuario(login.getText(), senha.getText());
-//
-//	if (usuarioExiste) {
-//	    alert.setAlertType(AlertType.INFORMATION);
-//	    alert.setContentText("Login realizado com sucesso");
-//	    alert.show();
+	validarCamposPreenchidos(login, senha);
+	boolean usuarioExiste = false;
+	try {
+	    usuarioExiste = service.existeUsuario(login.getText(), senha.getText());
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+
+	if (usuarioExiste) {
+	    alert.setAlertType(AlertType.INFORMATION);
+	    alert.setContentText("Login realizado com sucesso");
+	    alert.show();
 	    StartUp.changeScreen(NomeTelaEnum.MENU);
-//	} else {
-//	    alert.setAlertType(AlertType.WARNING);
-//	    alert.setContentText("login ou Senha invalidos");
-//	    alert.show();
-//	}
+	} else {
+	    alert.setAlertType(AlertType.WARNING);
+	    alert.setContentText("Login ou Senha invalidos");
+	    alert.show();
+	    limparCampos();
+	}
     }
 
     @FXML
@@ -59,5 +66,11 @@ public class LoginController {
 	if (senha.getText().isBlank()) {
 	    senha.setStyle(ERROR_CSS);
 	}
+    }
+
+    public void limparCampos() {
+	login.clear();
+	senha.clear();
+
     }
 }
