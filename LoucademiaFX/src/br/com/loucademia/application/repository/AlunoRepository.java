@@ -23,7 +23,7 @@ public interface AlunoRepository {
 
     void removeById(String id);
 
-    List<Aluno> listAlunos(String matricula, String nome, Integer rg, Integer telefone);
+    List<Aluno> listAlunos(Integer matricula, String nome, Integer cpf, String telefone);
 
     List<Aluno> listAlunos(Aluno aluno);
 

@@ -20,7 +20,7 @@ public interface AlunoService {
 
     Aluno findByRG(Integer rg);
 
-    List<Aluno> listAlunos(String matricula, String nome, Integer rg, Integer telefone);
+    List<Aluno> listAlunos(Integer matricula, String nome, Integer rg, String telefone);
 
     List<Aluno> listSituacoesAlunos(String situacao);
 

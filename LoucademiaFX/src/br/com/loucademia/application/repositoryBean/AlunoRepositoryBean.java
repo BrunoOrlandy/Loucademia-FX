@@ -118,50 +118,49 @@ public class AlunoRepositoryBean implements AlunoRepository {
     }
 
     @Override
-    public List<Aluno> listAlunos(String matricula, String nome, Integer rg, Integer telefone) {
+    public List<Aluno> listAlunos(Integer matricula, String nome, Integer cpf, String telefone) {
 
-//	StringBuilder jpql = new StringBuilder("SELECT a FROM Aluno a WHERE ");
-//
-//	if (!StringUtils.isEmpty(matricula)) {
-//	    jpql.append("a.matricula = :matricula AND ");
-//	}
-//
-//	if (!StringUtils.isEmpty(nome)) {
-//	    jpql.append("a.nome LIKE :nome AND ");
-//	}
-//
-//	if (rg != null) {
-//	    jpql.append("a.rg = :rg AND ");
-//	}
-//
-//	if (telefone != null) {
-//	    jpql.append("(a.telefone.numeroCelular LIKE :celular OR a.telefone.numeroFixo LIKE :fixo) AND ");
-//	}
-//
-//	// A query vai terminar com '1 = 1'. Forma simples utilizando a tabela verdade
-//	// sem precisar tirar o AND da String.
-//	jpql.append("1 = 1");
-//	TypedQuery<Aluno> q = em.createQuery(jpql.toString(), Aluno.class);
-//
-//	if (!StringUtils.isEmpty(matricula)) {
-//	    q.setParameter("matricula", matricula);
-//	}
-//
-//	if (!StringUtils.isEmpty(nome)) {
-//	    q.setParameter("nome", "%" + nome + "%");
-//	}
-//
-//	if (rg != null) {
-//	    q.setParameter("rg", rg);
-//	}
-//
-//	if (telefone != null) {
-//	    q.setParameter("celular", telefone);
-//	    q.setParameter("fixo", telefone);
-//	}
-//
-//	return q.getResultList();
-	return new ArrayList<>();
+	StringBuilder jpql = new StringBuilder("SELECT a FROM Aluno a WHERE ");
+
+	if (matricula != null) {
+	    jpql.append("a.id = :id OR ");
+	}
+
+	if (!StringUtils.isEmpty(nome)) {
+	    jpql.append("a.nome LIKE :nome OR ");
+	}
+
+	if (cpf != null) {
+	    jpql.append("a.cpf = :cpf OR ");
+	}
+
+	if (!StringUtils.isEmpty(telefone)) {
+	    jpql.append("a.telefone LIKE :telefone");
+	}
+
+	// A query vai terminar com '1 = 1'. Forma simples utilizando a tabela verdade
+	// sem precisar tirar o AND da String.
+	jpql.append("1 = 1");
+	TypedQuery<Aluno> q = emf.createQuery(jpql.toString(), Aluno.class);
+
+	if (matricula != null) {
+	    q.setParameter("matricula", matricula);
+	}
+
+	if (!StringUtils.isEmpty(nome)) {
+	    q.setParameter("nome", "%" + nome + "%");
+	}
+
+	if (cpf != null) {
+	    q.setParameter("cpf", cpf);
+	}
+
+	if (telefone != null) {
+	    q.setParameter("telefone", telefone);
+	}
+
+	return q.getResultList();
+//	return new ArrayList<>();
     }
 
     @Override
@@ -214,47 +213,42 @@ public class AlunoRepositoryBean implements AlunoRepository {
     @Override
     public List<Aluno> listAlunos(Aluno aluno) {
 
-	StringBuilder jpql = new StringBuilder("SELECT a FROM Aluno a WHERE 1 = 1 AND");
-	TypedQuery<Aluno> q = emf.createQuery(jpql.toString(), Aluno.class);
+	StringBuilder jpql = new StringBuilder("SELECT a FROM Aluno a WHERE 1 = 1");
 
 	if (aluno.getId() != null) {
-	    jpql.append("a.id = :id AND ");
+	    jpql.append("AND a.id = :id");
+	}
+
+	if (!StringUtils.isEmpty(aluno.getNome())) {
+	    jpql.append("AND a.nome LIKE :nome");
+	}
+
+	if (aluno.getCpf() != null) {
+	    jpql.append("AND  a.cpf = :cpf");
+	}
+
+	if (aluno.getTelefone() != null) {
+	    jpql.append("(AND a.telefone LIKE :telefone");
+	}
+
+	Query q = emf.createQuery(jpql.toString());
+
+	if (aluno.getId() != null) {
 	    q.setParameter("id", aluno.getId());
 	}
 
 	if (!StringUtils.isEmpty(aluno.getNome())) {
-	    jpql.append("a.nome LIKE :nome AND ");
 	    q.setParameter("nome", "%" + aluno.getNome() + "%");
 	}
 
 	if (aluno.getCpf() != null) {
-	    jpql.append("a.cpf = :cpf AND ");
 	    q.setParameter("cpf", aluno.getCpf());
 	}
 
 	if (aluno.getTelefone() != null) {
-	    jpql.append("(a.telefone LIKE :telefone AND");
 	    q.setParameter("telefone", aluno.getTelefone());
 	}
 
-//	jpql.append("1 = 1");
-
-//	if (!StringUtils.isEmpty(matricula)) {
-//	    q.setParameter("id", aluno.getId());
-//	}
-
-//	if (!StringUtils.isEmpty(nome)) {
-//	    q.setParameter("nome", "%" + nome + "%");
-//	}
-
-//	if (rg != null) {
-//	    q.setParameter("rg", rg);
-//	}
-
-//	if (telefone != null) {
-//	    q.setParameter("celular", telefone);
-//	    q.setParameter("fixo", telefone);
-//	}
 	return q.getResultList();
     }
 }

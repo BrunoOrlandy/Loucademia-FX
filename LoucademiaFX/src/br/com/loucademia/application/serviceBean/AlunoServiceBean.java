@@ -82,9 +82,9 @@ public class AlunoServiceBean implements AlunoService {
     }
 
     @Override
-    public List<Aluno> listAlunos(String matricula, String nome, Integer rg, Integer telefone) {
+    public List<Aluno> listAlunos(Integer matricula, String nome, Integer rg, String telefone) {
 
-	if (StringUtils.isEmpty(matricula) && StringUtils.isEmpty(nome) && rg == null && telefone == null) {
+	if (matricula != null && StringUtils.isEmpty(nome) && rg == null && StringUtils.isEmpty(telefone)) {
 	    throw new ValidationException("Pelo menos um criterio de pesquisa deve ser fornecido");
 	}
 
