@@ -14,7 +14,7 @@ public class AcessoRepository {
 			return em
 					.createQuery("SELECT a FROM Acesso a WHERE a.aluno.matricula = :matricula ORDER by a.id DESC",
 							Acesso.class)
-					.setParameter("matricula", aluno.getMatricula()).setMaxResults(1).getSingleResult();
+					.setParameter("matricula", aluno.getId()).setMaxResults(1).getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}

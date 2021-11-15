@@ -22,7 +22,7 @@ public class AlunoRepository {
 	PreparedStatement pStatement = conection.prepareStatement(sql);
 	pStatement.setString(1, aluno.getNome());
 	pStatement.setString(2, aluno.getSexo());
-	pStatement.setInt(3, aluno.getRg());
+	pStatement.setInt(3, aluno.getCpf());
 	pStatement.setString(4, aluno.getDataNascimento().toString());
 	pStatement.setString(5, aluno.getSituacao());
 	pStatement.setString(6, aluno.getEmail());
