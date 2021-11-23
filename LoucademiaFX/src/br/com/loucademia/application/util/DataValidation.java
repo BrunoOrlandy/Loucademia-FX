@@ -1,5 +1,6 @@
 package br.com.loucademia.application.util;
 
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -93,6 +94,7 @@ public class DataValidation {
 
 	return isNumero;
     }
+
     public static boolean isTelefone(TextField inputTextField, Label inputLabel, String validationText) {
 	boolean isNumero = true;
 
@@ -115,26 +117,6 @@ public class DataValidation {
     }
 
     // Método que valida o campo referene ao estado
-    public static boolean isEstado(TextField inputTextField, Label inputLabel, String validationText) {
-	boolean isEstado = true;
-
-	if (inputTextField.getText().length() == 0) {
-	    isEstado = false;
-	    showDinamico(inputTextField, inputLabel, isEstado);
-
-	} else if (EstadoEnum.fromSigla(inputTextField.getText())) {
-	    isEstado = false;
-	    inputLabel.setText(validationText);
-	    showDinamico(inputTextField, inputLabel, isEstado);
-
-	} else {
-	    isEstado = true;
-	    inputLabel.setText("Estado");
-	    showDinamico(inputTextField, inputLabel, isEstado);
-	}
-
-	return isEstado;
-    }
 
     // Método que valida o campo da cidade
     public static boolean isCidade(TextField inputTextField, Label inputLabel, String validationText) {
@@ -217,7 +199,6 @@ public class DataValidation {
 
     }
 
-    // Altera design do menu conforme valida��es de forma din�mica
     private static void showDinamico(TextField inputTextField, Label inputLabel, boolean validation) {
 
 	if (!validation) {
@@ -229,7 +210,19 @@ public class DataValidation {
 	    inputLabel.setTextFill(Color.BLACK);
 	}
     }
-    
+
+    private static void showDinamico(ChoiceBox<String> choiseBox, Label inputLabel, boolean validation) {
+
+	if (!validation) {
+	    choiseBox.setStyle("-fx-border-color: red ; -fx-border-width: 1px;");
+	    inputLabel.setTextFill(Color.RED);
+
+	} else {
+	    choiseBox.setStyle(null);
+	    inputLabel.setTextFill(Color.BLACK);
+	}
+    }
+
     public static boolean isCep(TextField inputTextField, Label inputLabel, String validationText) {
 	boolean isNumeric = true;
 
@@ -250,27 +243,88 @@ public class DataValidation {
 
 	return isNumeric;
     }
-    
- // Método que valida o campo da identidade
-    public static boolean isRg(TextField inputTextField, Label inputLabel, String validationText) {
-	boolean isRG = true;
+
+    // Método que valida o campo da identidade
+    public static boolean isCPF(TextField inputTextField, Label inputLabel, String validationText) {
+	boolean isCPF = true;
 
 	if (inputTextField.getText().length() == 0) {
-	    isRG = false;
-	    showDinamico(inputTextField, inputLabel, isRG);
+	    isCPF = false;
+	    showDinamico(inputTextField, inputLabel, isCPF);
 
 	} else if (!inputTextField.getText().matches("[0-9]+")) {
-	    isRG = false;
+	    isCPF = false;
 	    inputLabel.setText(validationText);
-	    showDinamico(inputTextField, inputLabel, isRG);
+	    showDinamico(inputTextField, inputLabel, isCPF);
 
 	} else {
-	    isRG = true;
-	    inputLabel.setText("RG");
-	    showDinamico(inputTextField, inputLabel, isRG);
+	    isCPF = true;
+	    inputLabel.setText("CPF");
+	    showDinamico(inputTextField, inputLabel, isCPF);
 	}
 
-	return isRG;
+	return isCPF;
+    }
+
+    public static boolean isIntegerValid(TextField inputTextField, Label inputLabel, String validationText,
+	    String fieldName) {
+	boolean isNumeric = true;
+
+	if (inputTextField.getText().length() == 0) {
+	    isNumeric = false;
+	    showDinamico(inputTextField, inputLabel, isNumeric);
+
+	} else if (!inputTextField.getText().matches("[0-9]+")) {
+	    isNumeric = false;
+	    inputLabel.setText(validationText);
+	    showDinamico(inputTextField, inputLabel, isNumeric);
+
+	} else {
+	    isNumeric = true;
+	    inputLabel.setText(fieldName);
+	    showDinamico(inputTextField, inputLabel, isNumeric);
+	}
+
+	return isNumeric;
+
+    }
+
+    public static boolean isStringValid(TextField inputTextField, Label inputLabel, String validationText,
+	    String fieldName) {
+
+	boolean isString = true;
+
+	if (inputTextField.getText().length() == 0) {
+	    isString = false;
+	    showDinamico(inputTextField, inputLabel, isString);
+
+	} else if (!inputTextField.getText().matches("[a-z A-Z]+")) {
+	    isString = false;
+	    inputLabel.setText(validationText);
+	    showDinamico(inputTextField, inputLabel, isString);
+
+	} else {
+	    isString = true;
+	    inputLabel.setText(fieldName);
+	    showDinamico(inputTextField, inputLabel, isString);
+	}
+
+	return isString;
+
+    }
+
+    public static boolean isEstado(ChoiceBox<String> choiseEstado, Label labelEstado, String string) {
+	boolean isEstadoInformado = true;
+	if (choiseEstado.getValue() == null) {
+	    isEstadoInformado = false;
+	    showDinamico(choiseEstado, labelEstado, isEstadoInformado);
+	} else {
+	    isEstadoInformado = true;
+	    labelEstado.setText("Estado");
+	    showDinamico(choiseEstado, labelEstado, isEstadoInformado);
+	}
+
+	return isEstadoInformado;
     }
 
 }

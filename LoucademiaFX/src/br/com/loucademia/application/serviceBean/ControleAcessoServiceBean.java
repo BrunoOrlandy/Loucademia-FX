@@ -13,7 +13,7 @@ public class ControleAcessoServiceBean implements Serializable {
     private AcessoServiceBean acessoService;
 
     private String matricula;
-    private Integer rg;
+    private String rg;
 
     public String registrarAcesso() {
 
@@ -47,11 +47,12 @@ public class ControleAcessoServiceBean implements Serializable {
 	this.matricula = matricula;
     }
 
-    public Integer getRg() {
+    public String getRg() {
 	return rg;
     }
 
-    public void setRg(Integer rg) {
+    public void setRg(String rg) {
 	this.rg = rg;
     }
+
 }

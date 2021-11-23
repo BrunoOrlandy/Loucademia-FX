@@ -19,25 +19,34 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <TextField fx:id="txtMatricula" layoutX="42.0" layoutY="49.0" prefHeight="34.0" prefWidth="215.0" />
-            <TextField fx:id="txtNome" layoutX="297.0" layoutY="49.0" prefHeight="34.0" prefWidth="285.0" />
-            <TextField fx:id="txtTelefone" layoutX="42.0" layoutY="107.0" prefHeight="34.0" prefWidth="215.0" />
-            <TextField fx:id="txtRG" layoutX="297.0" layoutY="106.0" prefHeight="34.0" prefWidth="285.0" />
-            <Label fx:id="labelMatricula" layoutX="44.0" layoutY="32.0" text="Matricula" />
-            <Label fx:id="labelRg" layoutX="298.0" layoutY="89.0" text="Rg" />
-            <Label fx:id="labelTelefone" layoutX="43.0" layoutY="89.0" text="Telefone" />
-            <Label fx:id="labelNome" layoutX="299.0" layoutY="32.0" text="Nome" />
-            <TableView fx:id="tabela" layoutX="41.0" layoutY="190.0" prefHeight="271.0" prefWidth="540.0">
+            <TextField fx:id="txtMatricula" layoutX="42.0" layoutY="63.0" prefHeight="34.0" prefWidth="215.0" />
+            <TextField fx:id="txtNome" layoutX="297.0" layoutY="63.0" prefHeight="34.0" prefWidth="285.0" />
+            <TextField fx:id="txtTelefone" layoutX="42.0" layoutY="121.0" prefHeight="34.0" prefWidth="215.0" />
+            <TextField fx:id="txtCPF" layoutX="297.0" layoutY="120.0" prefHeight="34.0" prefWidth="285.0" />
+            <Label fx:id="labelMatricula" layoutX="44.0" layoutY="46.0" text="Matricula" />
+            <Label fx:id="labelCPF" layoutX="298.0" layoutY="103.0" text="CPF" />
+            <Label fx:id="labelTelefone" layoutX="43.0" layoutY="103.0" text="Telefone" />
+            <Label fx:id="labelNome" layoutX="299.0" layoutY="46.0" text="Nome" />
+            <TableView fx:id="tabela"  layoutX="41.0" layoutY="200.0" prefHeight="271.0" prefWidth="540.0" editable="true">
               <columns>
                 <TableColumn fx:id="matriculaColumn" prefWidth="77.0" text="Matricula" />
                 <TableColumn fx:id="nomeColumn" prefWidth="154.0" text="Nome" />
                 <TableColumn fx:id="cpfColumn" prefWidth="172.0" text="cpf" />
                 <TableColumn fx:id="telefoneColumn" minWidth="4.0" prefWidth="135.0" text="Telefone" />
+                <TableColumn fx:id="enderecoCol" minWidth="4.0" prefWidth="135.0" text="Endereço">
+                	<columns>
+	                <TableColumn fx:id="numeroColumn"  minWidth="4.0" prefWidth="135.0" text="Numero" />
+	                <TableColumn fx:id="complementoColumn" minWidth="4.0" prefWidth="135.0" text="complemento" />
+	                <TableColumn fx:id="cidadeColumn" minWidth="4.0" prefWidth="135.0" text="Cidade" />
+	                <TableColumn fx:id="estadoColumn" minWidth="4.0" prefWidth="135.0" text="Estado" />
+	                <TableColumn fx:id="cepColumn" minWidth="4.0" prefWidth="135.0" text="CEP" />
+	                </columns>
+                </TableColumn>
               </columns>
             </TableView>
-          <Button layoutX="506.0" layoutY="154.0" minWidth="55.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="25.0" prefWidth="76.0" text="Voltar" />
-            <Button layoutX="42.0" layoutY="154.0" minWidth="55.0" mnemonicParsing="false" onAction="#btnPesquisar" prefHeight="25.0" prefWidth="76.0" text="Pesquisar" />
-            <Button layoutX="150.0" layoutY="154.0" minWidth="55.0" mnemonicParsing="false" onAction="#btnEditar" prefHeight="25.0" prefWidth="76.0" text="Editar" />
+          <Button layoutX="42.0" layoutY="12.0" minWidth="55.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="25.0" prefWidth="76.0" text="Voltar" />
+            <Button layoutX="42.0" layoutY="166.0" minWidth="55.0" mnemonicParsing="false" onAction="#btnPesquisar" prefHeight="25.0" prefWidth="76.0" text="Pesquisar" />
+            <Button layoutX="249.0" layoutY="166.0" mnemonicParsing="false" prefHeight="25.0" onAction="#btnLimpar" prefWidth="76.0" text="Limpar" />
          </children>
       </Pane>
    </children>

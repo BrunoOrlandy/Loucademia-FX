@@ -68,7 +68,7 @@ public class AlunoRepositoryBean implements AlunoRepository {
     }
 
     @Override
-    public Aluno findByCPF(Integer cpf) throws SQLException {
+    public Aluno findByCPF(String cpf) throws SQLException {
 
 	Aluno aluno = new Aluno();
 	try {
@@ -220,7 +220,7 @@ public class AlunoRepositoryBean implements AlunoRepository {
 	}
 
 	if (!StringUtils.isEmpty(aluno.getNome())) {
-	    jpql.append("AND a.nome LIKE :nome");
+	    jpql.append("AND UPPER(a.nome) LIKE :nome");
 	}
 
 	if (aluno.getCpf() != null) {
@@ -228,7 +228,7 @@ public class AlunoRepositoryBean implements AlunoRepository {
 	}
 
 	if (aluno.getTelefone() != null) {
-	    jpql.append("(AND a.telefone LIKE :telefone");
+	    jpql.append(" AND a.telefone LIKE :telefone");
 	}
 
 	Query q = emf.createQuery(jpql.toString());
@@ -238,7 +238,7 @@ public class AlunoRepositoryBean implements AlunoRepository {
 	}
 
 	if (!StringUtils.isEmpty(aluno.getNome())) {
-	    q.setParameter("nome", "%" + aluno.getNome() + "%");
+	    q.setParameter("nome", "%" + aluno.getNome().toUpperCase() + "%");
 	}
 
 	if (aluno.getCpf() != null) {
@@ -246,7 +246,7 @@ public class AlunoRepositoryBean implements AlunoRepository {
 	}
 
 	if (aluno.getTelefone() != null) {
-	    q.setParameter("telefone", aluno.getTelefone());
+	    q.setParameter("telefone", "%" + aluno.getTelefone() + "%");
 	}
 
 	return q.getResultList();

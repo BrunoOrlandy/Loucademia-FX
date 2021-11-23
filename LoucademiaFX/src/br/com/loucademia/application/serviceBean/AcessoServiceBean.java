@@ -16,7 +16,7 @@ public class AcessoServiceBean {
 
     private AlunoRepository alunoRepository;
 
-    public TipoAcesso registrarAcesso(String matricula, Integer rg) throws SQLException {
+    public TipoAcesso registrarAcesso(String matricula, String rg) throws SQLException {
 
 	if (StringUtils.isEmpty(matricula) && rg == null) {
 	    throw new ValidationException("� preciso fornecer a matr�cula ou o RG do aluno");

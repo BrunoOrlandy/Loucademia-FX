@@ -1,5 +1,9 @@
 package br.com.loucademia.domain.aluno;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public enum EstadoEnum {
 
     AMAZONAS("Amazonas", "AM", "Manaus"), ALAGOAS("Alagoas", "AL", "Maceió"), ACRE("Acre", "AC", "Rio Branco"),
@@ -52,6 +56,15 @@ public enum EstadoEnum {
 	}
 
 	throw new IllegalArgumentException(capital);
+    }
+
+    public static List<String> getSiglasEstados() {
+	List<String> siglaEstados = new ArrayList<String>();
+	for (final EstadoEnum uf : EstadoEnum.values()) {
+	    siglaEstados.add(uf.sigla);
+	}
+	return siglaEstados;
+
     }
 
     public String sigla() {

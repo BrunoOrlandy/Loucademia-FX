@@ -16,6 +16,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+import com.sun.istack.Nullable;
+
 @Entity
 @Table(name = "ALUNO")
 public class Aluno implements Serializable {
@@ -34,23 +37,23 @@ public class Aluno implements Serializable {
     @Column(name = "NOME", nullable = false, length = 64)
     private String nome;
 
-    @Column(name = "SEXO", nullable = false)
+    @Column(name = "SEXO", nullable = true)
     private String sexo;
 
     @Column(name = "CPF", nullable = false, length = 10)
-    private Integer cpf;
+    private String cpf;
 
     @Column(name = "NASCIMENTO", nullable = false)
     private LocalDate dataNascimento;
 
-    @Column(name = "SITUACAO", nullable = false)
+    @Column(name = "SITUACAO", nullable = true)
     private String situacao;
 
     @Column(name = "EMAIL", nullable = true, length = 64)
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "aluno_id", referencedColumnName = "id")
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     private Endereco endereco;
 
     @Column(name = "telefone", nullable = true, length = 11)
@@ -72,11 +75,11 @@ public class Aluno implements Serializable {
 	this.nome = nome;
     }
 
-    public Integer getCpf() {
+    public String getCpf() {
 	return cpf;
     }
 
-    public void setCpf(Integer cpf) {
+    public void setCpf(String cpf) {
 	this.cpf = cpf;
     }
 

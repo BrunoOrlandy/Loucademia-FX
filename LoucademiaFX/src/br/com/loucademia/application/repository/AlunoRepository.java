@@ -15,7 +15,7 @@ public interface AlunoRepository {
 
     Aluno findById(String id);
 
-    Aluno findByCPF(Integer cpf) throws SQLException;
+    Aluno findByCPF(String cpf) throws SQLException;
 
     void remove(Aluno aluno);
 

@@ -19,23 +19,37 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.IntegerStringConverter;
 
 public class PesquisarAlunoController {
 
     @FXML
-    private TextField txtMatricula, txtNome, txtTelefone, txtRG;
+    private TextField txtMatricula, txtNome, txtTelefone, txtCPF;
 
     @FXML
-    private Label labelMatricula, labelNome, labelTelefone, labelRg;
+    private Label labelMatricula, labelNome, labelTelefone, labelCPF;
 
     @FXML
     private TableColumn<Aluno, Integer> matriculaColumn;
     @FXML
     private TableColumn<Aluno, String> nomeColumn;
     @FXML
-    private TableColumn<Aluno, Integer> cpfColumn;
+    private TableColumn<Aluno, String> cpfColumn;
+    @FXML
+    private TableColumn<Aluno, String> ruaColumn;
     @FXML
     private TableColumn<Aluno, String> telefoneColumn;
+    @FXML
+    private TableColumn<Aluno, Integer> numeroColumn;
+    @FXML
+    private TableColumn<Aluno, String> complementoColumn;
+    @FXML
+    private TableColumn<Aluno, String> cidadeColumn;
+    @FXML
+    private TableColumn<Aluno, String> estadoColumn;
+    @FXML
+    private TableColumn<Aluno, Integer> cepColumn;
 
     @FXML
     private TableView<Aluno> tabela;
@@ -46,14 +60,7 @@ public class PesquisarAlunoController {
 	Aluno alunoPesquisa = new Aluno();
 	PesquisaAlunoServiceBean serviceBean = new PesquisaAlunoServiceBean();
 
-//	boolean isValidNome = DataValidation.isName(txtNome, labelNome, "Nome incorreto! Informe apenas letras");
-//	boolean isValidTelefone = DataValidation.isTelefone(txtTelefone, labelTelefone,
-//		"Telefone incorreto! Informe apenas Numeros");
-//	boolean isValidMatricula = DataValidation.isRg(txtRG, labelRg, "Rg incorreto! Informe apenas Numeros");
-
-//	if (StringUtils.isEmpty(txtRG.getText())) {
-//	    boolean isValidRG = DataValidation.isIdentidade(txtRG, labelRg, "Rg incorreto! Informe apenas números");
-//	}
+	validarCamposPrenchidosCorretamente();
 
 	if (!StringUtils.isEmpty(txtMatricula.getText())) {
 	    alunoPesquisa.setId(Integer.valueOf(txtMatricula.getText()));
@@ -67,14 +74,21 @@ public class PesquisarAlunoController {
 	    alunoPesquisa.setTelefone(txtTelefone.getText());
 	}
 
-	if (!StringUtils.isEmpty(txtRG.getText())) {
-	    alunoPesquisa.setCpf(Integer.valueOf(txtRG.getText()));
+	if (!StringUtils.isEmpty(txtCPF.getText())) {
+	    alunoPesquisa.setCpf(txtCPF.getText());
 	}
 
 	matriculaColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 	nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
 	cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
 	telefoneColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+
+	nomeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+//	cpfColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+	telefoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+	cpfColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+//	nomeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+//	nomeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
 	List<Aluno> alunosEncontrado = serviceBean.buscarAluno(alunoPesquisa);
 	if (!alunosEncontrado.isEmpty()) {
@@ -83,6 +97,7 @@ public class PesquisarAlunoController {
 	    Alert alert = new Alert(AlertType.INFORMATION);
 	    alert.setContentText("Não foram encotrados alunos partir dos dados informados");
 	    alert.show();
+	    limparCampos();
 	}
 
 	tabela.getSelectionModel().selectedItemProperty()
@@ -90,8 +105,25 @@ public class PesquisarAlunoController {
 
     }
 
-    private ObservableList<Aluno> listaDeAlunos(List<Aluno> alunosList) {
-	return FXCollections.observableList(alunosList);
+    private void validarCamposPrenchidosCorretamente() {
+	boolean isValidTelefone, isValidMatricula, isValidCPF, isNomeValido = false;
+
+	if (!StringUtils.isEmpty(txtMatricula.getText())) {
+	    isValidMatricula = DataValidation.isIntegerValid(txtMatricula, labelMatricula, "Informe apenas Numeros",
+		    "Matricula");
+	}
+
+	if (!StringUtils.isEmpty(txtNome.getText())) {
+	    isNomeValido = DataValidation.isStringValid(txtNome, labelNome, " Informe apenas letras", "Nome");
+	}
+
+	if (!StringUtils.isEmpty(txtTelefone.getText())) {
+	    isValidTelefone = DataValidation.isTelefone(txtTelefone, labelTelefone, "Informe apenas Numeros");
+	}
+
+	if (!StringUtils.isEmpty(txtCPF.getText())) {
+	    isValidCPF = DataValidation.isCPF(txtCPF, labelCPF, "Informe apenas números");
+	}
     }
 
     @FXML
@@ -99,14 +131,26 @@ public class PesquisarAlunoController {
 	StartUp.changeScreen(NomeTelaEnum.MENU);
     }
 
-    public void onSelectItemDataTable(Aluno aluno) {
-	System.err.println(aluno.getNome());
+    @FXML
+    void btnLimpar(ActionEvent event) {
+	limparCampos();
     }
 
-    @FXML
-    void btnEditar(ActionEvent event) {
-	Aluno aluno = tabela.getSelectionModel().getSelectedItem();
-	//chamar Edição
+    public void onSelectItemDataTable(Aluno aluno) {
+	System.err.println(aluno.getNome());
+
+    }
+
+    private ObservableList<Aluno> listaDeAlunos(List<Aluno> alunosList) {
+	return FXCollections.observableList(alunosList);
+    }
+
+    private void limparCampos() {
+	txtMatricula.clear();
+	txtNome.clear();
+	txtTelefone.clear();
+	txtCPF.clear();
+	tabela.getItems().clear();
     }
 
 }
