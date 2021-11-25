@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="481.0" prefWidth="623.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.loucademia.controller.PesquisarAlunoController">
+   <children>
+      <Pane layoutX="-1.0" prefHeight="481.0" prefWidth="623.0">
+         <children>
+            <Text layoutX="249.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pesquisar aluno">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="txtMatricula" layoutX="42.0" layoutY="63.0" prefHeight="34.0" prefWidth="215.0" />
+            <TextField fx:id="txtNome" layoutX="297.0" layoutY="63.0" prefHeight="34.0" prefWidth="285.0" />
+            <TextField fx:id="txtTelefone" layoutX="42.0" layoutY="121.0" prefHeight="34.0" prefWidth="215.0" />
+            <TextField fx:id="txtCPF" layoutX="297.0" layoutY="120.0" prefHeight="34.0" prefWidth="285.0" />
+            <Label fx:id="labelMatricula" layoutX="44.0" layoutY="46.0" text="Matricula" />
+            <Label fx:id="labelCPF" layoutX="298.0" layoutY="103.0" text="CPF" />
+            <Label fx:id="labelTelefone" layoutX="43.0" layoutY="103.0" text="Telefone" />
+            <Label fx:id="labelNome" layoutX="299.0" layoutY="46.0" text="Nome" />
+            <TableView fx:id="tabela"  layoutX="41.0" layoutY="200.0" prefHeight="271.0" prefWidth="540.0" editable="true">
+              <columns>
+                <TableColumn fx:id="matriculaColumn" prefWidth="77.0" text="Matricula" />
+                <TableColumn fx:id="nomeColumn" prefWidth="154.0" text="Nome" />
+                <TableColumn fx:id="cpfColumn" prefWidth="172.0" text="cpf" />
+                <TableColumn fx:id="telefoneColumn" minWidth="4.0" prefWidth="135.0" text="Telefone" />
+                <TableColumn fx:id="enderecoCol" minWidth="4.0" prefWidth="135.0" text="Endereço">
+                	<columns>
+	                <TableColumn fx:id="numeroColumn"  minWidth="4.0" prefWidth="135.0" text="Numero" />
+	                <TableColumn fx:id="complementoColumn" minWidth="4.0" prefWidth="135.0" text="complemento" />
+	                <TableColumn fx:id="cidadeColumn" minWidth="4.0" prefWidth="135.0" text="Cidade" />
+	                <TableColumn fx:id="estadoColumn" minWidth="4.0" prefWidth="135.0" text="Estado" />
+	                <TableColumn fx:id="cepColumn" minWidth="4.0" prefWidth="135.0" text="CEP" />
+	                </columns>
+                </TableColumn>
+              </columns>
+            </TableView>
+          <Button layoutX="42.0" layoutY="12.0" minWidth="55.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="25.0" prefWidth="76.0" text="Voltar" />
+            <Button layoutX="42.0" layoutY="166.0" minWidth="55.0" mnemonicParsing="false" onAction="#btnPesquisar" prefHeight="25.0" prefWidth="76.0" text="Pesquisar" />
+            <Button layoutX="249.0" layoutY="166.0" mnemonicParsing="false" prefHeight="25.0" onAction="#btnLimpar" prefWidth="76.0" text="Limpar" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
