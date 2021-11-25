@@ -13,24 +13,23 @@ import br.com.loucademia.domain.aluno.Aluno;
 public class AcessoServiceBean {
 
     private AcessoRepository acessoRepository;
-
     private AlunoRepository alunoRepository;
 
-    public TipoAcesso registrarAcesso(String matricula, String rg) throws SQLException {
+    public TipoAcesso registrarAcesso(Integer id, String cpf) throws SQLException {
 
-	if (StringUtils.isEmpty(matricula) && rg == null) {
-	    throw new ValidationException("� preciso fornecer a matr�cula ou o RG do aluno");
+	if (id != null && cpf == null) {
+	    throw new ValidationException("Necessario informar a matricula ou cpf");
 	}
 
 	Aluno aluno;
-	if (StringUtils.isEmpty(matricula)) {
-	    aluno = alunoRepository.findByCPF(rg);
+	if (id != null) {
+	    aluno = alunoRepository.findByCPF(cpf);
 	} else {
-	    aluno = alunoRepository.findById(matricula);
+	    aluno = alunoRepository.findById(id);
 	}
 
 	if (aluno == null) {
-	    throw new ValidationException("O aluno n�o foi encontrado");
+	    throw new ValidationException("O aluno não foi encontrado");
 	}
 
 	Acesso ultimoAcesso = acessoRepository.findUltimoAcesso(aluno);

@@ -67,7 +67,7 @@ public class AlunoController implements Initializable {
 	if (dataDeNascimento.getValue() == null) {
 	    dataDeNascimento.setStyle(ERROR_CSS);
 	} else {
-	    System.out.println(dataDeNascimento.getValue());
+	    System.out.println(dataDeNascimento.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 	    dataDeNascimento.setStyle(null);
 	}
 
@@ -154,6 +154,7 @@ public class AlunoController implements Initializable {
     }
 
     public boolean isCamposPreenchidosCorretamente() {
+
 	boolean alphabetName = DataValidation.isName(nome, labelNome, "Nome incorreto! Informe apenas letras");
 	boolean identidadeValition = DataValidation.isIdentidade(identidade, labelIdentidade,
 		"Letras não são permitidas");
@@ -166,6 +167,8 @@ public class AlunoController implements Initializable {
 	boolean numericPhNumber = DataValidation.isPhone(telefoneCelular, labelTelefoneCelular,
 		"Informe números de 0 - 9");
 	boolean cepValidation = DataValidation.isCep(cep, labelCidade, "Informe apenas números");
+
+	boolean dataNascimento = dataDeNascimento.getValue() != null;
 
 	return alphabetName && identidadeValition && ruaValidation && numeroValidation && cidadeValidation
 		&& cidadeValidation && cepValidation && estadoValidation && emailValidation && numericPhNumber;

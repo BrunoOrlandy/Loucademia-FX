@@ -63,12 +63,12 @@ public class AlunoRepositoryBean implements AlunoRepository {
     }
 
     @Override
-    public Aluno findById(String id) {
-	return emf.find(Aluno.class, Integer.valueOf(id));
+    public Aluno findById(Integer id) {
+	return emf.find(Aluno.class, id);
     }
 
     @Override
-    public Aluno findByCPF(String cpf) throws SQLException {
+    public Aluno findByCPF(String cpf) {
 
 	Aluno aluno = new Aluno();
 	try {
@@ -103,12 +103,12 @@ public class AlunoRepositoryBean implements AlunoRepository {
     }
 
     @Override
-    public Aluno getById(String id) {
+    public Aluno getById(Integer id) {
 	return emf.find(Aluno.class, id);
     }
 
     @Override
-    public void removeById(String id) {
+    public void removeById(Integer id) {
 	try {
 	    Aluno aluno = getById(id);
 	    remove(aluno);

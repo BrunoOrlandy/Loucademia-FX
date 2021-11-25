@@ -21,9 +21,9 @@ public class PesquisaAlunoServiceBean implements PesquisaAlunoService {
 	return null;
     }
 
-    public String excluir(String matricula) {
+    public String excluir(Integer id) {
 
-	alunoRepository.removeById(matricula);
+	alunoRepository.removeById(id);
 	return "Excluido com sucesso";
     }
 

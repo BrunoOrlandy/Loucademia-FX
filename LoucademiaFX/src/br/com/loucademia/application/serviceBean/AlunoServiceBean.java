@@ -19,26 +19,24 @@ public class AlunoServiceBean implements AlunoService {
 
     @Override
     public String validarAlunoESalvar(Aluno aluno) {
-	try {
-	    Aluno alunoEncontrado = alunoRepository.findByCPF(aluno.getCpf());
-	    if (alunoEncontrado != null) {
-		if (alunoEncontrado.getCpf() == aluno.getCpf()) {
-		    return "Aluno ja existe";
-		} else {
-		    gravar(aluno);
-		    return "Aluno :" + aluno.getNome() + " gravado com sucesso;";
-		}
+
+	Aluno alunoEncontrado = alunoRepository.findByCPF(aluno.getCpf());
+	if (alunoEncontrado != null) {
+	    if (alunoEncontrado.getCpf() == aluno.getCpf()) {
+		return "Aluno ja existe";
+	    } else {
+		gravar(aluno);
+		return "Aluno :" + aluno.getNome() + " gravado com sucesso;";
 	    }
-	} catch (SQLException e) {
-	    e.printStackTrace();
 	}
+
 	return "";
     }
 
     @Override
-    public Aluno buscarAlunoById(String id) {
+    public Aluno buscarAlunoById(Integer id) {
 	Aluno aluno = new Aluno();
-	if (!StringUtils.isEmpty(id)) {
+	if (id != null) {
 	    aluno = alunoRepository.findById(id);
 	}
 	return aluno;
@@ -62,8 +60,8 @@ public class AlunoServiceBean implements AlunoService {
     }
 
     @Override
-    public void delete(String matricula) {
-	alunoRepository.removeById(matricula);
+    public void deleteById(Integer id) {
+	alunoRepository.removeById(id);
     }
 
     private void update(Aluno aluno) {
@@ -72,13 +70,8 @@ public class AlunoServiceBean implements AlunoService {
     }
 
     @Override
-    public Aluno findByMatricula(String matricula) {
-	return alunoRepository.findById(matricula);
-    }
-
-    @Override
-    public Aluno findByRG(Integer rg) {
-	return alunoRepository.findById(rg.toString());
+    public Aluno findByCPF(String cpf) {
+	return alunoRepository.findByCPF(cpf);
     }
 
     @Override
@@ -113,6 +106,11 @@ public class AlunoServiceBean implements AlunoService {
 	System.out.println("Registro Salvo");
 
 	return null;
+    }
+
+    @Override
+    public void deletarAluno(Aluno aluno) {
+	alunoRepository.remove(aluno);
     }
 
 }

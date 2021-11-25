@@ -10,15 +10,15 @@ public interface AlunoService {
 
     String validarAlunoESalvar(Aluno aluno);
 
-    Aluno buscarAlunoById(String id);
+    Aluno buscarAlunoById(Integer id);
 
     void createOrUpdate(Aluno aluno);
 
-    void delete(String matricula);
+    void deleteById(Integer id);
 
-    Aluno findByMatricula(String matricula);
+    void deletarAluno(Aluno aluno);
 
-    Aluno findByRG(Integer rg);
+    Aluno findByCPF(String cpf);
 
     List<Aluno> listAlunos(Integer matricula, String nome, Integer rg, String telefone);
 
