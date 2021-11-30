@@ -8,23 +8,24 @@ import br.com.loucademia.domain.aluno.Aluno;
 
 public interface AlunoService {
 
-	String validarAlunoESalvar(Aluno aluno);
-	
-	Aluno buscarAlunoById(Integer id);
-	
-	void createOrUpdate(Aluno aluno);
-	
-	void delete(String matricula);
-	
-	Aluno findById(Integer id);
-	
-	Aluno findByRG(Integer rg);
-	
-	List<Aluno> listAlunos(Integer matricula, String nome, Integer rg, String telefone);
-	
-	List<Aluno> listSituacoesAlunos(String situacao);
-	
-	List<Acesso> listAcessosAlunos(String matricula, LocalDate dataInicial, LocalDate dataFinal);
-	
-	String gravar(Aluno aluno);
+    String validarAlunoESalvar(Aluno aluno);
+
+    Aluno buscarAlunoById(Integer id);
+
+    void createOrUpdate(Aluno aluno);
+
+    void deleteById(Integer id);
+
+    void deletarAluno(Aluno aluno);
+
+    Aluno findByCPF(String cpf);
+
+    List<Aluno> listAlunos(Integer matricula, String nome, Integer rg, String telefone);
+
+    List<Aluno> listSituacoesAlunos(String situacao);
+
+    List<Acesso> listAcessosAlunos(String matricula, LocalDate dataInicial, LocalDate dataFinal);
+
+    String gravar(Aluno aluno);
+
 }

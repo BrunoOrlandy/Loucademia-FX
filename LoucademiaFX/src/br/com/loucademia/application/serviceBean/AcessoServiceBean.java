@@ -13,38 +13,37 @@ import br.com.loucademia.domain.aluno.Aluno;
 public class AcessoServiceBean {
 
     private AcessoRepository acessoRepository;
-
     private AlunoRepository alunoRepository;
 
     public TipoAcesso registrarAcesso(Integer id, String cpf) throws SQLException {
 
-	if (id == null && cpf == null) {
-	    throw new ValidationException("E preciso fornecer a matricula ou o cpf do aluno");
-	}
-
-	Aluno aluno;
-	if (id == null) {
-	    aluno = alunoRepository.findByCPF(cpf);
-	} else {
-	    aluno = alunoRepository.findById(id);
-	}
-
-	if (aluno == null) {
-	    throw new ValidationException("O aluno n�o foi encontrado");
-	}
-
-	Acesso ultimoAcesso = acessoRepository.findUltimoAcesso(aluno);
-	TipoAcesso tipoAcesso;
-
-	if (ultimoAcesso == null || ultimoAcesso.isEntradaSaidaPrenchidas()) {
-	    ultimoAcesso = new Acesso();
-	    ultimoAcesso.setAluno(aluno);
-	    tipoAcesso = ultimoAcesso.registrarAcesso();
-	    acessoRepository.store(ultimoAcesso);
-	} else {
-	    tipoAcesso = ultimoAcesso.registrarAcesso();
-	}
-
-	return tipoAcesso;
+		if (id != null && cpf == null) {
+		    throw new ValidationException("Necessario informar a matricula ou cpf");
+		}
+	
+		Aluno aluno;
+		if (id != null) {
+		    aluno = alunoRepository.findByCPF(cpf);
+		} else {
+		    aluno = alunoRepository.findById(id);
+		}
+	
+		if (aluno == null) {
+		    throw new ValidationException("O aluno não foi encontrado");
+		}
+	
+		Acesso ultimoAcesso = acessoRepository.findUltimoAcesso(aluno);
+		TipoAcesso tipoAcesso;
+	
+		if (ultimoAcesso == null || ultimoAcesso.isEntradaSaidaPrenchidas()) {
+		    ultimoAcesso = new Acesso();
+		    ultimoAcesso.setAluno(aluno);
+		    tipoAcesso = ultimoAcesso.registrarAcesso();
+		    acessoRepository.store(ultimoAcesso);
+		} else {
+		    tipoAcesso = ultimoAcesso.registrarAcesso();
+		}
+	
+		return tipoAcesso;
     }
 }

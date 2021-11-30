@@ -27,7 +27,7 @@ public class Acesso implements Serializable {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "ALUNO_ID", nullable = false)
     private Aluno aluno;
 
     @Column(name = "ENTRADA", nullable = false)
@@ -37,94 +37,94 @@ public class Acesso implements Serializable {
     private LocalDateTime saida;
 
     public boolean isEntradaSaidaPrenchidas() {
-	if (entrada != null && saida != null) {
-	    return true;
-	}
-
-	return false;
+		if (entrada != null && saida != null) {
+		    return true;
+		}
+	
+		return false;
     }
 
     public TipoAcesso registrarAcesso() {
-	LocalDateTime now = LocalDateTime.now();
-
-	TipoAcesso tipoAcesso;
-
-	if (entrada == null) {
-	    entrada = now;
-	    tipoAcesso = TipoAcesso.ENTRADA;
-	} else if (saida == null) {
-	    saida = now;
-	    tipoAcesso = TipoAcesso.SAIDA;
-	} else {
-	    tipoAcesso = null;
-	}
-
-	return tipoAcesso;
+		LocalDateTime now = LocalDateTime.now();
+	
+		TipoAcesso tipoAcesso;
+	
+		if (entrada == null) {
+		    entrada = now;
+		    tipoAcesso = TipoAcesso.ENTRADA;
+		} else if (saida == null) {
+		    saida = now;
+		    tipoAcesso = TipoAcesso.SAIDA;
+		} else {
+		    tipoAcesso = null;
+		}
+	
+		return tipoAcesso;
     }
 
     public String calcularDuracao() {
-	if (entrada == null || saida == null) {
-	    return null;
+		if (entrada == null || saida == null) {
+		    return null;
 	}
 
 	Duration d = Duration.between(entrada, saida);
-	return String.format("%02d:%02d", d.toHoursPart(), d.toMinutesPart());
+		return String.format("%02d:%02d", d.toHoursPart(), d.toMinutesPart());
     }
 
     public Integer getId() {
-	return id;
+    	return id;
     }
 
     public void setId(Integer id) {
-	this.id = id;
+    	this.id = id;
     }
 
     public Aluno getAluno() {
-	return aluno;
+    	return aluno;
     }
 
     public void setAluno(Aluno aluno) {
-	this.aluno = aluno;
+    	this.aluno = aluno;
     }
 
     public LocalDateTime getEntrada() {
-	return entrada;
+    	return entrada;
     }
 
     public void setEntrada(LocalDateTime entrada) {
-	this.entrada = entrada;
+    	this.entrada = entrada;
     }
 
     public LocalDateTime getSaida() {
-	return saida;
+    	return saida;
     }
 
     public void setSaida(LocalDateTime saida) {
-	this.saida = saida;
+    	this.saida = saida;
     }
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((id == null) ? 0 : id.hashCode());
-	return result;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Acesso other = (Acesso) obj;
-	if (id == null) {
-	    if (other.id != null)
-		return false;
-	} else if (!id.equals(other.id))
-	    return false;
-	return true;
+		if (this == obj)
+		    return true;
+		if (obj == null)
+		    return false;
+		if (getClass() != obj.getClass())
+		    return false;
+		Acesso other = (Acesso) obj;
+		if (id == null) {
+		    if (other.id != null)
+			return false;
+		} else if (!id.equals(other.id))
+		    return false;
+		return true;
     }
 }

@@ -19,26 +19,24 @@ public class AlunoServiceBean implements AlunoService {
 
     @Override
     public String validarAlunoESalvar(Aluno aluno) {
-	try {
-	    Aluno alunoEncontrado = alunoRepository.findByCPF(aluno.getCpf());
-	    if (alunoEncontrado != null) {
-		if (alunoEncontrado.getCpf() == aluno.getCpf()) {
-		    return "Aluno ja existe";
-		} else {
-		    gravar(aluno);
-		    return "Aluno :" + aluno.getNome() + " gravado com sucesso;";
+
+		Aluno alunoEncontrado = alunoRepository.findByCPF(aluno.getCpf());
+		if (alunoEncontrado != null) {
+		    if (alunoEncontrado.getCpf() == aluno.getCpf()) {
+				return "Aluno ja existe";
+			    } else {
+				gravar(aluno);
+				return "Aluno :" + aluno.getNome() + " gravado com sucesso;";
+		    }
 		}
-	    }
-	} catch (SQLException e) {
-	    e.printStackTrace();
-	}
-	return "";
+	
+		return "";
     }
 
     @Override
     public Aluno buscarAlunoById(Integer id) {
-		Aluno aluno = new Aluno();
-		if (id == null) {
+	Aluno aluno = new Aluno();
+		if (id != null) {
 		    aluno = alunoRepository.findById(id);
 		}
 		return aluno;
@@ -46,49 +44,44 @@ public class AlunoServiceBean implements AlunoService {
 
     @Override
     public void createOrUpdate(Aluno aluno) {
-	if (aluno.getId() == null) {
-	    create(aluno);
-	} else {
-	    update(aluno);
-	}
+		if (aluno.getId() == null) {
+		    create(aluno);
+		} else {
+		    update(aluno);
+		}
     }
 
     private void create(Aluno aluno) {
-	try {
-	    alunoRepository.persist(aluno);
-	} catch (SQLException e) {
-	    e.printStackTrace();
-	}
+		try {
+		    alunoRepository.persist(aluno);
+		} catch (SQLException e) {
+		    e.printStackTrace();
+		}
     }
 
     @Override
-    public void delete(String id) {
-	alunoRepository.removeById(id);
+    public void deleteById(Integer id) {
+    	alunoRepository.removeById(id);
     }
 
     private void update(Aluno aluno) {
-	Validation.assertionNotEmpty(aluno);
-	alunoRepository.update(aluno);
+		Validation.assertionNotEmpty(aluno);
+		alunoRepository.update(aluno);
     }
 
     @Override
-    public Aluno findById(Integer id) {
-    	return alunoRepository.findById(id);
+    public Aluno findByCPF(String cpf) {
+		return alunoRepository.findByCPF(cpf);
     }
 
     @Override
-    public Aluno findByRG(Integer rg) {
-    	return alunoRepository.findById(rg);
-    }
+    public List<Aluno> listAlunos(Integer matricula, String nome, Integer rg, String telefone) {
 
-    @Override
-    public List<Aluno> listAlunos(Integer id, String nome, Integer rg, String telefone) {
-
-	if (id != null && StringUtils.isEmpty(nome) && rg == null && StringUtils.isEmpty(telefone)) {
-	    throw new ValidationException("Pelo menos um criterio de pesquisa deve ser fornecido");
-	}
-
-	return alunoRepository.listAlunos(id, nome, rg, telefone);
+		if (matricula != null && StringUtils.isEmpty(nome) && rg == null && StringUtils.isEmpty(telefone)) {
+		    throw new ValidationException("Pelo menos um criterio de pesquisa deve ser fornecido");
+		}
+	
+		return alunoRepository.listAlunos(matricula, nome, rg, telefone);
     }
 
     @Override
@@ -98,12 +91,12 @@ public class AlunoServiceBean implements AlunoService {
     }
 
     @Override
-    public List<Acesso> listAcessosAlunos(String id, LocalDate dataInicial, LocalDate dataFinal) {
-		if (StringUtils.isEmpty(id) && dataInicial == null && dataFinal == null) {
+    public List<Acesso> listAcessosAlunos(String matricula, LocalDate dataInicial, LocalDate dataFinal) {
+		if (StringUtils.isEmpty(matricula) && dataInicial == null && dataFinal == null) {
 		    throw new ValidationException("Pelo menos um criterio de pesquisa deve ser fornecido");
-		}
-	
-		return alunoRepository.listAcessosAlunos(id, dataInicial, dataFinal);
+	}
+
+	return alunoRepository.listAcessosAlunos(matricula, dataInicial, dataFinal);
     }
 
     @Override
@@ -111,7 +104,13 @@ public class AlunoServiceBean implements AlunoService {
 
 		createOrUpdate(aluno);
 		System.out.println("Registro Salvo");
-	
+
 		return null;
     }
+
+    @Override
+    public void deletarAluno(Aluno aluno) {
+    	alunoRepository.remove(aluno);
+    }
+
 }

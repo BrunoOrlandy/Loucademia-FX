@@ -15,13 +15,13 @@ public interface AlunoRepository {
 
     Aluno findById(Integer id);
 
-    Aluno findByCPF(String cpf) throws SQLException;
+    Aluno findByCPF(String cpf);
 
     void remove(Aluno aluno);
 
-    Aluno getById(String id);
+    Aluno getById(Integer id);
 
-    void removeById(String id);
+    void removeById(Integer id);
 
     List<Aluno> listAlunos(Integer matricula, String nome, Integer cpf, String telefone);
 

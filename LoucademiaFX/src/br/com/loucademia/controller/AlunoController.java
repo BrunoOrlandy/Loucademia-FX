@@ -55,8 +55,8 @@ public class AlunoController implements Initializable {
 
     @FXML
     protected void btnVoltar(ActionEvent eventC) {
-		limparCamposPreenchidos();
-		StartUp.changeScreen(NomeTelaEnum.MENU);
+	limparCamposPreenchidos();
+	StartUp.changeScreen(NomeTelaEnum.MENU);
     }
 
     @FXML
@@ -67,7 +67,7 @@ public class AlunoController implements Initializable {
 	if (dataDeNascimento.getValue() == null) {
 	    dataDeNascimento.setStyle(ERROR_CSS);
 	} else {
-	    System.out.println(dataDeNascimento.getValue());
+	    System.out.println(dataDeNascimento.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 	    dataDeNascimento.setStyle(null);
 	}
 
@@ -91,83 +91,87 @@ public class AlunoController implements Initializable {
 	    String msgOperacao = service.validarAlunoESalvar(aluno);
 
 	    if (msgOperacao != null) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setContentText(msgOperacao);
-			alert.show();
-			limparCamposPreenchidos();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setContentText(msgOperacao);
+		alert.show();
+		limparCamposPreenchidos();
 	    } else {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setContentText("Aluno informado já existe");
-			alert.show();
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setContentText("Aluno informado já existe");
+		alert.show();
 	    }
 
 	}
     }
 
     public void getSexo(ActionEvent e) {
-		if (rbMasculino.isSelected()) {
-		    aluno.setSexo(SexoEnum.MASCULINO.getId());
-		} else if (rbFeminino.isSelected()) {
-		    aluno.setSexo(SexoEnum.FEMININO.getId());
-		}
+	if (rbMasculino.isSelected()) {
+	    aluno.setSexo(SexoEnum.MASCULINO.getId());
+	} else if (rbFeminino.isSelected()) {
+	    aluno.setSexo(SexoEnum.FEMININO.getId());
+	}
     }
 
     public void getSituacao(ActionEvent e) {
-		if (rbAtivo.isSelected()) {
-		    aluno.setSituacao(SituacaoEnum.ATIVO.getId());
-		} else if (rbInativo.isSelected()) {
-		    aluno.setSituacao(SituacaoEnum.INATIVO.getId());
-		}
+	if (rbAtivo.isSelected()) {
+	    aluno.setSituacao(SituacaoEnum.ATIVO.getId());
+	} else if (rbInativo.isSelected()) {
+	    aluno.setSituacao(SituacaoEnum.INATIVO.getId());
+	}
+
     }
 
     public void limparCamposPreenchidos() {
-		nome.clear();
-		identidade.clear();
-		rua.clear();
-		numero.clear();
-		choiseEstado.setValue(null);
-		cidade.clear();
-		complemento.clear();
-		cep.clear();
-		email.clear();
-		telefoneCelular.clear();
-		dataDeNascimento.getEditor().clear();
+	nome.clear();
+	identidade.clear();
+	rua.clear();
+	numero.clear();
+	choiseEstado.setValue(null);
+	cidade.clear();
+	complemento.clear();
+	cep.clear();
+	email.clear();
+	telefoneCelular.clear();
+	dataDeNascimento.getEditor().clear();
     }
 
     private ObservableList<String> listaEstadoEnums() {
-    	return FXCollections.observableList(EstadoEnum.getSiglasEstados());
+	return FXCollections.observableList(EstadoEnum.getSiglasEstados());
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-		choiseEstado.getItems().addAll(listaEstadoEnums());
-		choiseEstado.setOnAction(this::getEstado);
-		getSexo(null);
-		getSituacao(null);
+	choiseEstado.getItems().addAll(listaEstadoEnums());
+	choiseEstado.setOnAction(this::getEstado);
+	getSexo(null);
+	getSituacao(null);
 
     }
 
     public void getEstado(ActionEvent e) {
-		String sigla = choiseEstado.getValue();
-		aluno.getEndereco().setEstado(sigla);
+	String sigla = choiseEstado.getValue();
+	aluno.getEndereco().setEstado(sigla);
     }
 
     public boolean isCamposPreenchidosCorretamente() {
-		boolean alphabetName = DataValidation.isName(nome, labelNome, "Nome incorreto! Informe apenas letras");
-		boolean identidadeValition = DataValidation.isIdentidade(identidade, labelIdentidade,
-			"Letras não são permitidas");
-		boolean ruaValidation = DataValidation.isRua(rua, labelRua, "Informe apenas letras");
-		boolean numeroValidation = DataValidation.isNumero(numero, labelNumero, "Informe apenas números");
-		boolean estadoValidation = DataValidation.isEstado(choiseEstado, labelEstado, "Não deve ser vazio");
-		boolean cidadeValidation = DataValidation.isCidade(cidade, labelCidade, "Informe apenas letras");
-		boolean emailValidation = DataValidation.emailFormat(email, labelEmail,
-			"E-mail incorreto! Deve conter 'seuemail@dominio.com.br'");
-		boolean numericPhNumber = DataValidation.isPhone(telefoneCelular, labelTelefoneCelular,
-			"Informe números de 0 - 9");
-		boolean cepValidation = DataValidation.isCep(cep, labelCidade, "Informe apenas números");
-	
-		return alphabetName && identidadeValition && ruaValidation && numeroValidation && cidadeValidation
-			&& cidadeValidation && cepValidation && estadoValidation && emailValidation && numericPhNumber;
+
+	boolean alphabetName = DataValidation.isName(nome, labelNome, "Nome incorreto! Informe apenas letras");
+	boolean identidadeValition = DataValidation.isIdentidade(identidade, labelIdentidade,
+		"Letras não são permitidas");
+	boolean ruaValidation = DataValidation.isRua(rua, labelRua, "Informe apenas letras");
+	boolean numeroValidation = DataValidation.isNumero(numero, labelNumero, "Informe apenas números");
+	boolean estadoValidation = DataValidation.isEstado(choiseEstado, labelEstado, "Não deve ser vazio");
+	boolean cidadeValidation = DataValidation.isCidade(cidade, labelCidade, "Informe apenas letras");
+	boolean emailValidation = DataValidation.emailFormat(email, labelEmail,
+		"E-mail incorreto! Deve conter 'seuemail@dominio.com.br'");
+	boolean numericPhNumber = DataValidation.isPhone(telefoneCelular, labelTelefoneCelular,
+		"Informe números de 0 - 9");
+	boolean cepValidation = DataValidation.isCep(cep, labelCidade, "Informe apenas números");
+
+	boolean dataNascimento = dataDeNascimento.getValue() != null;
+
+	return alphabetName && identidadeValition && ruaValidation && numeroValidation && cidadeValidation
+		&& cidadeValidation && cepValidation && estadoValidation && emailValidation && numericPhNumber;
     }
 
 //	LocalDate s = dataDeNascimento.getValue();

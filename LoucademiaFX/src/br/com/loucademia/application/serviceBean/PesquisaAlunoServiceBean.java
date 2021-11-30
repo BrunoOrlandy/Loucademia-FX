@@ -13,22 +13,22 @@ public class PesquisaAlunoServiceBean implements PesquisaAlunoService {
 
     public String pesquisar(Integer matricula, String nome, Integer rg, String telefone) {
 
-	try {
-	    List<Aluno> alunos = alunoRepository.listAlunos(matricula, nome, rg, telefone);
-	} catch (ValidationException e) {
-	    return null;
-	}
-	return null;
+		try {
+		    List<Aluno> alunos = alunoRepository.listAlunos(matricula, nome, rg, telefone);
+		} catch (ValidationException e) {
+		    return null;
+		}
+		return null;
     }
 
-    public String excluir(String matricula) {
+    public String excluir(Integer id) {
 
-	alunoRepository.removeById(matricula);
-	return "Excluido com sucesso";
+	alunoRepository.removeById(id);
+		return "Excluido com sucesso";
     }
 
     public List<Aluno> buscarAluno(Aluno alunoPesquisa) {
-	return alunoRepository.listAlunos(alunoPesquisa);
+    	return alunoRepository.listAlunos(alunoPesquisa);
 
     }
 }
