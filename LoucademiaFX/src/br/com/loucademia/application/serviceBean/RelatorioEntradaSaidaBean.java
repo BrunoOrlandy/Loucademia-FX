@@ -12,33 +12,33 @@ public class RelatorioEntradaSaidaBean {
 
 	private AlunoService alunoService;
 
-	private String matricula;
+	private Integer id;
 	private LocalDate dataInicial;
 	private LocalDate dataFinal;
 
 	private List<Acesso> acessos;
 
 	public void carregarAluno() {
-		if (!StringUtils.isEmpty(matricula)) {
+		if (id != null) {
 			gerarRelatorio();
 		}
 	}
 
 	public String gerarRelatorio() {
 		try {
-			acessos = alunoService.listAcessosAlunos(matricula, dataInicial, dataFinal);
+			acessos = alunoService.listAcessosAlunos(id, dataInicial, dataFinal);
 		} catch (ValidationException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public String getMatricula() {
-		return matricula;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public LocalDate getDataInicial() {

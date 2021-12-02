@@ -16,6 +16,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 
@@ -29,8 +31,12 @@ public class Aluno implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_aluno_gen")
-    @SequenceGenerator(name = "seq_aluno_gen", sequenceName = "seq_aluno_id")
+    @GenericGenerator(name = "aluno_gen", strategy = "increment")
+    @GeneratedValue(generator = "aluno_gen")
+    
+//  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_aluno_gen")
+//  @SequenceGenerator(name = "seq_aluno_gen", sequenceName = "seq_aluno_id")
+    
     @Column(name = "ID", nullable = false)
     private Integer id;
 

@@ -16,43 +16,21 @@ import br.com.loucademia.domain.aluno.Aluno;
 
 public class ControleAcessoServiceBean implements Serializable, ControleAcessoService {
 	
-    private AcessoRepositoryBean acessoRepositoryBean = new AcessoRepositoryBean();
-    private AlunoRepositoryBean alunoRepositoryBean = new AlunoRepositoryBean();
+    private AcessoRepository acessoRepository = new AcessoRepositoryBean();
+    private AlunoRepository alunoRepository = new AlunoRepositoryBean();
 
     private static final long serialVersionUID = 1L;
-
-    // passar esta logica para o controller disparar a mensagem
-    // não podem ser instanciadas variaveis na classe somente dentro do metodo
-//    public String registrarAcesso() {
-//
-//	TipoAcesso tipoAcesso = registrarAcesso(matricula, rg);
-//
-//	String msg;
-//	if (tipoAcesso == TipoAcesso.ENTRADA) {
-//	    msg = "ENTRADA registrada";
-//	} else {
-//	    msg = "Dados de registro de acesso inconsistentes";
-//	}
-//
-//	return msg;
-//    }
 
     @Override
     public TipoAcesso registrarAcesso(Integer id, String cpf) {
     	
-//		if (id == null && !StringUtils.isEmpty(cpf)) {
-//			System.out.println("Necessario informar a matricula ou cpf");
-//		    //throw new ValidationException("Necessario informar a matricula ou cpf");
-//		}
 	
 		Aluno aluno;
 		if (id == null) {
-		    aluno = alunoRepositoryBean.findByCPF(cpf);
-		    System.out.println("VAI PROCURAR POR CPF: " + cpf);
+		    aluno = alunoRepository.findByCPF(cpf);
 		    
 		} else {
-		    aluno = alunoRepositoryBean.findById(id);
-		    System.out.println("VAI PROCURAR POR ID: " + id);
+		    aluno = alunoRepository.findById(id);
 		    
 		}
 	
@@ -60,17 +38,30 @@ public class ControleAcessoServiceBean implements Serializable, ControleAcessoSe
 		    throw new ValidationException("O aluno não foi encontrado");
 		}
 	
-		Acesso ultimoAcesso = acessoRepositoryBean.findUltimoAcesso(aluno);
+		Acesso ultimoAcesso = acessoRepository.findUltimoAcesso(aluno);
 		TipoAcesso tipoAcesso;
 	
 		if (ultimoAcesso == null || ultimoAcesso.isEntradaSaidaPrenchidas()) {
 		    ultimoAcesso = new Acesso();
 		    ultimoAcesso.setAluno(aluno);
 		    tipoAcesso = ultimoAcesso.registrarAcesso();
-		    acessoRepositoryBean.store(ultimoAcesso);
 		    
+			try {
+				acessoRepository.persist(ultimoAcesso);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
 		} else {
 		    tipoAcesso = ultimoAcesso.registrarAcesso();
+		    
+		    try {
+				acessoRepository.persist(ultimoAcesso);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		System.out.println("AQUI VAI O TIPO_DE_ACESSO: " + tipoAcesso);

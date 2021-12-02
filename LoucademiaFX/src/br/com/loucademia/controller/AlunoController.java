@@ -91,14 +91,15 @@ public class AlunoController implements Initializable {
 	    String msgOperacao = service.validarAlunoESalvar(aluno);
 
 	    if (msgOperacao != null) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setContentText(msgOperacao);
-		alert.show();
-		limparCamposPreenchidos();
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setContentText(msgOperacao);
+			alert.show();
+			limparCamposPreenchidos();
+			
 	    } else {
-		Alert alert = new Alert(AlertType.WARNING);
-		alert.setContentText("Aluno informado já existe");
-		alert.show();
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setContentText("Aluno informado já existe");
+			alert.show();
 	    }
 
 	}
@@ -122,35 +123,35 @@ public class AlunoController implements Initializable {
     }
 
     public void limparCamposPreenchidos() {
-	nome.clear();
-	identidade.clear();
-	rua.clear();
-	numero.clear();
-	choiseEstado.setValue(null);
-	cidade.clear();
-	complemento.clear();
-	cep.clear();
-	email.clear();
-	telefoneCelular.clear();
-	dataDeNascimento.getEditor().clear();
+		nome.clear();
+		identidade.clear();
+		rua.clear();
+		numero.clear();
+		choiseEstado.setValue(null);
+		cidade.clear();
+		complemento.clear();
+		cep.clear();
+		email.clear();
+		telefoneCelular.clear();
+		dataDeNascimento.getEditor().clear();
     }
 
     private ObservableList<String> listaEstadoEnums() {
-	return FXCollections.observableList(EstadoEnum.getSiglasEstados());
+    	return FXCollections.observableList(EstadoEnum.getSiglasEstados());
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-	choiseEstado.getItems().addAll(listaEstadoEnums());
-	choiseEstado.setOnAction(this::getEstado);
-	getSexo(null);
-	getSituacao(null);
+		choiseEstado.getItems().addAll(listaEstadoEnums());
+		choiseEstado.setOnAction(this::getEstado);
+		getSexo(null);
+		getSituacao(null);
 
     }
 
     public void getEstado(ActionEvent e) {
-	String sigla = choiseEstado.getValue();
-	aluno.getEndereco().setEstado(sigla);
+		String sigla = choiseEstado.getValue();
+		aluno.getEndereco().setEstado(sigla);
     }
 
     public boolean isCamposPreenchidosCorretamente() {
@@ -173,9 +174,5 @@ public class AlunoController implements Initializable {
 	return alphabetName && identidadeValition && ruaValidation && numeroValidation && cidadeValidation
 		&& cidadeValidation && cepValidation && estadoValidation && emailValidation && numericPhNumber;
     }
-
-//	LocalDate s = dataDeNascimento.getValue();
-//	s.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-//	dataDeNascimento.setValue(s);
 
 }

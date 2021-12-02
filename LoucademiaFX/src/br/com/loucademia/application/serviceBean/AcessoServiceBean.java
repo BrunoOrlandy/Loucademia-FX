@@ -4,6 +4,8 @@ import java.sql.SQLException;
 
 import br.com.loucademia.application.repository.AcessoRepository;
 import br.com.loucademia.application.repository.AlunoRepository;
+import br.com.loucademia.application.repositoryBean.AcessoRepositoryBean;
+import br.com.loucademia.application.repositoryBean.AlunoRepositoryBean;
 import br.com.loucademia.application.util.StringUtils;
 import br.com.loucademia.application.util.ValidationException;
 import br.com.loucademia.domain.acesso.TipoAcesso;
@@ -12,14 +14,10 @@ import br.com.loucademia.domain.aluno.Aluno;
 
 public class AcessoServiceBean {
 
-    private AcessoRepository acessoRepository;
-    private AlunoRepository alunoRepository;
+    private AcessoRepository acessoRepository;	// = new AcessoRepositoryBean();
+    private AlunoRepository alunoRepository;	// = new AlunoRepositoryBean();
 
-    public TipoAcesso registrarAcesso(Integer id, String cpf) throws SQLException {
-
-		if (id != null && cpf == null) {
-		    throw new ValidationException("Necessario informar a matricula ou cpf");
-		}
+    public TipoAcesso registrarAcesso(Integer id, String cpf) {
 	
 		Aluno aluno;
 		if (id != null) {
@@ -39,7 +37,15 @@ public class AcessoServiceBean {
 		    ultimoAcesso = new Acesso();
 		    ultimoAcesso.setAluno(aluno);
 		    tipoAcesso = ultimoAcesso.registrarAcesso();
-		    acessoRepository.store(ultimoAcesso);
+		    
+		    try {
+				acessoRepository.persist(ultimoAcesso);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		    
+		    //acessoRepository.store(ultimoAcesso);
 		} else {
 		    tipoAcesso = ultimoAcesso.registrarAcesso();
 		}

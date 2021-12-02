@@ -20,24 +20,24 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <TextField layoutX="9.0" layoutY="62.0" />
-            <DatePicker layoutX="378.0" layoutY="62.0" />
-            <DatePicker layoutX="177.0" layoutY="62.0" />
-            <Label layoutX="10.0" layoutY="45.0" text="Matricula" />
-            <Label layoutX="178.0" layoutY="45.0" prefHeight="17.0" prefWidth="80.0" text="Data inicial" />
-            <Label layoutX="379.0" layoutY="45.0" prefHeight="17.0" prefWidth="80.0" text="Data Final" />
-            <TableView layoutX="9.0" layoutY="96.0" prefHeight="376.0" prefWidth="806.0">
+            <TextField fx:id="txtMatricula" layoutX="9.0" layoutY="62.0" />
+            <DatePicker fx:id="txtDataFinal" layoutX="378.0" layoutY="62.0" />
+            <DatePicker fx:id="txtDataInicial" layoutX="177.0" layoutY="62.0" />
+            <Label fx:id="labelMatricula" layoutX="10.0" layoutY="45.0" text="Matricula" />
+            <Label fx:id="labelDataInicial" layoutX="178.0" layoutY="45.0" prefHeight="17.0" prefWidth="80.0" text="Data Inicial" />
+            <Label fx:id="labelDataFinal" layoutX="379.0" layoutY="45.0" prefHeight="17.0" prefWidth="80.0" text="Data Final" />
+            
+            <TableView fx:id="tabela" editable="true" layoutX="9.0" layoutY="96.0" prefHeight="376.0" prefWidth="806.0">
               <columns>
-                <TableColumn prefWidth="69.0" text="Matrícula" />
-                <TableColumn prefWidth="189.0" text="Nome" />
-                <TableColumn prefWidth="106.0" text="Data Entrada" />
-                <TableColumn prefWidth="108.0" text="Data Saída" />
-                <TableColumn prefWidth="104.0" text="Hora Entrada" />
-                <TableColumn prefWidth="130.0" text="Hora Saída" />
-                <TableColumn maxWidth="316.0" prefWidth="99.0" text="Duração" />
+                <TableColumn fx:id="matriculaColumn" prefWidth="69.0" text="Matrícula" />
+                <TableColumn fx:id="nomeColumn" prefWidth="189.0" text="Nome" />
+                <TableColumn fx:id="dataEntradaColumn" prefWidth="106.0" text="Data Entrada" />
+                <TableColumn fx:id="dataSaidaColumn" prefWidth="108.0" text="Data Saída" />
+                <TableColumn fx:id="duracaoColumn" maxWidth="316.0" prefWidth="99.0" text="Duração" />
               </columns>
             </TableView>
-            <Button layoutX="605.0" layoutY="62.0" mnemonicParsing="false" onAction="#btnPesquisar" prefHeight="25.0" prefWidth="126.0" text="Pesquisar" />
+            
+            <Button fx:id="btnPesquisar" layoutX="605.0" layoutY="62.0" mnemonicParsing="false" onAction="#btnPesquisarAction" prefHeight="25.0" prefWidth="126.0" text="Pesquisar" />
             <Button layoutX="375.0" layoutY="481.0" mnemonicParsing="false" onAction="#btnVoltar" prefHeight="25.0" prefWidth="83.0" text="Voltar" />
          </children>
       </Pane>

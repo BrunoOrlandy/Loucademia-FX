@@ -38,6 +38,7 @@ public class AlunoRepositoryBean implements AlunoRepository {
 
     private EntityManager getEntityManager() {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("loucademia");
+		
 		if (emf == null) {
 		    emf = factory.createEntityManager();
 		}
@@ -99,9 +100,9 @@ public class AlunoRepositoryBean implements AlunoRepository {
 		    List<Aluno> alunoList = q.getResultList();
 	
 		    if (!alunoList.isEmpty() || alunoList != null) {
-			for (Aluno a : alunoList) {
-			    aluno = a;
-			}
+				for (Aluno a : alunoList) {
+				    aluno = a;
+				}
 		    }
 	
 		} catch (NoResultException nre) {
@@ -113,30 +114,30 @@ public class AlunoRepositoryBean implements AlunoRepository {
 
     @Override
     public void remove(Aluno aluno) {
-	try {
-	    emf.getTransaction().begin();
-	    aluno = emf.find(Aluno.class, aluno.getId());
-	    emf.remove(aluno);
-	    emf.getTransaction().commit();
-	} catch (Exception ex) {
-	    ex.printStackTrace();
-	    emf.getTransaction().rollback();
-	}
+		try {
+		    emf.getTransaction().begin();
+		    aluno = emf.find(Aluno.class, aluno.getId());
+		    emf.remove(aluno);
+		    emf.getTransaction().commit();
+		} catch (Exception ex) {
+		    ex.printStackTrace();
+		    emf.getTransaction().rollback();
+		}
     }
 
     @Override
     public Aluno getById(Integer id) {
-	return emf.find(Aluno.class, id);
+    	return emf.find(Aluno.class, id);
     }
 
     @Override
     public void removeById(Integer id) {
-	try {
-	    Aluno aluno = getById(id);
-	    remove(aluno);
-	} catch (Exception ex) {
-	    ex.printStackTrace();
-	}
+		try {
+		    Aluno aluno = getById(id);
+		    remove(aluno);
+		} catch (Exception ex) {
+		    ex.printStackTrace();
+		}
     }
 
     @Override
@@ -194,11 +195,11 @@ public class AlunoRepositoryBean implements AlunoRepository {
     }
 
     @Override
-    public List<Acesso> listAcessosAlunos(String matricula, LocalDate dataInicial, LocalDate dataFinal) {
+    public List<Acesso> listAcessosAlunos(Integer id, LocalDate dataInicial, LocalDate dataFinal) {
 		StringBuilder jpql = new StringBuilder("SELECT a FROM Acesso a WHERE ");
 	
-		if (!StringUtils.isEmpty(matricula)) {
-		    jpql.append("a.aluno.matricula = :matricula AND ");
+		if (id != null) {
+		    jpql.append("a.aluno.id = :id AND ");
 		}
 	
 		if (dataInicial != null) {
@@ -213,8 +214,8 @@ public class AlunoRepositoryBean implements AlunoRepository {
 	
 		TypedQuery<Acesso> q = emf.createQuery(jpql.toString(), Acesso.class);
 	
-		if (!StringUtils.isEmpty(matricula)) {
-		    q.setParameter("matricula", matricula);
+		if (id != null) {
+		    q.setParameter("id", id);
 		}
 	
 		if (dataInicial != null) {
@@ -228,7 +229,7 @@ public class AlunoRepositoryBean implements AlunoRepository {
 		}
 	
 		return q.getResultList();
-	//return new ArrayList<>();
+    	//return new ArrayList<>();
 
     }
 
@@ -246,7 +247,7 @@ public class AlunoRepositoryBean implements AlunoRepository {
 		}
 	
 		if (aluno.getCpf() != null) {
-		    jpql.append("AND  a.cpf = :cpf ");
+		    jpql.append("AND a.cpf = :cpf ");
 		}
 	
 		if (aluno.getTelefone() != null) {

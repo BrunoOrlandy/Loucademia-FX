@@ -35,6 +35,7 @@ public class Acesso implements Serializable {
 
     @Column(name = "SAIDA", nullable = true)
     private LocalDateTime saida;
+    
 
     public boolean isEntradaSaidaPrenchidas() {
 		if (entrada != null && saida != null) {
@@ -50,11 +51,12 @@ public class Acesso implements Serializable {
 		TipoAcesso tipoAcesso;
 	
 		if (entrada == null) {
-		    entrada = now;
+		    entrada = now;		    		    
 		    tipoAcesso = TipoAcesso.ENTRADA;
 		} else if (saida == null) {
 		    saida = now;
 		    tipoAcesso = TipoAcesso.SAIDA;
+		    
 		} else {
 		    tipoAcesso = null;
 		}

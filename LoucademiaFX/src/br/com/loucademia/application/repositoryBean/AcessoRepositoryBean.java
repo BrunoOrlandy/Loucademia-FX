@@ -1,5 +1,7 @@
 package br.com.loucademia.application.repositoryBean;
 
+import java.sql.SQLException;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -15,26 +17,27 @@ public class AcessoRepositoryBean implements AcessoRepository {
 	private static AcessoRepository repsitory;
 	protected EntityManager emf;
 
-	    public static AcessoRepository getInstance() {
-			if (repsitory == null) {
-			    repsitory = new AcessoRepositoryBean();
-			}
-		
-			return repsitory;
-	    }
+    public static AcessoRepository getInstance() {
+		if (repsitory == null) {
+		    repsitory = new AcessoRepositoryBean();
+		}
+	
+		return repsitory;
+    }
 
-	    public AcessoRepositoryBean() {
-			emf = getEntityManager();
-	    }
+    public AcessoRepositoryBean() {
+		emf = getEntityManager();
+    }
 
-	    private EntityManager getEntityManager() {
-			EntityManagerFactory factory = Persistence.createEntityManagerFactory("loucademia");
-			if (emf == null) {
-			    emf = factory.createEntityManager();
-			}
+    private EntityManager getEntityManager() {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("loucademia");
 		
-			return emf;
-	    }
+		if (emf == null) {
+		    emf = factory.createEntityManager();
+		}
+	
+		return emf;
+    }
 
     @Override
     public Acesso findUltimoAcesso(Aluno aluno) {
@@ -46,12 +49,25 @@ public class AcessoRepositoryBean implements AcessoRepository {
 		    
 		} catch (NoResultException e) {
 		    return null;
-		}
-		
+		}		
     }
 
-    @Override
-    public void store(Acesso acesso) {
-    	emf.persist(acesso);
-    }
+//    @Override
+//    public void store(Acesso acesso) {    	
+//    	emf.persist(acesso);
+//    }
+
+	@Override
+	public void persist(Acesso ultimoAcesso) throws SQLException {
+		try {
+		    emf.getTransaction().begin();
+		    emf.persist(ultimoAcesso);
+		    emf.getTransaction().commit();
+		    emf.close();
+		    
+		} catch (Exception ex) {
+		    ex.printStackTrace();
+		    emf.getTransaction().rollback();
+		}		
+	}
 }

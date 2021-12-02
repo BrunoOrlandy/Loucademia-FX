@@ -21,10 +21,12 @@ public class AlunoServiceBean implements AlunoService {
     public String validarAlunoESalvar(Aluno aluno) {
 
 		Aluno alunoEncontrado = alunoRepository.findByCPF(aluno.getCpf());
+		
 		if (alunoEncontrado != null) {
 		    if (alunoEncontrado.getCpf() == aluno.getCpf()) {
 				return "Aluno ja existe";
-			    } else {
+			
+		    } else {
 				gravar(aluno);
 				return "Aluno :" + aluno.getNome() + " gravado com sucesso;";
 		    }
@@ -91,12 +93,12 @@ public class AlunoServiceBean implements AlunoService {
     }
 
     @Override
-    public List<Acesso> listAcessosAlunos(String matricula, LocalDate dataInicial, LocalDate dataFinal) {
-		if (StringUtils.isEmpty(matricula) && dataInicial == null && dataFinal == null) {
+    public List<Acesso> listAcessosAlunos(Integer id, LocalDate dataInicial, LocalDate dataFinal) {
+		if (id == null && dataInicial == null && dataFinal == null) {
 		    throw new ValidationException("Pelo menos um criterio de pesquisa deve ser fornecido");
-	}
+		}
 
-	return alunoRepository.listAcessosAlunos(matricula, dataInicial, dataFinal);
+		return alunoRepository.listAcessosAlunos(id, dataInicial, dataFinal);
     }
 
     @Override
