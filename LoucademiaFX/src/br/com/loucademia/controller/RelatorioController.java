@@ -1,11 +1,11 @@
 package br.com.loucademia.controller;
 
 import br.com.loucademia.domain.tela.NomeTelaEnum;
-import br.com.loucademia.startUp.StartUp;
+import br.com.loucademia.initApp.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class RelatorioController {
+public class RelatorioController extends BaseController {
 
     @FXML
     void btnPesquisar(ActionEvent event) {
@@ -14,7 +14,6 @@ public class RelatorioController {
 
     @FXML
     void btnVoltar(ActionEvent event) {
-    	StartUp.changeScreen(NomeTelaEnum.MENU);
+	App.changeScreen(NomeTelaEnum.MENU);
     }
 }
-

@@ -1,8 +1,6 @@
 package br.com.loucademia.controller;
 
-import java.awt.Event;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
@@ -14,13 +12,12 @@ import br.com.loucademia.domain.aluno.EstadoEnum;
 import br.com.loucademia.domain.aluno.SexoEnum;
 import br.com.loucademia.domain.aluno.SituacaoEnum;
 import br.com.loucademia.domain.tela.NomeTelaEnum;
-import br.com.loucademia.startUp.StartUp;
+import br.com.loucademia.domain.valueObject.AlunoEstadoVo;
+import br.com.loucademia.initApp.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
@@ -28,10 +25,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.util.StringConverter;
 
-public class AlunoController implements Initializable {
+public class AlunoController extends BaseController {
 
     private final static String ERROR_CSS = "-fx-border-color: red ; -fx-border-width: 1px;";
 
@@ -56,7 +51,7 @@ public class AlunoController implements Initializable {
     @FXML
     protected void btnVoltar(ActionEvent eventC) {
 	limparCamposPreenchidos();
-	StartUp.changeScreen(NomeTelaEnum.MENU);
+	App.changeScreen(NomeTelaEnum.MENU);
     }
 
     @FXML
@@ -133,6 +128,7 @@ public class AlunoController implements Initializable {
 	email.clear();
 	telefoneCelular.clear();
 	dataDeNascimento.getEditor().clear();
+	AlunoController a = new AlunoController();
     }
 
     private ObservableList<String> listaEstadoEnums() {
@@ -177,5 +173,47 @@ public class AlunoController implements Initializable {
 //	LocalDate s = dataDeNascimento.getValue();
 //	s.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 //	dataDeNascimento.setValue(s);
+
+    public void editAluno(AlunoEstadoVo alunoEstadoVo) {
+
+	preencherCamposDaTela(alunoEstadoVo);
+
+	AlunoService service = new AlunoServiceBean();
+
+    }
+
+    private void preencherCamposDaTela(AlunoEstadoVo alunoEstadoVo) {
+
+	nome.setText(alunoEstadoVo.getNome());
+	identidade.setText(alunoEstadoVo.getCpf());
+	if (alunoEstadoVo.getSexo().equals(SexoEnum.MASCULINO)) {
+	    rbMasculino.isSelected();
+	} else {
+	    rbFeminino.isSelected();
+	}
+	if (alunoEstadoVo.getSituacao().equals(SituacaoEnum.ATIVO)) {
+	    rbAtivo.isSelected();
+	} else {
+	    rbInativo.isSelected();
+	}
+	email.setText(alunoEstadoVo.getEmail());
+	telefoneCelular.setText(alunoEstadoVo.getTelefone());
+
+//	aluno.setNome(nome.getText());
+//	aluno.setCpf(identidade.getText());
+//	aluno.setDataNascimento(dataDeNascimento.getValue());
+//	aluno.setSexo(rbMasculino.getText());
+//	aluno.setSituacao(rbInativo.getText());
+	aluno.setEmail(email.getText());
+	aluno.setTelefone(telefoneCelular.getText());
+	aluno.getEndereco().setRua(rua.getText());
+	aluno.getEndereco().setNumero(Integer.valueOf(numero.getText()));
+	aluno.getEndereco().setEstado(choiseEstado.getValue());
+	aluno.getEndereco().setNumero(Integer.valueOf(numero.getText()));
+	aluno.getEndereco().setCidade(cidade.getText());
+	aluno.getEndereco().setCep(Integer.valueOf(cep.getText()));
+	aluno.getEndereco().setComplemento(complemento.getText());
+
+    }
 
 }

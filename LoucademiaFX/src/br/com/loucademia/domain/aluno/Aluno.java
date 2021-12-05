@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 
+import br.com.loucademia.domain.valueObject.AlunoEstadoVo;
+
 @Entity
 @Table(name = "ALUNO")
 public class Aluno implements Serializable {
@@ -140,7 +142,7 @@ public class Aluno implements Serializable {
 	builder.append(nome);
 	builder.append(", sexo=");
 	builder.append(sexo);
-	builder.append(", rg=");
+	builder.append(", cpf=");
 	builder.append(cpf);
 	builder.append(", dataNascimento=");
 	builder.append(dataNascimento);
@@ -180,4 +182,25 @@ public class Aluno implements Serializable {
 	    return false;
 	return true;
     }
+
+    public Aluno converterVoParaAluno(AlunoEstadoVo vo) {
+
+	Aluno aluno = new Aluno();
+
+	aluno.setNome(vo.getNome());
+	aluno.setSexo(vo.getSexo());
+	aluno.setCpf(vo.getCpf());
+	aluno.setDataNascimento(LocalDate.parse(vo.getDataNascimento()));
+	aluno.setSituacao(vo.getSituacao());
+	aluno.setEmail(vo.getEmail());
+	aluno.getEndereco().setCep(vo.getCep());
+	aluno.getEndereco().setCidade(vo.getCidade());
+	aluno.getEndereco().setComplemento(vo.getComplemento());
+	aluno.getEndereco().setEstado(vo.getEstado());
+	aluno.getEndereco().setNumero(vo.getNumero());
+	aluno.getEndereco().setRua(vo.getRua());
+
+	return aluno;
+    }
+
 }

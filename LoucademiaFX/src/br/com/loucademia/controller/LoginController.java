@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import br.com.loucademia.application.serviceBean.LoginServiceBean;
 import br.com.loucademia.domain.tela.NomeTelaEnum;
-import br.com.loucademia.startUp.StartUp;
+import br.com.loucademia.initApp.App;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class LoginController {
+public class LoginController extends BaseController {
 
     private final static String ERROR_CSS = "-fx-border-color: red ; -fx-border-width: 1px;";
 
@@ -44,7 +44,7 @@ public class LoginController {
 	    alert.setAlertType(AlertType.INFORMATION);
 	    alert.setContentText("Login realizado com sucesso");
 	    alert.show();
-	    StartUp.changeScreen(NomeTelaEnum.MENU);
+	    App.changeScreen(NomeTelaEnum.MENU);
 	} else {
 	    alert.setAlertType(AlertType.WARNING);
 	    alert.setContentText("Login ou Senha invalidos");

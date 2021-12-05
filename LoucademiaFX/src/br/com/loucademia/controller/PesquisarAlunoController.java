@@ -1,16 +1,15 @@
 package br.com.loucademia.controller;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.ScrollPaneLayout;
 
 import br.com.loucademia.application.serviceBean.PesquisaAlunoServiceBean;
 import br.com.loucademia.application.util.DataValidation;
 import br.com.loucademia.application.util.StringUtils;
 import br.com.loucademia.domain.aluno.Aluno;
 import br.com.loucademia.domain.tela.NomeTelaEnum;
-import br.com.loucademia.startUp.StartUp;
-import javafx.application.Application;
+import br.com.loucademia.domain.valueObject.AlunoEstadoVo;
+import br.com.loucademia.initApp.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,10 +25,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.ScrollEvent;
-import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
-public class PesquisarAlunoController extends Application {
+public class PesquisarAlunoController extends BaseController {
+
+    private AlunoEstadoVo alunoEstadoVo;
+    private AlunoEstadoVo alunoEstadoVoSelecionado;
 
     @FXML
     private TextField txtMatricula, txtNome, txtTelefone, txtCPF;
@@ -38,27 +39,25 @@ public class PesquisarAlunoController extends Application {
     private Label labelMatricula, labelNome, labelTelefone, labelCPF;
 
     @FXML
-    private TableColumn<Aluno, Integer> matriculaColumn;
+    private TableColumn<AlunoEstadoVo, Integer> matriculaColumn;
     @FXML
-    private TableColumn<Aluno, String> nomeColumn;
+    private TableColumn<AlunoEstadoVo, String> nomeColumn;
     @FXML
-    private TableColumn<Aluno, String> cpfColumn;
+    private TableColumn<AlunoEstadoVo, String> ruaColumn;
     @FXML
-    private TableColumn<Aluno, String> ruaColumn;
+    private TableColumn<AlunoEstadoVo, String> telefoneColumn;
     @FXML
-    private TableColumn<Aluno, String> telefoneColumn;
+    private TableColumn<AlunoEstadoVo, Integer> numeroColumn;
     @FXML
-    private TableColumn<Aluno, Integer> numeroColumn;
+    private TableColumn<AlunoEstadoVo, String> complementoColumn;
     @FXML
-    private TableColumn<Aluno, String> complementoColumn;
+    private TableColumn<AlunoEstadoVo, String> cidadeColumn;
     @FXML
-    private TableColumn<Aluno, String> cidadeColumn;
+    private TableColumn<AlunoEstadoVo, String> estadoColumn;
     @FXML
-    private TableColumn<Aluno, String> estadoColumn;
+    private TableColumn<AlunoEstadoVo, Integer> cepColumn;
     @FXML
-    private TableColumn<Aluno, Integer> cepColumn;
-    @FXML
-    private TableView<Aluno> tabela;
+    private TableView<AlunoEstadoVo> tabela;
 
     @FXML
     private ScrollPane scrollPane = new ScrollPane();
@@ -67,6 +66,7 @@ public class PesquisarAlunoController extends Application {
     void btnPesquisar(ActionEvent event) {
 
 	Aluno alunoPesquisa = new Aluno();
+	alunoEstadoVo = new AlunoEstadoVo();
 	PesquisaAlunoServiceBean serviceBean = new PesquisaAlunoServiceBean();
 
 	validarCamposPrenchidosCorretamente();
@@ -87,18 +87,8 @@ public class PesquisarAlunoController extends Application {
 	    alunoPesquisa.setCpf(txtCPF.getText());
 	}
 
-	//aluno
-	matriculaColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-	nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
-	cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
-	telefoneColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
-	//endereco
-	ruaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-	numeroColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-	cepColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-	cidadeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-	estadoColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-	complementoColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+	buildDataViewCellValue();
+//	buildDataViewCellFactory();
 
 	List<Aluno> alunosEncontrado = serviceBean.buscarAluno(alunoPesquisa);
 	if (!alunosEncontrado.isEmpty()) {
@@ -112,13 +102,37 @@ public class PesquisarAlunoController extends Application {
 
 	tabela.getSelectionModel().selectedItemProperty()
 		.addListener((observable, oldValue, newValue) -> onSelectItemDataTable(newValue));
-	tabela.scrollTo(alunoPesquisa);
+
+	tabela.scrollTo(alunoEstadoVo);
 	tabela.addEventFilter(ScrollEvent.SCROLL, new EventHandler<ScrollEvent>() {
 	    @Override
 	    public void handle(ScrollEvent scrollEvent) {
 		tabela.getAccessibleText();
 	    }
 	});
+    }
+
+    private void buildDataViewCellFactory() {
+	nomeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+	telefoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+	ruaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+	numeroColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+	cepColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+	cidadeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+	estadoColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+	complementoColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    }
+
+    private void buildDataViewCellValue() {
+	matriculaColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+	nomeColumn.setCellValueFactory(new PropertyValueFactory<>("Nome"));
+	telefoneColumn.setCellValueFactory(new PropertyValueFactory<>("Telefone"));
+	ruaColumn.setCellValueFactory(new PropertyValueFactory<>("Rua"));
+	numeroColumn.setCellValueFactory(new PropertyValueFactory<>("Numero"));
+	cepColumn.setCellValueFactory(new PropertyValueFactory<>("cep"));
+	cidadeColumn.setCellValueFactory(new PropertyValueFactory<>("Cidade"));
+	estadoColumn.setCellValueFactory(new PropertyValueFactory<>("Estado"));
+	complementoColumn.setCellValueFactory(new PropertyValueFactory<>("Complemento"));
     }
 
     private void validarCamposPrenchidosCorretamente() {
@@ -144,7 +158,18 @@ public class PesquisarAlunoController extends Application {
 
     @FXML
     void btnVoltar(ActionEvent event) {
-	StartUp.changeScreen(NomeTelaEnum.MENU);
+	App.changeScreen(NomeTelaEnum.MENU);
+    }
+
+    @FXML
+    void btnEditar(ActionEvent event) {
+	if (getAlunoEstadoVoSelecionado() != null) {
+	    getApp().getAlunoController().editAluno(getAlunoEstadoVoSelecionado());
+	} else {
+	    Alert alert = new Alert(AlertType.INFORMATION);
+	    alert.setContentText("Não foi selecionado nenhum aluno para realizar a edição");
+	    alert.show();
+	}
     }
 
     @FXML
@@ -152,13 +177,33 @@ public class PesquisarAlunoController extends Application {
 	limparCampos();
     }
 
-    public void onSelectItemDataTable(Aluno aluno) {
-	System.err.println(aluno.getNome());
-
+    public void onSelectItemDataTable(AlunoEstadoVo alunoEstadoVo) {
+	setAlunoEstadoVoSelecionado(alunoEstadoVo);
     }
 
-    private ObservableList<Aluno> listaDeAlunos(List<Aluno> alunosList) {
-	return FXCollections.observableList(alunosList);
+    private ObservableList<AlunoEstadoVo> listaDeAlunos(List<Aluno> alunosList) {
+
+	List<AlunoEstadoVo> alunosVoList = new ArrayList<AlunoEstadoVo>();
+	for (Aluno aluno : alunosList) {
+	    AlunoEstadoVo vo = new AlunoEstadoVo();
+	    vo.setId(aluno.getId());
+	    vo.setNome(aluno.getNome());
+	    vo.setDataNascimento(aluno.getDataNascimento().toString());
+	    vo.setSituacao(aluno.getSituacao());
+	    vo.setTelefone(aluno.getTelefone());
+	    vo.setCpf(aluno.getCpf());
+	    vo.setEmail(aluno.getEmail());
+
+	    vo.setRua(aluno.getEndereco().getRua());
+	    vo.setNumero(aluno.getEndereco().getNumero());
+	    vo.setComplemento(aluno.getEndereco().getComplemento());
+	    vo.setCidade(aluno.getEndereco().getCidade());
+	    vo.setEstado(aluno.getEndereco().getEstado());
+	    vo.setCep(aluno.getEndereco().getCep());
+	    alunosVoList.add(vo);
+	}
+	return FXCollections.observableList(alunosVoList);
+
     }
 
     private void limparCampos() {
@@ -169,10 +214,12 @@ public class PesquisarAlunoController extends Application {
 	tabela.getItems().clear();
     }
 
-    @Override
-    public void start(Stage arg0) throws Exception {
-	this.scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    public AlunoEstadoVo getAlunoEstadoVoSelecionado() {
+	return alunoEstadoVoSelecionado;
+    }
 
+    public void setAlunoEstadoVoSelecionado(AlunoEstadoVo alunoEstadoVoSelecionado) {
+	this.alunoEstadoVoSelecionado = alunoEstadoVoSelecionado;
     }
 
 }

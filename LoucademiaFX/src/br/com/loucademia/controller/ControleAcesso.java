@@ -1,13 +1,13 @@
 package br.com.loucademia.controller;
 
 import br.com.loucademia.domain.tela.NomeTelaEnum;
-import br.com.loucademia.startUp.StartUp;
+import br.com.loucademia.initApp.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class ControleAcesso {
+public class ControleAcesso extends BaseController {
 
     @FXML
     private Label labelMatricula, labelRg;
@@ -22,6 +22,6 @@ public class ControleAcesso {
 
     @FXML
     void btnVoltar(ActionEvent event) {
-	StartUp.changeScreen(NomeTelaEnum.MENU);
+	App.changeScreen(NomeTelaEnum.MENU);
     }
 }
