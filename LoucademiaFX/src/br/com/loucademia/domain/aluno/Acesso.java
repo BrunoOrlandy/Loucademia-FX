@@ -27,7 +27,7 @@ public class Acesso implements Serializable {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "ALUNO_ID", nullable = false)
     private Aluno aluno;
 
     @Column(name = "ENTRADA", nullable = false)
@@ -55,6 +55,7 @@ public class Acesso implements Serializable {
 	} else if (saida == null) {
 	    saida = now;
 	    tipoAcesso = TipoAcesso.SAIDA;
+
 	} else {
 	    tipoAcesso = null;
 	}

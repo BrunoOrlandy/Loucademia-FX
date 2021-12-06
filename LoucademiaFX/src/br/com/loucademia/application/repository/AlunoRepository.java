@@ -29,6 +29,6 @@ public interface AlunoRepository {
 
     List<Aluno> listSituacoesAlunos(String situacao);
 
-    List<Acesso> listAcessosAlunos(String matricula, LocalDate dataInicial, LocalDate dataFinal);
+    List<Acesso> listAcessosAlunos(Integer id, LocalDate dataInicial, LocalDate dataFinal);
 
 }

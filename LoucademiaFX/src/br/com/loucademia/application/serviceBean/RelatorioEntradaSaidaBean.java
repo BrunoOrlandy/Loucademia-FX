@@ -10,55 +10,55 @@ import br.com.loucademia.domain.aluno.Acesso;
 
 public class RelatorioEntradaSaidaBean {
 
-	private AlunoService alunoService;
+    private AlunoService alunoService;
 
-	private String matricula;
-	private LocalDate dataInicial;
-	private LocalDate dataFinal;
+    private Integer id;
+    private LocalDate dataInicial;
+    private LocalDate dataFinal;
 
-	private List<Acesso> acessos;
+    private List<Acesso> acessos;
 
-	public void carregarAluno() {
-		if (!StringUtils.isEmpty(matricula)) {
-			gerarRelatorio();
-		}
+    public void carregarAluno() {
+	if (id != null) {
+	    gerarRelatorio();
 	}
+    }
 
-	public String gerarRelatorio() {
-		try {
-			acessos = alunoService.listAcessosAlunos(matricula, dataInicial, dataFinal);
-		} catch (ValidationException e) {
-			e.printStackTrace();
-		}
-		return null;
+    public String gerarRelatorio() {
+	try {
+	    acessos = alunoService.listAcessosAlunos(id, dataInicial, dataFinal);
+	} catch (ValidationException e) {
+	    e.printStackTrace();
 	}
+	return null;
+    }
 
-	public String getMatricula() {
-		return matricula;
-	}
+    public Integer getId() {
+	return id;
+    }
 
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
+    public void setId(Integer id) {
+	this.id = id;
+    }
 
-	public LocalDate getDataInicial() {
-		return dataInicial;
-	}
+    public LocalDate getDataInicial() {
+	return dataInicial;
+    }
 
-	public void setDataInicial(LocalDate dataInicial) {
-		this.dataInicial = dataInicial;
-	}
+    public void setDataInicial(LocalDate dataInicial) {
+	this.dataInicial = dataInicial;
+    }
 
-	public LocalDate getDataFinal() {
-		return dataFinal;
-	}
+    public LocalDate getDataFinal() {
+	return dataFinal;
+    }
 
-	public void setDataFinal(LocalDate dataFinal) {
-		this.dataFinal = dataFinal;
-	}
+    public void setDataFinal(LocalDate dataFinal) {
+	this.dataFinal = dataFinal;
+    }
 
-	public List<Acesso> getAcessos() {
-		return acessos;
-	}
+    public List<Acesso> getAcessos() {
+	return acessos;
+    }
 
 }

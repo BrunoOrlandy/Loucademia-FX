@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import br.com.loucademia.controller.AlunoController;
 import br.com.loucademia.controller.BaseController;
-import br.com.loucademia.controller.ControleAcesso;
+import br.com.loucademia.controller.ControleAcessoController;
 import br.com.loucademia.controller.LoginController;
 import br.com.loucademia.controller.MenuController;
 import br.com.loucademia.controller.PesquisarAlunoController;
@@ -28,18 +28,12 @@ public class App extends Application {
 
     private static AlunoController alunoController;
     private static PesquisarAlunoController pesquisarAlunoController;
-    private static ControleAcesso controleAcessoAlunoController;
+    private static ControleAcessoController controleAcessoAlunoController;
     private static RelatorioController relatorioController;
     private static MenuController menuController;
     private static LoginController loginController;
 
     private static Stage stage;
-//    private static Scene loginScene;
-//    private static Scene menuScene;
-//    private static Scene novoAlunoScene;
-//    private static Scene pesquisarAlunoScene;
-//    private static Scene relatorio;
-//    private static Scene controleAcesso;
 
     public static void main(String[] args) {
 	launch(args);
@@ -49,33 +43,12 @@ public class App extends Application {
 
 	stage = primaryStage;
 
-	alunoController = loadController(PATH_VIEW_NOVO_ALUNO);// "/br/com/loucademia/view/novo_aluno.fxml");
-	pesquisarAlunoController = loadController("/br/com/loucademia/view/pesquisar_aluno.fxml");
+	alunoController = loadController(PATH_VIEW_NOVO_ALUNO);
+	pesquisarAlunoController = loadController(PATH_VIEW_PESQUISA_NOVO_ALUNO);
 	loginController = loadController(PATH_VIEW_LOGIN);
 	menuController = loadController(PATH_VIEW_MENU);
 	controleAcessoAlunoController = loadController(PATH_VIEW_CONTROLE_ACESSO);
 	relatorioController = loadController(PATH_VIEW_REL_ENTRADA_SAIDA);
-
-//	Parent fxmlLogin = FXMLLoader.load(getClass().getResource("/br/com/loucademia/view/login.fxml"));
-//	loginScene = new Scene(fxmlLogin);
-
-//	Parent fxmlMenu = FXMLLoader.load(getClass().getResource("/br/com/loucademia/view/menu.fxml"));
-//	menuScene = new Scene(fxmlMenu);
-
-//	Parent fxmlNovoAluno = FXMLLoader.load(getClass().getResource("/br/com/loucademia/view/novo_aluno.fxml"));
-//	novoAlunoScene = new Scene(fxmlNovoAluno);
-
-//	Parent fxmlPesquisarAluno = FXMLLoader
-//		.load(getClass().getResource("/br/com/loucademia/view/pesquisar_aluno.fxml"));
-//	pesquisarAlunoScene = new Scene(fxmlPesquisarAluno);
-
-//	Parent fxmlControleAcesso = FXMLLoader
-//		.load(getClass().getResource("/br/com/loucademia/view/controle_acesso.fxml"));
-//	controleAcesso = new Scene(fxmlControleAcesso);
-//
-//	Parent fxmlRelatrio = FXMLLoader
-//		.load(getClass().getResource("/br/com/loucademia/view/relatorio_entrada_saida.fxml"));
-//	relatorio = new Scene(fxmlRelatrio);
 
 	primaryStage.setScene(loginController.getScene());
 	primaryStage.setTitle("Loucademia");

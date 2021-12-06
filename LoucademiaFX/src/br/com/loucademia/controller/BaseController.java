@@ -14,7 +14,6 @@ public class BaseController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-	System.out.println("teste");
     }
 
     public void configurarNavegacao(App app, Scene scene) {

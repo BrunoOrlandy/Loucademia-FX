@@ -2,6 +2,8 @@ package br.com.loucademia.application.repositoryBean;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +66,24 @@ public class AlunoRepositoryBean implements AlunoRepository {
 
     @Override
     public Aluno findById(Integer id) {
-	return emf.find(Aluno.class, id);
+	Aluno aluno = new Aluno();
+	try {
+	    Query q = emf.createQuery("SELECT a FROM Aluno a WHERE a.id = :id");
+	    q.setParameter("id", id);
+	    List<Aluno> alunoList = q.getResultList();
+
+	    if (!alunoList.isEmpty() || alunoList != null) {
+		for (Aluno a : alunoList) {
+		    aluno = a;
+		}
+	    }
+
+	} catch (NoResultException nre) {
+	    return null;
+	}
+
+	System.out.println("Terminou por aqui");
+	return aluno;
     }
 
     @Override
@@ -172,42 +191,42 @@ public class AlunoRepositoryBean implements AlunoRepository {
     }
 
     @Override
-    public List<Acesso> listAcessosAlunos(String matricula, LocalDate dataInicial, LocalDate dataFinal) {
-//	StringBuilder jpql = new StringBuilder("SELECT a FROM Acesso a WHERE ");
-//
-//	if (!StringUtils.isEmpty(matricula)) {
-//	    jpql.append("a.aluno.matricula = :matricula AND ");
-//	}
-//
-//	if (dataInicial != null) {
-//	    jpql.append("a.entrada >= :entradaInicio AND ");
-//	}
-//
-//	if (dataFinal != null) {
-//	    jpql.append("a.saida <= :saidaFim AND ");
-//	}
-//
-//	jpql.append("1 = 1 ORDER BY a.entrada");
-//
-//	TypedQuery<Acesso> q = em.createQuery(jpql.toString(), Acesso.class);
-//
-//	if (!StringUtils.isEmpty(matricula)) {
-//	    q.setParameter("matricula", matricula);
-//	}
-//
-//	if (dataInicial != null) {
-//	    LocalDateTime ldt = LocalDateTime.of(dataInicial, LocalTime.of(0, 0, 0));
-//	    q.setParameter("entradaInicio", ldt);
-//	}
-//
-//	if (dataFinal != null) {
-//	    LocalDateTime ldt = LocalDateTime.of(dataFinal, LocalTime.of(23, 59, 59));
-//	    q.setParameter("saidaFim", ldt);
-//	}
-//
-//	return q.getResultList();
-	return new ArrayList<>();
+    public List<Acesso> listAcessosAlunos(Integer id, LocalDate dataInicial, LocalDate dataFinal) {
+	StringBuilder jpql = new StringBuilder("SELECT a FROM Acesso a WHERE ");
 
+	if (id != null) {
+	    jpql.append("a.aluno.id = :id AND ");
+	}
+
+	if (dataInicial != null) {
+	    jpql.append("a.entrada >= :entradaInicio AND ");
+	}
+
+	if (dataFinal != null) {
+	    jpql.append("a.saida <= :saidaFim AND ");
+	}
+
+	jpql.append("1 = 1 ORDER BY a.entrada");
+
+	TypedQuery<Acesso> q = emf.createQuery(jpql.toString(), Acesso.class);
+
+	if (id != null) {
+	    q.setParameter("id", id);
+	}
+
+	if (dataInicial != null) {
+	    LocalDateTime ldt = LocalDateTime.of(dataInicial, LocalTime.of(0, 0, 0));
+	    q.setParameter("entradaInicio", ldt);
+	}
+
+	if (dataFinal != null) {
+	    LocalDateTime ldt = LocalDateTime.of(dataFinal, LocalTime.of(23, 59, 59));
+	    q.setParameter("saidaFim", ldt);
+
+	}
+
+	return q.getResultList();
+	// return new ArrayList<>();
     }
 
     @Override
