@@ -9,8 +9,6 @@ public interface AcessoRepository {
 
     Acesso findUltimoAcesso(Aluno aluno);
 
-//    void store(Acesso acesso);
-
 	void persist(Acesso ultimoAcesso) throws SQLException;
 
 }

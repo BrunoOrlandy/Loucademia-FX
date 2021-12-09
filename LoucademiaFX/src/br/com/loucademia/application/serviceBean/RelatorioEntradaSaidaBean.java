@@ -10,7 +10,7 @@ import br.com.loucademia.domain.aluno.Acesso;
 
 public class RelatorioEntradaSaidaBean {
 
-	private AlunoService alunoService;
+	AlunoServiceBean alunoServiceBean = new AlunoServiceBean();
 
 	private Integer id;
 	private LocalDate dataInicial;
@@ -24,13 +24,12 @@ public class RelatorioEntradaSaidaBean {
 		}
 	}
 
-	public String gerarRelatorio() {
+	public void gerarRelatorio() {
 		try {
-			acessos = alunoService.listAcessosAlunos(id, dataInicial, dataFinal);
+			acessos = alunoServiceBean.listAcessosAlunos(id, dataInicial, dataFinal);
 		} catch (ValidationException e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 
 	public Integer getId() {

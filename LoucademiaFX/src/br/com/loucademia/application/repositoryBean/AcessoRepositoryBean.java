@@ -8,7 +8,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 import br.com.loucademia.application.repository.AcessoRepository;
-import br.com.loucademia.application.repository.AlunoRepository;
 import br.com.loucademia.domain.aluno.Acesso;
 import br.com.loucademia.domain.aluno.Aluno;
 
@@ -52,22 +51,18 @@ public class AcessoRepositoryBean implements AcessoRepository {
 		}		
     }
 
-//    @Override
-//    public void store(Acesso acesso) {    	
-//    	emf.persist(acesso);
-//    }
-
 	@Override
 	public void persist(Acesso ultimoAcesso) throws SQLException {
+		
 		try {
 		    emf.getTransaction().begin();
 		    emf.persist(ultimoAcesso);
-		    emf.getTransaction().commit();
-		    emf.close();
+		    emf.getTransaction().commit(); 		    
 		    
 		} catch (Exception ex) {
 		    ex.printStackTrace();
 		    emf.getTransaction().rollback();
-		}		
+		    
+		}
 	}
 }

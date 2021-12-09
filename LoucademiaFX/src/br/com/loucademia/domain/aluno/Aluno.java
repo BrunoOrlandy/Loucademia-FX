@@ -5,21 +5,14 @@ import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-
-import com.sun.istack.NotNull;
-import com.sun.istack.Nullable;
 
 @Entity
 @Table(name = "ALUNO")
@@ -33,9 +26,6 @@ public class Aluno implements Serializable {
     @Id
     @GenericGenerator(name = "aluno_gen", strategy = "increment")
     @GeneratedValue(generator = "aluno_gen")
-    
-//  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_aluno_gen")
-//  @SequenceGenerator(name = "seq_aluno_gen", sequenceName = "seq_aluno_id")
     
     @Column(name = "ID", nullable = false)
     private Integer id;
@@ -56,11 +46,11 @@ public class Aluno implements Serializable {
     private String situacao;
 
     @Column(name = "EMAIL", nullable = true, length = 64)
+    
     private String email;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-    private Endereco endereco;
+    private Endereco endereco = new Endereco();
 
     @Column(name = "telefone", nullable = true, length = 11)
     private String telefone;
@@ -139,27 +129,30 @@ public class Aluno implements Serializable {
 
     @Override
     public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Aluno [id=");
-		builder.append(id);
-		builder.append(", nome=");
-		builder.append(nome);
-		builder.append(", sexo=");
-		builder.append(sexo);
-		builder.append(", rg=");
-		builder.append(cpf);
-		builder.append(", dataNascimento=");
-		builder.append(dataNascimento);
-		builder.append(", situacao=");
-		builder.append(situacao);
-		builder.append(", email=");
-		builder.append(email);
-		builder.append(", endereco=");
-		builder.append(endereco);
-		builder.append(", telefone=");
-		builder.append(telefone);
-		builder.append("]");
-		return builder.toString();
+		return "Aluno [id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", cpf=" + cpf
+				+ ", dataNascimento=" + dataNascimento + ", situacao=" + situacao + ", email=" + email + ", endereco="
+				+ endereco + ", telefone=" + telefone + "]";
+//		StringBuilder builder = new StringBuilder();
+//		builder.append("Aluno [id=");
+//		builder.append(id);
+//		builder.append(", nome=");
+//		builder.append(nome);
+//		builder.append(", sexo=");
+//		builder.append(sexo);
+//		builder.append(", rg=");
+//		builder.append(cpf);
+//		builder.append(", dataNascimento=");
+//		builder.append(dataNascimento);
+//		builder.append(", situacao=");
+//		builder.append(situacao);
+//		builder.append(", email=");
+//		builder.append(email);
+//		builder.append(", endereco=");
+//		builder.append(endereco);
+//		builder.append(", telefone=");
+//		builder.append(telefone);
+//		builder.append("]");
+//		return builder.toString();
     }
 
     @Override

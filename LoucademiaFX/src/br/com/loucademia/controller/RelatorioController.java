@@ -3,15 +3,14 @@ package br.com.loucademia.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import br.com.loucademia.application.serviceBean.AlunoServiceBean;
-import br.com.loucademia.application.serviceBean.PesquisaAlunoServiceBean;
 import br.com.loucademia.application.serviceBean.RelatorioEntradaSaidaBean;
 import br.com.loucademia.application.util.DataValidation;
 import br.com.loucademia.application.util.StringUtils;
 import br.com.loucademia.domain.aluno.Acesso;
-import br.com.loucademia.domain.aluno.Aluno;
 import br.com.loucademia.domain.tela.NomeTelaEnum;
 import br.com.loucademia.startUp.StartUp;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -43,10 +42,10 @@ public class RelatorioController {
     private TextField txtMatricula;
     
     @FXML
-    private TableColumn<Aluno, Integer> matriculaColumn;
+    private TableColumn<Acesso, Number> matriculaColumn;
     
     @FXML
-    private TableColumn<Aluno, String> nomeColumn;
+    private TableColumn<Acesso, String> nomeColumn;
     
     @FXML
     private TableColumn<Acesso, LocalDateTime> dataEntradaColumn, dataSaidaColumn;
@@ -55,24 +54,18 @@ public class RelatorioController {
     private TableColumn<Acesso, String> duracaoColumn;
         
     @FXML
-    private TableView<Aluno> tabela;
+    private TableView<Acesso> tabela;
     
-    private List<Acesso> acessos;
+    //private List<Acesso> acessos;
 
     @FXML
     void btnPesquisarAction(ActionEvent event) {
     	
-    	Aluno alunoPesquisa = new Aluno();
-    	PesquisaAlunoServiceBean serviceBean = new PesquisaAlunoServiceBean();
-    	AlunoServiceBean alunoServiceBean = new AlunoServiceBean();
     	RelatorioEntradaSaidaBean relatorioEntradaSaidaBean = new RelatorioEntradaSaidaBean();
+    	    	
     	
-    	   	
-    	
-    	validarCamposPrenchidosCorretamente();
-    	
-		if (!StringUtils.isEmpty(txtMatricula.getText())) {
-		    alunoPesquisa.setId(Integer.valueOf(txtMatricula.getText()));
+		if (validarCamposPrenchidosCorretamente(!StringUtils.isEmpty(txtMatricula.getText()))) {
+			relatorioEntradaSaidaBean.setId(Integer.valueOf(txtMatricula.getText()));
 		}
 	
 		if (txtDataInicial.getValue() != null) {
@@ -81,42 +74,49 @@ public class RelatorioController {
 		
 		if (txtDataFinal.getValue() != null) {
 			relatorioEntradaSaidaBean.setDataFinal(txtDataFinal.getValue());
-		}
-	
-		//aluno
-		matriculaColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-		nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		dataEntradaColumn.setCellValueFactory(new PropertyValueFactory<>("dataInicial"));
-		dataSaidaColumn.setCellValueFactory(new PropertyValueFactory<>("dataFinal"));
-		duracaoColumn.setCellValueFactory(new PropertyValueFactory<>("duracao"));
-    	
-		List<Aluno> alunosEncontrado = serviceBean.buscarAluno(alunoPesquisa);		
-		List<Acesso> listAcessosAlunos = relatorioEntradaSaidaBean.getAcessos();
+		}		
 		
-		if (!alunosEncontrado.isEmpty()) {
-		    tabela.setItems(listaDeAlunos(alunosEncontrado));
+		//relatorioEntradaSaidaBean.setId(Integer.valueOf(txtMatricula.getText()));
+		relatorioEntradaSaidaBean.setDataInicial(txtDataInicial.getValue());
+		relatorioEntradaSaidaBean.setDataFinal(txtDataFinal.getValue());		
+		relatorioEntradaSaidaBean.gerarRelatorio();			
+		
+		List<Acesso> listAcessosAlunos = relatorioEntradaSaidaBean.getAcessos();
+				
+		// Usando expressão lambda
+		matriculaColumn.setCellValueFactory((param) -> new SimpleIntegerProperty(param.getValue().getAluno().getId()));
+				
+		// Usando expressão lambda
+		nomeColumn.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getAluno().getNome()));			
+		
+		dataEntradaColumn.setCellValueFactory(new PropertyValueFactory<>("entrada"));
+		dataSaidaColumn.setCellValueFactory(new PropertyValueFactory<>("saida"));
+		
+		// Usando expressão lambda
+		duracaoColumn.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().calcularDuracao()));
+		
+		if (!listAcessosAlunos.isEmpty()) {
+		    tabela.setItems(listaDeAcessos(listAcessosAlunos));
 		} else {
 		    Alert alert = new Alert(AlertType.INFORMATION);
 		    alert.setContentText("Não foram encotrados alunos partir dos dados informados");
 		    alert.show();
 		    limparCampos();
-		}
-	
+		}	
+		
 		tabela.getSelectionModel().selectedItemProperty()
-			.addListener((observable, oldValue, newValue) -> onSelectItemDataTable(newValue));
-		tabela.scrollTo(alunoPesquisa);
+				.addListener((observable, oldValue, newValue) -> onSelectItemDataTable(newValue));
+		
 		tabela.addEventFilter(ScrollEvent.SCROLL, new EventHandler<ScrollEvent>() {
 		    @Override
 		    public void handle(ScrollEvent scrollEvent) {
-			tabela.getAccessibleText();
+		    	tabela.getAccessibleText();
 		    }
-		});   	
-    	    	
-    	
+		});    	
     }
     
-    private ObservableList<Aluno> listaDeAlunos(List<Aluno> alunosList) {
-    	return FXCollections.observableList(alunosList);
+    private ObservableList<Acesso> listaDeAcessos(List<Acesso> acessosList) {
+    	return FXCollections.observableList(acessosList);
     }
 
 	@FXML
@@ -132,17 +132,19 @@ public class RelatorioController {
     	txtDataFinal.getEditor().clear();
     }
     
-    private void validarCamposPrenchidosCorretamente() {
-    	boolean isValidTelefone, isValidMatricula, isValidCPF, isNomeValido = false;
+    private boolean validarCamposPrenchidosCorretamente(boolean matricula) {
+    	boolean isValidMatricula = false;
 
-    		if (!StringUtils.isEmpty(txtMatricula.getText())) {
-    		    isValidMatricula = DataValidation.isIntegerValid(txtMatricula, labelMatricula, "Informe apenas Numeros",
-    			    "Matricula");
+		if (matricula) {
+		    isValidMatricula = DataValidation.isIntegerValid(txtMatricula, labelMatricula, "Informe apenas Numeros",
+			    "Matricula");
 		}
+    		
+    	return isValidMatricula;
     }
     
-    public void onSelectItemDataTable(Aluno aluno) {
-    	System.err.println(aluno.getNome());
+    public void onSelectItemDataTable(Acesso acesso) {
+    	System.err.println(acesso.getAluno().getNome());
     }
 }
 

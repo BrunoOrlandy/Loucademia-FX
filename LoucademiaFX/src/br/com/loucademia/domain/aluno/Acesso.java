@@ -67,9 +67,9 @@ public class Acesso implements Serializable {
     public String calcularDuracao() {
 		if (entrada == null || saida == null) {
 		    return null;
-	}
+		}
 
-	Duration d = Duration.between(entrada, saida);
+		Duration d = Duration.between(entrada, saida);
 		return String.format("%02d:%02d", d.toHoursPart(), d.toMinutesPart());
     }
 

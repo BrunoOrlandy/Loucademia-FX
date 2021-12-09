@@ -14,6 +14,8 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import org.hibernate.resource.transaction.internal.SynchronizationRegistryStandardImpl;
+
 import br.com.loucademia.application.repository.AlunoRepository;
 import br.com.loucademia.application.util.StringUtils;
 import br.com.loucademia.domain.aluno.Acesso;
@@ -68,48 +70,33 @@ public class AlunoRepositoryBean implements AlunoRepository {
     @Override
     public Aluno findById(Integer id) {
     	
-    	Aluno aluno = new Aluno();
-		try {
-		    Query q = emf.createQuery("SELECT a FROM Aluno a WHERE a.id = :id");
-		    q.setParameter("id", id);
-		    List<Aluno> alunoList = q.getResultList();
-	
-		    if (!alunoList.isEmpty() || alunoList != null) {
-			for (Aluno a : alunoList) {
-			    aluno = a;
-			}
-		    }
-	
-		} catch (NoResultException nre) {
-		    return null;
-		}
-	
-		System.out.println("Terminou por aqui");
-		return aluno;
+    	return emf.find(Aluno.class, id);
     	
-    	//return emf.find(Aluno.class, id);
+    	
+
     }
 
     @Override
     public Aluno findByCPF(String cpf) {
-
-		Aluno aluno = new Aluno();
-		try {
-		    Query q = emf.createQuery("SELECT a FROM Aluno a WHERE a.cpf = :cpf");
-		    q.setParameter("cpf", cpf);
-		    List<Aluno> alunoList = q.getResultList();
-	
-		    if (!alunoList.isEmpty() || alunoList != null) {
-				for (Aluno a : alunoList) {
-				    aluno = a;
-				}
-		    }
-	
-		} catch (NoResultException nre) {
-		    return null;
+    	
+    	try {
+			return emf.createQuery("SELECT a FROM Aluno a WHERE a.cpf = :cpf", Aluno.class)
+					.setParameter("cpf", cpf)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
 		}
-	
-		return aluno;
+
+
+    }
+    
+    public Aluno findByCPFandId(Integer id, String cpf) {
+    	try {
+    	    return emf.createQuery("SELECT a FROM Aluno a WHERE a.id = :id and a.cpf = :cpf", Aluno.class)
+    		    .setParameter("cpf", cpf).setParameter("id", id).getSingleResult();
+    	} catch (NoResultException e) {
+    	    return null;
+    	}
     }
 
     @Override

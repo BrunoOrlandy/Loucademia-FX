@@ -95,7 +95,7 @@ public class AlunoServiceBean implements AlunoService {
     @Override
     public List<Acesso> listAcessosAlunos(Integer id, LocalDate dataInicial, LocalDate dataFinal) {
 		if (id == null && dataInicial == null && dataFinal == null) {
-		    throw new ValidationException("Pelo menos um criterio de pesquisa deve ser fornecido");
+		   System.out.println("Pelo menos um criterio de pesquisa deve ser fornecido");
 		}
 
 		return alunoRepository.listAcessosAlunos(id, dataInicial, dataFinal);

@@ -13,19 +13,22 @@ import br.com.loucademia.application.util.ValidationException;
 import br.com.loucademia.domain.acesso.TipoAcesso;
 import br.com.loucademia.domain.aluno.Acesso;
 import br.com.loucademia.domain.aluno.Aluno;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class ControleAcessoServiceBean implements Serializable, ControleAcessoService {
 	
-    private AcessoRepository acessoRepository = new AcessoRepositoryBean();
-    private AlunoRepository alunoRepository = new AlunoRepositoryBean();
+    private AcessoRepositoryBean acessoRepository = new AcessoRepositoryBean();
+    private AlunoRepositoryBean alunoRepository = new AlunoRepositoryBean();
 
     private static final long serialVersionUID = 1L;
 
     @Override
     public TipoAcesso registrarAcesso(Integer id, String cpf) {
     	
-	
 		Aluno aluno;
+		Alert alert = new Alert(AlertType.INFORMATION);
+		
 		if (id == null) {
 		    aluno = alunoRepository.findByCPF(cpf);
 		    
@@ -35,7 +38,8 @@ public class ControleAcessoServiceBean implements Serializable, ControleAcessoSe
 		}
 	
 		if (aluno == null) {
-		    throw new ValidationException("O aluno não foi encontrado");
+			return null;
+		    
 		}
 	
 		Acesso ultimoAcesso = acessoRepository.findUltimoAcesso(aluno);
@@ -64,8 +68,16 @@ public class ControleAcessoServiceBean implements Serializable, ControleAcessoSe
 			}
 		}
 		
-		System.out.println("AQUI VAI O TIPO_DE_ACESSO: " + tipoAcesso);
-		
 		return tipoAcesso;
     }
+    
+    public boolean existeAluno(Integer id, String cpf) {
+		
+		Aluno a = alunoRepository.findByCPFandId(id, cpf);
+					
+				
+		return a != null;
+    }
+    
+    
 }
