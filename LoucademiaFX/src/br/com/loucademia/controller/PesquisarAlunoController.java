@@ -3,13 +3,13 @@ package br.com.loucademia.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.loucademia.application.serviceBean.PesquisaAlunoServiceBean;
-import br.com.loucademia.application.util.DataValidation;
-import br.com.loucademia.application.util.StringUtils;
-import br.com.loucademia.domain.aluno.Aluno;
-import br.com.loucademia.domain.tela.NomeTelaEnum;
-import br.com.loucademia.domain.valueObject.AlunoEstadoVo;
 import br.com.loucademia.initApp.App;
+import br.com.loucademia.model.model.Aluno;
+import br.com.loucademia.model.model.enums.NomeTelaEnum;
+import br.com.loucademia.model.model.valueObject.AlunoEstadoVo;
+import br.com.loucademia.model.serviceBean.PesquisaAlunoServiceBean;
+import br.com.loucademia.model.util.DataValidation;
+import br.com.loucademia.model.util.StringUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -59,6 +59,8 @@ public class PesquisarAlunoController extends BaseController {
     @FXML
     private TableView<AlunoEstadoVo> tabela;
 
+    private ObservableList obsList;
+
     @FXML
     private ScrollPane scrollPane = new ScrollPane();
 
@@ -92,7 +94,8 @@ public class PesquisarAlunoController extends BaseController {
 
 	List<Aluno> alunosEncontrado = serviceBean.buscarAluno(alunoPesquisa);
 	if (!alunosEncontrado.isEmpty()) {
-	    tabela.setItems(listaDeAlunos(alunosEncontrado));
+	    this.setObsList(listaDeAlunos(alunosEncontrado));
+	    tabela.setItems(this.getObsList());
 	} else {
 	    Alert alert = new Alert(AlertType.INFORMATION);
 	    alert.setContentText("Não foram encotrados alunos partir dos dados informados");
@@ -159,12 +162,14 @@ public class PesquisarAlunoController extends BaseController {
     @FXML
     void btnVoltar(ActionEvent event) {
 	App.changeScreen(NomeTelaEnum.MENU);
+	limparCampos();
     }
 
     @FXML
     void btnEditar(ActionEvent event) {
 	if (getAlunoEstadoVoSelecionado() != null) {
 	    getApp().getAlunoController().editAluno(getAlunoEstadoVoSelecionado());
+	    getObsList().clear();
 	} else {
 	    Alert alert = new Alert(AlertType.INFORMATION);
 	    alert.setContentText("Não foi selecionado nenhum aluno para realizar a edição");
@@ -190,6 +195,7 @@ public class PesquisarAlunoController extends BaseController {
 	    vo.setNome(aluno.getNome());
 	    vo.setDataNascimento(aluno.getDataNascimento().toString());
 	    vo.setSituacao(aluno.getSituacao());
+	    vo.setSexo(aluno.getSexo());
 	    vo.setTelefone(aluno.getTelefone());
 	    vo.setCpf(aluno.getCpf());
 	    vo.setEmail(aluno.getEmail());
@@ -211,7 +217,11 @@ public class PesquisarAlunoController extends BaseController {
 	txtNome.clear();
 	txtTelefone.clear();
 	txtCPF.clear();
-	tabela.getItems().clear();
+	if (getObsList() != null) {
+	    getObsList().clear();
+	    tabela.getItems().clear();
+	}
+
     }
 
     public AlunoEstadoVo getAlunoEstadoVoSelecionado() {
@@ -220,6 +230,14 @@ public class PesquisarAlunoController extends BaseController {
 
     public void setAlunoEstadoVoSelecionado(AlunoEstadoVo alunoEstadoVoSelecionado) {
 	this.alunoEstadoVoSelecionado = alunoEstadoVoSelecionado;
+    }
+
+    public ObservableList getObsList() {
+	return obsList;
+    }
+
+    public void setObsList(ObservableList obsList) {
+	this.obsList = obsList;
     }
 
 }

@@ -1,7 +1,7 @@
 package br.com.loucademia.controller;
 
-import br.com.loucademia.domain.tela.NomeTelaEnum;
 import br.com.loucademia.initApp.App;
+import br.com.loucademia.model.model.enums.NomeTelaEnum;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -37,7 +37,6 @@ public class MenuController extends BaseController {
 	if (nextPage.equals(nextPage)) {
 	    nextPage = null;
 	}
-
 	App.changeScreen(nextPage);
     }
 

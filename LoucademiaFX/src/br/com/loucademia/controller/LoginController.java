@@ -2,9 +2,9 @@ package br.com.loucademia.controller;
 
 import java.sql.SQLException;
 
-import br.com.loucademia.application.serviceBean.LoginServiceBean;
-import br.com.loucademia.domain.tela.NomeTelaEnum;
 import br.com.loucademia.initApp.App;
+import br.com.loucademia.model.model.enums.NomeTelaEnum;
+import br.com.loucademia.model.serviceBean.LoginServiceBean;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

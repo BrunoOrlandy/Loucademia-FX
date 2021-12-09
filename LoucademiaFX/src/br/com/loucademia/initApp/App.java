@@ -4,12 +4,12 @@ import java.io.IOException;
 
 import br.com.loucademia.controller.AlunoController;
 import br.com.loucademia.controller.BaseController;
-import br.com.loucademia.controller.ControleAcessoController;
+import br.com.loucademia.controller.AcessoController;
 import br.com.loucademia.controller.LoginController;
 import br.com.loucademia.controller.MenuController;
 import br.com.loucademia.controller.PesquisarAlunoController;
-import br.com.loucademia.controller.RelatorioController;
-import br.com.loucademia.domain.tela.NomeTelaEnum;
+import br.com.loucademia.controller.RelatorioEntradaSaidaController;
+import br.com.loucademia.model.model.enums.NomeTelaEnum;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,8 +28,8 @@ public class App extends Application {
 
     private static AlunoController alunoController;
     private static PesquisarAlunoController pesquisarAlunoController;
-    private static ControleAcessoController controleAcessoAlunoController;
-    private static RelatorioController relatorioController;
+    private static AcessoController controleAcessoAlunoController;
+    private static RelatorioEntradaSaidaController relatorioController;
     private static MenuController menuController;
     private static LoginController loginController;
 
@@ -38,6 +38,7 @@ public class App extends Application {
     public static void main(String[] args) {
 	launch(args);
     }
+    
 
     public void start(Stage primaryStage) throws Exception {
 

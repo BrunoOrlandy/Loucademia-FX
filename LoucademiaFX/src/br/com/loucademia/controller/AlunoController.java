@@ -1,19 +1,20 @@
 package br.com.loucademia.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-import br.com.loucademia.application.service.AlunoService;
-import br.com.loucademia.application.serviceBean.AlunoServiceBean;
-import br.com.loucademia.application.util.DataValidation;
-import br.com.loucademia.domain.aluno.Aluno;
-import br.com.loucademia.domain.aluno.EstadoEnum;
-import br.com.loucademia.domain.aluno.SexoEnum;
-import br.com.loucademia.domain.aluno.SituacaoEnum;
-import br.com.loucademia.domain.tela.NomeTelaEnum;
-import br.com.loucademia.domain.valueObject.AlunoEstadoVo;
 import br.com.loucademia.initApp.App;
+import br.com.loucademia.model.model.Aluno;
+import br.com.loucademia.model.model.enums.EstadoEnum;
+import br.com.loucademia.model.model.enums.NomeTelaEnum;
+import br.com.loucademia.model.model.enums.SexoEnum;
+import br.com.loucademia.model.model.enums.SituacaoEnum;
+import br.com.loucademia.model.model.valueObject.AlunoEstadoVo;
+import br.com.loucademia.model.service.AlunoService;
+import br.com.loucademia.model.serviceBean.AlunoServiceBean;
+import br.com.loucademia.model.util.DataValidation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -83,19 +84,17 @@ public class AlunoController extends BaseController {
 	    aluno.getEndereco().setCep(Integer.valueOf(cep.getText()));
 	    aluno.getEndereco().setComplemento(complemento.getText());
 
-	    String msgOperacao = service.validarAlunoESalvar(aluno);
+	    String msg = service.validarAlunoESalvar(aluno);
 
-	    if (msgOperacao != null) {
+	    if (msg != null) {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setContentText(msgOperacao);
+		alert.setContentText(msg);
 		alert.show();
-		limparCamposPreenchidos();
 	    } else {
-		Alert alert = new Alert(AlertType.WARNING);
-		alert.setContentText("Aluno informado já existe");
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setContentText("Aluno " + aluno.getNome() + " savlo com sucesso");
 		alert.show();
 	    }
-
 	}
     }
 
@@ -175,45 +174,38 @@ public class AlunoController extends BaseController {
 //	dataDeNascimento.setValue(s);
 
     public void editAluno(AlunoEstadoVo alunoEstadoVo) {
-
 	preencherCamposDaTela(alunoEstadoVo);
-
-	AlunoService service = new AlunoServiceBean();
-
+	getApp().changeScreen(NomeTelaEnum.NOVO_ALUNO);
     }
 
     private void preencherCamposDaTela(AlunoEstadoVo alunoEstadoVo) {
 
 	nome.setText(alunoEstadoVo.getNome());
 	identidade.setText(alunoEstadoVo.getCpf());
-	if (alunoEstadoVo.getSexo().equals(SexoEnum.MASCULINO)) {
+	if (alunoEstadoVo.getSexo().equals(SexoEnum.MASCULINO.getName())) {
 	    rbMasculino.isSelected();
 	} else {
 	    rbFeminino.isSelected();
 	}
-	if (alunoEstadoVo.getSituacao().equals(SituacaoEnum.ATIVO)) {
+	if (alunoEstadoVo.getSituacao().equals(SituacaoEnum.ATIVO.getNome())) {
 	    rbAtivo.isSelected();
 	} else {
 	    rbInativo.isSelected();
 	}
 	email.setText(alunoEstadoVo.getEmail());
 	telefoneCelular.setText(alunoEstadoVo.getTelefone());
+	rua.setText(alunoEstadoVo.getRua());
+	numero.setText(alunoEstadoVo.getNumero().toString());
+	cidade.setText(alunoEstadoVo.getCidade());
+	complemento.setText(alunoEstadoVo.getComplemento());
+	cep.setText(alunoEstadoVo.getCep().toString());
+	email.setText(alunoEstadoVo.getEmail());
+	choiseEstado.setValue(alunoEstadoVo.getEstado());
+	dataDeNascimento.setValue(LocalDate.parse(alunoEstadoVo.getDataNascimento()));
+	dataDeNascimento.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-//	aluno.setNome(nome.getText());
-//	aluno.setCpf(identidade.getText());
-//	aluno.setDataNascimento(dataDeNascimento.getValue());
-//	aluno.setSexo(rbMasculino.getText());
-//	aluno.setSituacao(rbInativo.getText());
-	aluno.setEmail(email.getText());
-	aluno.setTelefone(telefoneCelular.getText());
-	aluno.getEndereco().setRua(rua.getText());
-	aluno.getEndereco().setNumero(Integer.valueOf(numero.getText()));
-	aluno.getEndereco().setEstado(choiseEstado.getValue());
-	aluno.getEndereco().setNumero(Integer.valueOf(numero.getText()));
-	aluno.getEndereco().setCidade(cidade.getText());
-	aluno.getEndereco().setCep(Integer.valueOf(cep.getText()));
-	aluno.getEndereco().setComplemento(complemento.getText());
-
+	aluno.setId(alunoEstadoVo.getId());
+	aluno.getEndereco().setId(alunoEstadoVo.getId());
     }
 
 }
