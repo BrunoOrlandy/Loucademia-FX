@@ -51,11 +51,10 @@ public class AlunoRepositoryBean implements AlunoRepository {
 	    emf.getTransaction().begin();
 	    emf.persist(aluno);
 	    emf.getTransaction().commit();
+
 	} catch (Exception ex) {
 	    ex.printStackTrace();
 	    emf.getTransaction().rollback();
-	} finally {
-	    emf.close();
 	}
     }
 
@@ -75,6 +74,25 @@ public class AlunoRepositoryBean implements AlunoRepository {
 	}
 
     }
+
+    public List<Aluno> findAlunoByCPF(String cpf) {
+	try {
+	    return emf.createQuery("SELECT a FROM Aluno a WHERE a.cpf = :cpf", Aluno.class).setParameter("cpf", cpf)
+		    .getResultList();
+	} catch (NoResultException e) {
+	    return null;
+	}
+    }
+
+//    @Override
+//    public Aluno findByCPFandId(Integer id, String cpf) {
+//	try {
+//	    return emf.createQuery("SELECT a FROM Aluno a WHERE a.id = :id and a.cpf = :cpf", Aluno.class)
+//		    .setParameter("cpf", cpf).setParameter("id", id).getSingleResult();
+//	} catch (NoResultException e) {
+//	    return null;
+//	}
+//    }
 
     @Override
     public Aluno findByCPFandId(Integer id, String cpf) {
@@ -135,8 +153,6 @@ public class AlunoRepositoryBean implements AlunoRepository {
 	    jpql.append("a.telefone LIKE :telefone");
 	}
 
-	// A query vai terminar com '1 = 1'. Forma simples utilizando a tabela verdade
-	// sem precisar tirar o AND da String.
 	jpql.append("1 = 1");
 	TypedQuery<Aluno> q = emf.createQuery(jpql.toString(), Aluno.class);
 
@@ -160,11 +176,9 @@ public class AlunoRepositoryBean implements AlunoRepository {
     }
 
     @Override
-    public List<Aluno> listSituacoesAlunos(String situacao) {
-//	return em.createQuery("SELECT a FROM Aluno a WHERE a.situacao = :situacao ORDER BY a.nome", Aluno.class)
-//		.setParameter("situacao", situacao).getResultList();
-	return new ArrayList<>();
-
+    public List<Aluno> listSituacoesAlunos(Integer id, String situacao) {
+	return emf.createQuery("SELECT a FROM Aluno a WHERE a.situacao = :situacao OR a.id = :id ORDER BY a.nome",
+		Aluno.class).setParameter("id", id).setParameter("situacao", situacao).getResultList();
     }
 
     @Override
@@ -248,7 +262,26 @@ public class AlunoRepositoryBean implements AlunoRepository {
 
     @Override
     public void update(Aluno aluno) {
-	emf.merge(aluno);
+	try {
+	    emf.getTransaction().begin();
+	    emf.merge(aluno);
+	    emf.getTransaction().commit();
+	} catch (Exception ex) {
+	    ex.printStackTrace();
+	    emf.getTransaction().rollback();
+	}
+
+    }
+
+    @Override
+    public List<Aluno> listaAlunosById(Integer id) {
+	return emf.createQuery("SELECT a FROM Aluno a WHERE a.id = :id ORDER BY a.nome", Aluno.class)
+		.setParameter("id", id).getResultList();
+    }
+
+    @Override
+    public List<Aluno> findAll() {
+	return emf.createQuery("SELECT a FROM Aluno a ORDER BY a.nome", Aluno.class).getResultList();
     }
 
 }

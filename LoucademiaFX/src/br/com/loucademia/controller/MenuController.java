@@ -9,8 +9,7 @@ public class MenuController extends BaseController {
 
     @FXML
     protected void btnNovoAluno(ActionEvent event) {
-//		Parent fxmlNovoAluno = FXMLLoader.load(getClass().getResource("/br/com/loucademia/view/novo_aluno.fxml"));
-	App.changeScreen(NomeTelaEnum.NOVO_ALUNO);
+	getApp().getAlunoController().novoAluno();
     }
 
     @FXML

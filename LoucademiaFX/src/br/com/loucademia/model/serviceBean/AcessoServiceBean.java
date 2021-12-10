@@ -8,12 +8,14 @@ import br.com.loucademia.model.model.Aluno;
 import br.com.loucademia.model.model.enums.TipoAcesso;
 import br.com.loucademia.model.repository.AcessoRepository;
 import br.com.loucademia.model.repository.AlunoRepository;
+import br.com.loucademia.model.repositoryBean.AcessoRepositoryBean;
+import br.com.loucademia.model.repositoryBean.AlunoRepositoryBean;
 import br.com.loucademia.model.service.AcessoService;
 import br.com.loucademia.model.util.ValidationException;
 
 public class AcessoServiceBean implements Serializable, AcessoService {
-    private AcessoRepository acessoRepository;
-    private AlunoRepository alunoRepository;
+    AcessoRepository acessoRepository = new AcessoRepositoryBean();
+    AlunoRepository alunoRepository = new AlunoRepositoryBean();
 
     private static final long serialVersionUID = 1L;
 

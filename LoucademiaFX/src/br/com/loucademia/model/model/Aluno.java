@@ -5,21 +5,14 @@ import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-
-import com.sun.istack.NotNull;
-import com.sun.istack.Nullable;
 
 import br.com.loucademia.model.model.valueObject.AlunoEstadoVo;
 
@@ -57,7 +50,7 @@ public class Aluno implements Serializable {
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+    @JoinColumn(name = "endereco_id")//referencedColumnName = "id"
     private Endereco endereco;
 
     @Column(name = "telefone", nullable = true, length = 11)

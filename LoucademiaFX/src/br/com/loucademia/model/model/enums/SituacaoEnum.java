@@ -1,5 +1,8 @@
 package br.com.loucademia.model.model.enums;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum SituacaoEnum {
 
     ATIVO("A", "Ativo"), INATIVO("I", "Inativo"), PENDENTE("P", "Pendente");
@@ -26,6 +29,10 @@ public enum SituacaoEnum {
 
     public void setNome(String nome) {
 	this.nome = nome;
+    }
+
+    public static List<String> getSituacaoes() {
+	return Arrays.asList(ATIVO.getNome(), INATIVO.getNome(), PENDENTE.getNome());
     }
 
 }

@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="529.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.loucademia.controller.RelatorioEntradaSaidaController">
+<AnchorPane prefHeight="529.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.loucademia.controller.RelatorioEntradaSaidaController">
    <children>
       <Pane layoutX="14.0" layoutY="14.0" prefHeight="512.0" prefWidth="824.0">
          <children>
@@ -31,9 +31,9 @@
               <columns>
                 <TableColumn fx:id="matriculaColumn" prefWidth="69.0" text="Matrícula" />
                 <TableColumn fx:id="nomeColumn" prefWidth="189.0" text="Nome" />
-                <TableColumn fx:id="dataEntradaColumn" prefWidth="106.0" text="Data Entrada" />
-                <TableColumn fx:id="dataSaidaColumn" prefWidth="108.0" text="Data Saída" />
-                <TableColumn fx:id="duracaoColumn" maxWidth="316.0" prefWidth="99.0" text="Duração" />
+                <TableColumn fx:id="dtEntradaColString" prefWidth="182.0" text="Data Entrada" />
+                <TableColumn fx:id="dtSaidaColString" prefWidth="146.0" text="Data Saída" />
+                <TableColumn fx:id="duracaoColumn" maxWidth="333.0" prefWidth="219.0" text="Duração" />
               </columns>
             </TableView>
             

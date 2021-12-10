@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.com.loucademia.model.model.enums.TipoAcesso;
 
@@ -35,6 +36,10 @@ public class Acesso implements Serializable {
 
     @Column(name = "SAIDA", nullable = true)
     private LocalDateTime saida;
+    @Transient
+    private String entradaString;
+    @Transient
+    private String saidaString;
 
     public boolean isEntradaSaidaPrenchidas() {
 	if (entrada != null && saida != null) {
@@ -67,8 +72,9 @@ public class Acesso implements Serializable {
 	if (entrada == null || saida == null) {
 	    return null;
 	}
-
+	
 	Duration d = Duration.between(entrada, saida);
+	
 	return String.format("%02d:%02d", d.toHoursPart(), d.toMinutesPart());
     }
 
@@ -128,4 +134,21 @@ public class Acesso implements Serializable {
 	    return false;
 	return true;
     }
+
+    public String getEntradaString() {
+	return entradaString;
+    }
+
+    public void setEntradaString(String entradaString) {
+	this.entradaString = entradaString;
+    }
+
+    public String getSaidaString() {
+	return saidaString;
+    }
+
+    public void setSaidaString(String saidaString) {
+	this.saidaString = saidaString;
+    }
+
 }

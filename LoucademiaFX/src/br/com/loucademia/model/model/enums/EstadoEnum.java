@@ -63,7 +63,7 @@ public enum EstadoEnum {
 	for (final EstadoEnum uf : EstadoEnum.values()) {
 	    siglaEstados.add(uf.sigla);
 	}
-	return siglaEstados;
+	return siglaEstados ;
 
     }
 

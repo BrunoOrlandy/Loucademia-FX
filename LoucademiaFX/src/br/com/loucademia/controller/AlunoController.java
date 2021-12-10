@@ -27,7 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
-public class AlunoController extends BaseController {
+public class AlunoController extends BaseController  {
 
     private final static String ERROR_CSS = "-fx-border-color: red ; -fx-border-width: 1px;";
 
@@ -63,7 +63,6 @@ public class AlunoController extends BaseController {
 	if (dataDeNascimento.getValue() == null) {
 	    dataDeNascimento.setStyle(ERROR_CSS);
 	} else {
-	    System.out.println(dataDeNascimento.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 	    dataDeNascimento.setStyle(null);
 	}
 
@@ -86,13 +85,14 @@ public class AlunoController extends BaseController {
 
 	    String msg = service.validarAlunoESalvar(aluno);
 
-	    if (msg != null) {
+	    if (msg.contains("Sucesso")) {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setContentText(msg);
+		alert.setContentText("Aluno: " + aluno.getNome() + " gravado com Sucesso!");
 		alert.show();
+		limparCamposPreenchidos();
 	    } else {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setContentText("Aluno " + aluno.getNome() + " savlo com sucesso");
+		alert.setContentText(msg);
 		alert.show();
 	    }
 	}
@@ -118,6 +118,7 @@ public class AlunoController extends BaseController {
     public void limparCamposPreenchidos() {
 	nome.clear();
 	identidade.clear();
+	aluno = new Aluno();
 	rua.clear();
 	numero.clear();
 	choiseEstado.setValue(null);
@@ -127,15 +128,16 @@ public class AlunoController extends BaseController {
 	email.clear();
 	telefoneCelular.clear();
 	dataDeNascimento.getEditor().clear();
-	AlunoController a = new AlunoController();
+
     }
 
     private ObservableList<String> listaEstadoEnums() {
-	return FXCollections.observableList(EstadoEnum.getSiglasEstados());
+	return FXCollections.observableList(EstadoEnum.getSiglasEstados()).sorted();
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+
 	choiseEstado.getItems().addAll(listaEstadoEnums());
 	choiseEstado.setOnAction(this::getEstado);
 	getSexo(null);
@@ -161,20 +163,21 @@ public class AlunoController extends BaseController {
 		"E-mail incorreto! Deve conter 'seuemail@dominio.com.br'");
 	boolean numericPhNumber = DataValidation.isPhone(telefoneCelular, labelTelefoneCelular,
 		"Informe números de 0 - 9");
-	boolean cepValidation = DataValidation.isCep(cep, labelCidade, "Informe apenas números");
-
+	boolean cepValidation = DataValidation.isCep(cep, labelCep, "Informe apenas números");
 	boolean dataNascimento = dataDeNascimento.getValue() != null;
 
 	return alphabetName && identidadeValition && ruaValidation && numeroValidation && cidadeValidation
 		&& cidadeValidation && cepValidation && estadoValidation && emailValidation && numericPhNumber;
     }
 
-//	LocalDate s = dataDeNascimento.getValue();
-//	s.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-//	dataDeNascimento.setValue(s);
-
     public void editAluno(AlunoEstadoVo alunoEstadoVo) {
+	getApp().changeScreen(NomeTelaEnum.NOVO_ALUNO);
+	aluno = new Aluno();
 	preencherCamposDaTela(alunoEstadoVo);
+    }
+
+    public void novoAluno() {
+	aluno = new Aluno();
 	getApp().changeScreen(NomeTelaEnum.NOVO_ALUNO);
     }
 

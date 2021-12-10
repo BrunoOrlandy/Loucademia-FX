@@ -1,10 +1,7 @@
 package br.com.loucademia.controller;
 
-import br.com.loucademia.initApp.App;
-import br.com.loucademia.model.model.Aluno;
 import br.com.loucademia.model.model.enums.NomeTelaEnum;
 import br.com.loucademia.model.model.enums.TipoAcesso;
-import br.com.loucademia.model.service.AcessoService;
 import br.com.loucademia.model.serviceBean.AcessoServiceBean;
 import br.com.loucademia.model.util.DataValidation;
 import br.com.loucademia.model.util.StringUtils;

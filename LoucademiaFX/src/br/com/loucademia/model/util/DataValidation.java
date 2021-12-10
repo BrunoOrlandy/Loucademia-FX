@@ -22,7 +22,7 @@ public class DataValidation {
 	    isAlphabet = false;
 	    showDinamico(inputTextField, inputLabel, isAlphabet);
 
-	} else if (!inputTextField.getText().matches("[a-z A-Z]+")) {
+	} else if (!inputTextField.getText().matches("[a-zA-Zá-úÁ-Ý.]+")) {
 	    isAlphabet = false;
 	    inputLabel.setText(validationText);
 	    showDinamico(inputTextField, inputLabel, isAlphabet);
@@ -277,7 +277,7 @@ public class DataValidation {
 	    isString = false;
 	    showDinamico(inputTextField, inputLabel, isString);
 
-	} else if (!inputTextField.getText().matches("[a-z A-Z]+")) {
+	} else if (!inputTextField.getText().matches("[a-zA-Zá-úÁ-Ý.]+")) {
 	    isString = false;
 	    inputLabel.setText(validationText);
 	    showDinamico(inputTextField, inputLabel, isString);

@@ -22,7 +22,7 @@ public interface AlunoService {
 
     List<Aluno> listAlunos(Integer matricula, String nome, Integer rg, String telefone);
 
-    List<Aluno> listSituacoesAlunos(String situacao);
+    List<Aluno> listSituacoesAlunos(Integer id, String situacao);
 
     List<Acesso> listAcessosAlunos(Integer id, LocalDate dataInicial, LocalDate dataFinal);
 

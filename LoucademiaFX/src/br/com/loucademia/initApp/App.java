@@ -9,6 +9,7 @@ import br.com.loucademia.controller.LoginController;
 import br.com.loucademia.controller.MenuController;
 import br.com.loucademia.controller.PesquisarAlunoController;
 import br.com.loucademia.controller.RelatorioEntradaSaidaController;
+import br.com.loucademia.controller.SituacaoController;
 import br.com.loucademia.model.model.enums.NomeTelaEnum;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +26,7 @@ public class App extends Application {
     private static String PATH_VIEW_MENU = "/br/com/loucademia/view/menu.fxml";
     private static String PATH_VIEW_CONTROLE_ACESSO = "/br/com/loucademia/view/controle_acesso.fxml";
     private static String PATH_VIEW_REL_ENTRADA_SAIDA = "/br/com/loucademia/view/relatorio_entrada_saida.fxml";
+    private static String PATH_VIEW_RELATORIO_SITUACAO = "/br/com/loucademia/view/relatorio_situacao.fxml";
 
     private static AlunoController alunoController;
     private static PesquisarAlunoController pesquisarAlunoController;
@@ -32,13 +34,13 @@ public class App extends Application {
     private static RelatorioEntradaSaidaController relatorioController;
     private static MenuController menuController;
     private static LoginController loginController;
+    private static SituacaoController situacaoController;
 
     private static Stage stage;
 
     public static void main(String[] args) {
 	launch(args);
     }
-    
 
     public void start(Stage primaryStage) throws Exception {
 
@@ -50,6 +52,7 @@ public class App extends Application {
 	menuController = loadController(PATH_VIEW_MENU);
 	controleAcessoAlunoController = loadController(PATH_VIEW_CONTROLE_ACESSO);
 	relatorioController = loadController(PATH_VIEW_REL_ENTRADA_SAIDA);
+	situacaoController = loadController(PATH_VIEW_RELATORIO_SITUACAO);
 
 	primaryStage.setScene(loginController.getScene());
 	primaryStage.setTitle("Loucademia");
@@ -90,7 +93,7 @@ public class App extends Application {
 	    stage.setScene(relatorioController.getScene());
 	    break;
 	case RELATORIO_SITUACAO:
-//				stage.setScene(fxmlTela);
+	    stage.setScene(situacaoController.getScene());
 	default:
 	    break;
 	}

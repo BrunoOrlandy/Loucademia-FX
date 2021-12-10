@@ -90,7 +90,6 @@ public class PesquisarAlunoController extends BaseController {
 	}
 
 	buildDataViewCellValue();
-//	buildDataViewCellFactory();
 
 	List<Aluno> alunosEncontrado = serviceBean.buscarAluno(alunoPesquisa);
 	if (!alunosEncontrado.isEmpty()) {
@@ -167,6 +166,7 @@ public class PesquisarAlunoController extends BaseController {
 
     @FXML
     void btnEditar(ActionEvent event) {
+	
 	if (getAlunoEstadoVoSelecionado() != null) {
 	    getApp().getAlunoController().editAluno(getAlunoEstadoVoSelecionado());
 	    getObsList().clear();

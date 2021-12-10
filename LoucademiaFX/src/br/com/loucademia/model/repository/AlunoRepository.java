@@ -11,11 +11,11 @@ public interface AlunoRepository {
 
     void persist(Aluno aluno) throws SQLException;
 
+    void update(Aluno aluno);
+
     Aluno findById(Integer id);
 
     Aluno findByCPF(String cpf);
-
-    public Aluno findByCPFandId(Integer id, String cpf);
 
     void remove(Aluno aluno);
 
@@ -27,9 +27,16 @@ public interface AlunoRepository {
 
     List<Aluno> listAlunos(Aluno aluno);
 
-    List<Aluno> listSituacoesAlunos(String situacao);
+    public List<Aluno> listSituacoesAlunos(Integer id, String situacao);
 
     List<Acesso> listAcessosAlunos(Integer id, LocalDate dataInicial, LocalDate dataFinal);
 
-    void update(Aluno aluno);
+    List<Aluno> findAlunoByCPF(String cpf);
+    
+    List<Aluno> findAll();
+
+    public List<Aluno> listaAlunosById(Integer id);
+
+    public Aluno findByCPFandId(Integer id, String cpf);
+
 }

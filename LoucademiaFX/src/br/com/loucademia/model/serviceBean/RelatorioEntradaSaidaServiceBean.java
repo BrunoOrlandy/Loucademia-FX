@@ -13,22 +13,12 @@ import br.com.loucademia.model.util.ValidationException;
 
 public class RelatorioEntradaSaidaServiceBean implements RelatorioEntradaSaidaService {
 
-    private AlunoRepository alunoRepository = new AlunoRepositoryBean();
-
-//    public void carregarAluno() {
-//	if (id != null) {
-//	    gerarRelatorio();
-//	}
-//    }
+    AlunoRepositoryBean alunoRepository = new AlunoRepositoryBean();
 
     @Override
     public List<Acesso> gerarRelatorio(Integer id, LocalDate dataInicial, LocalDate dataFinal) {
-	try {
-	    List<Acesso> acessos = alunoRepository.listAcessosAlunos(id, dataInicial, dataFinal);
-	} catch (ValidationException e) {
-	    e.printStackTrace();
-	}
-	return null;
+	List<Acesso> acessos = alunoRepository.listAcessosAlunos(id, dataInicial, dataFinal);
+	return acessos;
     }
 
 }

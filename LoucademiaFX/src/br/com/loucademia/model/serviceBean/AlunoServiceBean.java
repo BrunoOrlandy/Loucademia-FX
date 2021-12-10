@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import br.com.loucademia.model.model.Acesso;
 import br.com.loucademia.model.model.Aluno;
 import br.com.loucademia.model.repository.AlunoRepository;
@@ -15,17 +17,30 @@ import br.com.loucademia.model.util.ValidationException;
 
 public class AlunoServiceBean implements AlunoService {
 
-    private AlunoRepository alunoRepository = new AlunoRepositoryBean();
+    AlunoRepository alunoRepository = new AlunoRepositoryBean();
 
     @Override
     public String validarAlunoESalvar(Aluno aluno) {
 
-	Aluno alunoEncontrado = alunoRepository.findByCPF(aluno.getCpf());
-	if (alunoEncontrado == null) {
-	    gravar(aluno);
-	    return "Aluno: " + aluno.getNome() + " gravado com sucesso;";
+	String mensagem = new String();
+
+	List<Aluno> listaDealunos = alunoRepository.findAlunoByCPF(aluno.getCpf());
+	for (Aluno alunoExistente : listaDealunos) {
+	    if (aluno.getId() == null && alunoExistente.getCpf().equals(aluno.getCpf())) {
+		mensagem = "Aluno já existe";
+	    }
 	}
-	return "Aluno ja existe";
+
+	for (Aluno alunoExistente : listaDealunos) {
+	    if (alunoExistente.getId() == aluno.getId() && alunoExistente.getCpf().equals(aluno.getCpf())) {
+		mensagem = gravar(aluno);
+	    }
+	}
+
+	if (listaDealunos == null || listaDealunos.isEmpty()) {
+	    mensagem = gravar(aluno);
+	}
+	return mensagem;
     }
 
     @Override
@@ -64,9 +79,8 @@ public class AlunoServiceBean implements AlunoService {
     }
 
     @Override
-    public List<Aluno> listSituacoesAlunos(String situacao) {
-	Validation.assertionNotEmpty(situacao);
-	return alunoRepository.listSituacoesAlunos(situacao);
+    public List<Aluno> listSituacoesAlunos(Integer id, String situacao) {
+	return alunoRepository.listSituacoesAlunos(id, situacao);
     }
 
     @Override
@@ -85,10 +99,14 @@ public class AlunoServiceBean implements AlunoService {
 	    } else {
 		alunoRepository.update(aluno);
 	    }
-	} catch (SQLException e) {
+	} catch (SQLException sql) {
+	    sql.printStackTrace();
+	    return "Erro ao Salvar";
+	} catch (Exception e) {
 	    e.printStackTrace();
+	    return "Erro ao Salvar";
 	}
-	return null;
+	return "Sucesso";
     }
 
     @Override

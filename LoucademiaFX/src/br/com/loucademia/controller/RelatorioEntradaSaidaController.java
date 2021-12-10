@@ -1,10 +1,12 @@
 package br.com.loucademia.controller;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import br.com.loucademia.initApp.App;
 import br.com.loucademia.model.model.Acesso;
@@ -56,15 +58,13 @@ public class RelatorioEntradaSaidaController extends BaseController {
     private TableColumn<Acesso, String> nomeColumn;
 
     @FXML
-    private TableColumn<Acesso, LocalDateTime> dataEntradaColumn, dataSaidaColumn;
+    private TableColumn<Acesso, String> dtEntradaColString, dtSaidaColString;
 
     @FXML
     private TableColumn<Acesso, String> duracaoColumn;
 
     @FXML
     private TableView<Acesso> tabela;
-
-    private Acesso acesso;
 
     private LocalDate dataInicial;
     private LocalDate dataFinal;
@@ -87,11 +87,13 @@ public class RelatorioEntradaSaidaController extends BaseController {
 	    setDataFinal(txtDataFinal.getValue());
 	}
 
-//	if (!StringUtils.isEmpty(txtMatricula.getText()) && txtDataInicial.getValue() != null
-//		&& txtDataFinal.getValue() != null) {
 	List<Acesso> listAcessosAlunos = new ArrayList<Acesso>();
 	listAcessosAlunos = relatorioEntradaSaidaBean.gerarRelatorio(id, txtDataInicial.getValue(),
 		txtDataFinal.getValue());
+
+	
+
+	formatarCamposDeData(listAcessosAlunos);
 
 	if (listAcessosAlunos != null) {
 	    if (!listAcessosAlunos.isEmpty()) {
@@ -113,22 +115,29 @@ public class RelatorioEntradaSaidaController extends BaseController {
 	    alert.show();
 	    limparCampos();
 	}
+    }
 
-//	} else {
-//	    Alert alert = new Alert(AlertType.INFORMATION);
-//	    alert.setContentText("Não existem alunos para gerar Relatório de ENTRADA e SAÍDA");
-//	    alert.show();
-//	    limparCampos();
-//	}
-
+    private void formatarCamposDeData(List<Acesso> listAcessosAlunos) {
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+	for (Acesso acesso : listAcessosAlunos) {
+	    if (acesso.getEntrada() != null) {
+		acesso.setEntradaString(formatter.format(acesso.getEntrada()));
+	    }
+	    if (acesso.getSaida() != null) {
+		acesso.setSaidaString(formatter.format(acesso.getSaida()));
+	    }
+	}
     }
 
     private void setCellValueDataView() {
 	matriculaColumn.setCellValueFactory((param) -> new SimpleIntegerProperty(param.getValue().getAluno().getId()));
 	nomeColumn.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getAluno().getNome()));
 	duracaoColumn.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().calcularDuracao()));
-	dataEntradaColumn.setCellValueFactory(new PropertyValueFactory<>("entrada"));
-	dataSaidaColumn.setCellValueFactory(new PropertyValueFactory<>("saida"));
+//	dataEntradaColumn.setCellValueFactory(new PropertyValueFactory<>("entrada"));
+//	dataSaidaColumn.setCellValueFactory(new PropertyValueFactory<>("saida"));
+	dtEntradaColString
+		.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getEntradaString()));
+	dtSaidaColString.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getSaidaString()));
 
     }
 
@@ -162,6 +171,11 @@ public class RelatorioEntradaSaidaController extends BaseController {
 	}
 
 	return isValidMatricula;
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+
     }
 
     public void onSelectItemDataTable(Acesso acesso) {
