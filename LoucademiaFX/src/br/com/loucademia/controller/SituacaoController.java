@@ -15,6 +15,7 @@ import br.com.loucademia.domain.aluno.SituacaoEnum;
 import br.com.loucademia.domain.tela.NomeTelaEnum;
 import br.com.loucademia.startUp.StartUp;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -63,43 +64,19 @@ public class SituacaoController implements Initializable {
     @FXML
     void btnPesquisarAction(ActionEvent event) {    	    	   
     	
-
-    	
-    	//SituacaoEnum.getSituacaoes();
-    	
-//		if (validarCamposPrenchidosCorretamente(!StringUtils.isEmpty(txtMatricula.getText()))) {
-//			relatorioSituacaoBean.gerarRelatorio(txtMatricula.getText());
-//		}
-		
-		//List<Aluno> listaDeAlunos = relatorioSituacaoBean.listaAlunosById(Integer.valueOf(txtMatricula.getText()));
-		List<Aluno> listaDeAlunos = relatorioSituacaoBean.gerarRelatorio(Integer.valueOf(txtMatricula.getText()), choiseSituacao.getValue());
+    	List<Aluno> listaDeAlunos = relatorioSituacaoBean.gerarRelatorio(Integer.valueOf(txtMatricula.getText()), choiseSituacao.getValue());
 	
 
-//		relatorioEntradaSaidaBean.gerarRelatorio();			
-//		
-//		List<Acesso> listAcessosAlunos = relatorioEntradaSaidaBean.getAcessos();
-//				
-//		// Usando expressão lambda
+				
+		// Usando expressão lambda
 		matriculaColumn.setCellValueFactory((param) -> new SimpleIntegerProperty(param.getValue().getId()));
-//				
-//		// Usando expressão lambda
-//		nomeColumn.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getAluno().getNome()));			
-//		
-//		dataEntradaColumn.setCellValueFactory(new PropertyValueFactory<>("entrada"));
-//		dataSaidaColumn.setCellValueFactory(new PropertyValueFactory<>("saida"));
-//		
-//		// Usando expressão lambda
-//		duracaoColumn.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().calcularDuracao()));
-//		
-//		if (!listAcessosAlunos.isEmpty()) {
-//		    tabela.setItems(listaDeAcessos(listAcessosAlunos));
-//		    
-//		} else {
-//		    Alert alert = new Alert(AlertType.INFORMATION);
-//		    alert.setContentText("Não foram encotrados alunos partir dos dados informados");
-//		    alert.show();
-//		    limparCampos();
-//		}
+			
+		// Usando expressão lambda
+		nomeColumn.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getNome()));	
+		
+		
+		situacaoColumn.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getSituacao()));
+		telefoneColumn.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getTelefone()));
 		
 		tabela.setItems(listaDeAlunos(listaDeAlunos));
 		
@@ -112,11 +89,7 @@ public class SituacaoController implements Initializable {
 		    	tabela.getAccessibleText();
 		    }
 		});    	
-    }
-    
-//    private ObservableList<Acesso> listaDeAcessos(List<Acesso> acessosList) {
-//    	return FXCollections.observableList(acessosList);
-//    }
+    }    
     
     private ObservableList<Aluno> listaDeAlunos(List<Aluno> acessosList) {
     	return FXCollections.observableList(acessosList);
@@ -145,7 +118,7 @@ public class SituacaoController implements Initializable {
     }
     
     public void onSelectItemDataTable(Aluno newValue) {
-    	//System.err.println(newValue.gerarRelatorio(txtMatricula.getText()));
+    	
     }
     
     public void getSituacao(ActionEvent e) {
