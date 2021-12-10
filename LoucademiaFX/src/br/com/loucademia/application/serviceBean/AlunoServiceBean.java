@@ -87,11 +87,11 @@ public class AlunoServiceBean implements AlunoService {
     }
 
     @Override
-    public List<Aluno> listSituacoesAlunos(String situacao) {
-		Validation.assertionNotEmpty(situacao);
-		return alunoRepository.listSituacoesAlunos(situacao);
+    public List<Aluno> listSituacoesAlunos(Integer id, String situacao) {    	
+    	
+		return alunoRepository.listSituacoesAlunos(id, situacao);
     }
-
+    
     @Override
     public List<Acesso> listAcessosAlunos(Integer id, LocalDate dataInicial, LocalDate dataFinal) {
 		if (id == null && dataInicial == null && dataFinal == null) {

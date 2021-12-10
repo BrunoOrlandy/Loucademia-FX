@@ -16,6 +16,7 @@ public class StartUp extends Application {
 	private static Scene pesquisarAlunoScene;
 	private static Scene relatorio;
 	private static Scene controleAcesso;
+	private static Scene relatorioSituacao;
 
 	public static void main(String[] args) {
 //		JDBCMySql mysql = new JDBCMySql();
@@ -42,8 +43,11 @@ public class StartUp extends Application {
 		Parent fxmlControleAcesso = FXMLLoader.load(getClass().getResource("/br/com/loucademia/view/controle_acesso.fxml"));
 		controleAcesso = new Scene(fxmlControleAcesso);
 		
-		Parent fxmlRelatrio = FXMLLoader.load(getClass().getResource("/br/com/loucademia/view/relatorio_entrada_saida.fxml"));
-		relatorio = new Scene(fxmlRelatrio);
+		Parent fxmlRelatorio = FXMLLoader.load(getClass().getResource("/br/com/loucademia/view/relatorio_entrada_saida.fxml"));
+		relatorio = new Scene(fxmlRelatorio);
+		
+		Parent fxmlRelatrioSituacao = FXMLLoader.load(getClass().getResource("/br/com/loucademia/view/relatorio_situacao.fxml"));
+		relatorioSituacao = new Scene(fxmlRelatrioSituacao);
 		
 		primaryStage.setScene(loginScene);
 		primaryStage.setTitle("Loucademia");
@@ -75,7 +79,7 @@ public class StartUp extends Application {
 				stage.setScene(relatorio);
 				break;
 			case RELATORIO_SITUACAO:
-//				stage.setScene(fxmlTela);
+				stage.setScene(relatorioSituacao);
 			default:
 				break;
 		}

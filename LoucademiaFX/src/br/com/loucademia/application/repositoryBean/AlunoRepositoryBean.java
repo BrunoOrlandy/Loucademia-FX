@@ -173,11 +173,47 @@ public class AlunoRepositoryBean implements AlunoRepository {
 //	return new ArrayList<>();
     }
 
+
+    public List<Aluno> listSituacoesAlunos(Integer id, String situacao) {	
+		
+		return emf.createQuery("SELECT a FROM Aluno a WHERE a.situacao = :situacao OR a.id = :id ORDER BY a.nome", Aluno.class)
+				.setParameter("id", id)
+				.setParameter("situacao", situacao)
+				.getResultList();
+    		
+//		StringBuilder jpql = new StringBuilder("SELECT a FROM Aluno a WHERE ");
+//
+//		if (id != null) {
+//		    jpql.append("a.id = :id OR ");
+//		}
+//		
+//		if (situacao != null) {
+//			jpql.append("a.situacao = :situacao OR ");
+//		}
+//
+//		// A query vai terminar com '1 = 1'. Forma simples utilizando a tabela verdade
+//		// sem precisar tirar o AND da String.
+//		jpql.append("1 = 1");
+//		TypedQuery<Aluno> q = emf.createQuery(jpql.toString(), Aluno.class);
+//
+//		if (id != null) {
+//		    q.setParameter("id", id);
+//		}
+//
+//		if (!StringUtils.isEmpty(situacao)) {
+//		    q.setParameter("situacao", situacao);
+//		}
+//		
+//		return q.getResultList();	
+		
+    }
+    
     @Override
-    public List<Aluno> listSituacoesAlunos(String situacao) {
-//	return em.createQuery("SELECT a FROM Aluno a WHERE a.situacao = :situacao ORDER BY a.nome", Aluno.class)
-//		.setParameter("situacao", situacao).getResultList();
-	return new ArrayList<>();
+    public List<Aluno> listaAlunosById(Integer id) {
+		return emf.createQuery("SELECT a FROM Aluno a WHERE a.id = :id ORDER BY a.nome", Aluno.class)
+			.setParameter("id", id).getResultList();
+		
+		//return new ArrayList<>();
 
     }
 

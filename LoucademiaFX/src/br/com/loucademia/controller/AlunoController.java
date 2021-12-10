@@ -62,63 +62,63 @@ public class AlunoController implements Initializable {
     @FXML
     protected void btnSalvarAction(ActionEvent eventC) {
 
-	AlunoService service = new AlunoServiceBean();
+		AlunoService service = new AlunoServiceBean();
+	
+		if (dataDeNascimento.getValue() == null) {
+		    dataDeNascimento.setStyle(ERROR_CSS);
+		} else {
+		    System.out.println(dataDeNascimento.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		    dataDeNascimento.setStyle(null);
+		}
+	
+		if (isCamposPreenchidosCorretamente()) {
+	
+		    aluno.setNome(nome.getText());
+		    aluno.setCpf(identidade.getText());
+		    aluno.setDataNascimento(dataDeNascimento.getValue());
+		    aluno.setSexo(rbMasculino.getText());
+		    aluno.setSituacao(rbInativo.getText());
+		    aluno.setEmail(email.getText());
+		    aluno.setTelefone(telefoneCelular.getText());
+		    aluno.getEndereco().setRua(rua.getText());
+		    aluno.getEndereco().setNumero(Integer.valueOf(numero.getText()));
+		    aluno.getEndereco().setEstado(choiseEstado.getValue());
+		    aluno.getEndereco().setNumero(Integer.valueOf(numero.getText()));
+		    aluno.getEndereco().setCidade(cidade.getText());
+		    aluno.getEndereco().setCep(Integer.valueOf(cep.getText()));
+		    aluno.getEndereco().setComplemento(complemento.getText());
+	
+		    String msgOperacao = service.validarAlunoESalvar(aluno);
+	
+		    if (msgOperacao != null) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setContentText(msgOperacao);
+				alert.show();
+				limparCamposPreenchidos();
+				
+		    } else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setContentText("Aluno informado já existe");
+				alert.show();
+		    }
 
-	if (dataDeNascimento.getValue() == null) {
-	    dataDeNascimento.setStyle(ERROR_CSS);
-	} else {
-	    System.out.println(dataDeNascimento.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-	    dataDeNascimento.setStyle(null);
-	}
-
-	if (isCamposPreenchidosCorretamente()) {
-
-	    aluno.setNome(nome.getText());
-	    aluno.setCpf(identidade.getText());
-	    aluno.setDataNascimento(dataDeNascimento.getValue());
-	    aluno.setSexo(rbMasculino.getText());
-	    aluno.setSituacao(rbInativo.getText());
-	    aluno.setEmail(email.getText());
-	    aluno.setTelefone(telefoneCelular.getText());
-	    aluno.getEndereco().setRua(rua.getText());
-	    aluno.getEndereco().setNumero(Integer.valueOf(numero.getText()));
-	    aluno.getEndereco().setEstado(choiseEstado.getValue());
-	    aluno.getEndereco().setNumero(Integer.valueOf(numero.getText()));
-	    aluno.getEndereco().setCidade(cidade.getText());
-	    aluno.getEndereco().setCep(Integer.valueOf(cep.getText()));
-	    aluno.getEndereco().setComplemento(complemento.getText());
-
-	    String msgOperacao = service.validarAlunoESalvar(aluno);
-
-	    if (msgOperacao != null) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setContentText(msgOperacao);
-			alert.show();
-			limparCamposPreenchidos();
-			
-	    } else {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setContentText("Aluno informado já existe");
-			alert.show();
-	    }
-
-	}
+		}
     }
 
     public void getSexo(ActionEvent e) {
-	if (rbMasculino.isSelected()) {
-	    aluno.setSexo(SexoEnum.MASCULINO.getId());
-	} else if (rbFeminino.isSelected()) {
-	    aluno.setSexo(SexoEnum.FEMININO.getId());
-	}
+		if (rbMasculino.isSelected()) {
+		    aluno.setSexo(SexoEnum.MASCULINO.getId());
+		} else if (rbFeminino.isSelected()) {
+		    aluno.setSexo(SexoEnum.FEMININO.getId());
+		}
     }
 
     public void getSituacao(ActionEvent e) {
-	if (rbAtivo.isSelected()) {
-	    aluno.setSituacao(SituacaoEnum.ATIVO.getId());
-	} else if (rbInativo.isSelected()) {
-	    aluno.setSituacao(SituacaoEnum.INATIVO.getId());
-	}
+		if (rbAtivo.isSelected()) {
+		    aluno.setSituacao(SituacaoEnum.ATIVO.getId());
+		} else if (rbInativo.isSelected()) {
+		    aluno.setSituacao(SituacaoEnum.INATIVO.getId());
+		}
 
     }
 

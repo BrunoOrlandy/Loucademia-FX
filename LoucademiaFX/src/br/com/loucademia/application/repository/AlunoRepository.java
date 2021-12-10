@@ -27,9 +27,11 @@ public interface AlunoRepository {
 
     List<Aluno> listAlunos(Aluno aluno);
 
-    List<Aluno> listSituacoesAlunos(String situacao);
+    public List<Aluno> listSituacoesAlunos(Integer id, String situacao);
 
     List<Acesso> listAcessosAlunos(Integer id, LocalDate dataInicial, LocalDate dataFinal);
+    
+    public List<Aluno> listaAlunosById(Integer id);
     
     public Aluno findByCPFandId(Integer id, String cpf);
 

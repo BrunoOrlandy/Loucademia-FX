@@ -45,19 +45,19 @@ public class Endereco implements Serializable {
     private Aluno aluno;
 
     public String getRua() {
-	return rua;
+    	return rua;
     }
 
     public void setRua(String rua) {
-	this.rua = rua;
+    	this.rua = rua;
     }
 
     public Integer getNumero() {
-	return numero;
+    	return numero;
     }
 
     public void setNumero(Integer numero) {
-	this.numero = numero;
+    	this.numero = numero;
     }
 
     public String getComplemento() {
@@ -65,115 +65,125 @@ public class Endereco implements Serializable {
     }
 
     public void setComplemento(String complemento) {
-	this.complemento = complemento;
+    	this.complemento = complemento;
     }
 
     public String getCidade() {
-	return cidade;
+    	return cidade;
     }
 
     public void setCidade(String cidade) {
-	this.cidade = cidade;
+    	this.cidade = cidade;
     }
 
     public String getEstado() {
-	return estado;
+    	return estado;
     }
 
     public void setEstado(String estado) {
-	this.estado = estado;
+    	this.estado = estado;
     }
 
     public Integer getCep() {
-	return cep;
+    	return cep;
     }
 
     public void setCep(Integer cep) {
-	this.cep = cep;
+    	this.cep = cep;
     }
 
     public Integer getId() {
-	return id;
+    	return id;
     }
 
     public void setId(Integer id) {
-	this.id = id;
+    	this.id = id;
     }
 
     public Aluno getAluno() {
-	return aluno;
+    	return aluno;
     }
 
     public void setAluno(Aluno aluno) {
-	this.aluno = aluno;
+    	this.aluno = aluno;
     }
 
     @Override
     public String toString() {
-	StringBuilder builder = new StringBuilder();
-	builder.append("Endereco [rua=");
-	builder.append(rua);
-	builder.append(", numero=");
-	builder.append(numero);
-	builder.append(", complemento=");
-	builder.append(complemento);
-	builder.append(", cidade=");
-	builder.append(cidade);
-	builder.append(", estado=");
-	builder.append(estado);
-	builder.append(", cep=");
-	builder.append(cep);
-	builder.append("]");
-	return builder.toString();
+		StringBuilder builder = new StringBuilder();
+		builder.append("Endereco [rua=");
+		builder.append(rua);
+		builder.append(", numero=");
+		builder.append(numero);
+		builder.append(", complemento=");
+		builder.append(complemento);
+		builder.append(", cidade=");
+		builder.append(cidade);
+		builder.append(", estado=");
+		builder.append(estado);
+		builder.append(", cep=");
+		builder.append(cep);
+		builder.append("]");
+		return builder.toString();
     }
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((cep == null) ? 0 : cep.hashCode());
-	result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
-	result = prime * result + ((complemento == null) ? 0 : complemento.hashCode());
-	result = prime * result + ((estado == null) ? 0 : estado.hashCode());
-	result = prime * result + ((numero == null) ? 0 : numero.hashCode());
-	result = prime * result + ((rua == null) ? 0 : rua.hashCode());
-	return result;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
+		result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
+		result = prime * result + ((complemento == null) ? 0 : complemento.hashCode());
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
+		result = prime * result + ((rua == null) ? 0 : rua.hashCode());
+		return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Endereco other = (Endereco) obj;
-	if (cep == null) {
-	    if (other.cep != null)
-		return false;
-	} else if (!cep.equals(other.cep))
-	    return false;
-	if (cidade == null) {
-	    if (other.cidade != null)
-		return false;
-	} else if (!cidade.equals(other.cidade))
-	    return false;
-	if (complemento == null) {
-	    if (other.complemento != null)
-		return false;
-	} else if (!complemento.equals(other.complemento))
-	    return false;
-	if (numero == null) {
-	    if (other.numero != null)
-		return false;
-	} else if (!numero.equals(other.numero))
-	    return false;
-	if (rua == null) {
-	    if (other.rua != null)
-		return false;
-	} else if (!rua.equals(other.rua))
-	    return false;
-	return true;
+		if (this == obj)
+		    return true;
+		
+		if (obj == null)
+		    return false;
+		
+		if (getClass() != obj.getClass())
+		    return false;
+		
+		Endereco other = (Endereco) obj;
+		if (cep == null) {
+		    if (other.cep != null)
+			return false;
+		    
+		} else if (!cep.equals(other.cep))
+		    return false;
+		
+		if (cidade == null) {
+		    if (other.cidade != null)
+			return false;
+		    
+		} else if (!cidade.equals(other.cidade))
+		    return false;
+		if (complemento == null) {
+		    if (other.complemento != null)
+			return false;
+		    
+		} else if (!complemento.equals(other.complemento))
+		    return false;
+		
+		if (numero == null) {
+		    if (other.numero != null)
+			return false;
+		    
+		} else if (!numero.equals(other.numero))
+		    return false;
+		if (rua == null) {
+		    if (other.rua != null)
+			return false;
+		    
+		} else if (!rua.equals(other.rua))
+		    return false;
+		return true;
     }
 }
